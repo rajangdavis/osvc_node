@@ -1,0 +1,24 @@
+{
+  "name": "osc_node",
+  "version": "0.0.1",
+  "description": "An unofficial Node  wrapper for Oracle Service Cloud (fka RightNow Technologies) REST API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajangdavis/osc_node.git"
+  },
+  "keywords": [
+    "Oracle",
+    "Service",
+    "Cloud"
+  ],
+  "author": "Rajan Davis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rajangdavis/osc_node/issues"
+  },
+  "homepage": "https://github.com/rajangdavis/osc_node#readme"
+}
