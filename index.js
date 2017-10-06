@@ -1,17 +1,40 @@
-var fetch = require('node-fetch');
+const request = require('request');
+const Client = require('./lib/Client.js');
+const Connect = require('./lib/Connect.js');
 
-let interfaceURL = (username,password,interface,resource) => 'https://'+username+':'+password+'@'+interface+'.custhelp.com/services/rest/connect/v1.3/'+resource;
+let env = process.env;
 
-let pe = process.env;
+const OSC_CONFIG = {
+	username: env['OSC_ADMIN'],
+	password: env['OSC_PASSWORD'],
+	interface: env['OSC_SITE'],
+	demo_site: true
+}
 
-const OSC_CONFIG = interfaceURL(pe.OSC_ADMIN,pe.OSC_PASSWORD,pe.OSC_TEST_SITE);
+const RN_CLIENT = new Client(OSC_CONFIG);
+const onc = new Connect(RN_CLIENT);
 
-fetch(OSC_CONFIG, {
-	method: 'get'
-}).then(function(res) {
-    return res.json();
-}).then(function(json) {
-    console.log(json);
-}).catch(function(err) {
-	console.log(err)
-});
+var answers = onc.get('answers');
+
+console.log(answers);
+
+// const serialize = (object) =>{
+// 	let objectArr = [];
+// 	object['items'].forEach(item =>{
+// 		objectArr.push(item)
+// 	});
+// 	return objectArr;
+// }
+
+// const get = (client,resource) =>{
+// 	request.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY', {
+		
+// 	}
+// }
+
+
+// results = get(OSC_CONFIG,'/answers')
+
+// for(var i = 0; i < results.length; i++){
+// 	console.log(results[i])
+// }
