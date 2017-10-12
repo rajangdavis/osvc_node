@@ -1,5 +1,5 @@
-const axios = require('axios');
 const assert = require('chai').assert;
+const nock = require('nock')
 // var expect = require('chai').expect;
 
 const env = process.env;
@@ -19,15 +19,20 @@ describe('connect.get',function(){
 	}
 
 	var rnClientWithHTTP = new Client(oscConfigTest); 
-
-	var oncGet = Connect(rnClientWithHTTP);
+	
 
 	it('should take a url as a param and make a HTTP GET Request' + 
 		' with a response code of 200 and a body of JSON',function(){
-		
-		test = oncGet.get('answers');
 
-		console.log(test);
+		var oncGet = Connect(rnClientWithHTTP);
+		
+		oncGet.get('',function(err,body,response){
+			console.log(err);
+			console.log(body);
+			console.log(response);
+		});
+		
+		// console.log(test);
 		// assert.strictEqual(answers.code,200);
 
 	});
