@@ -39,7 +39,9 @@ The main features that work to date are as follows:
 
 ## Installing Node (for Windows)
 [This link has installation downloads for both Node and NPM.](https://nodejs.org/en/download/)
+
 [This link has instructions for adding Node to your PATH.](https://stackoverflow.com/a/8768567/2548452)
+
 [Make sure to install Windows Build Tools if you are using Windows 10.](https://github.com/nodejs/node-gyp/issues/307#issuecomment-250912623) This is not something necessarily needed to run this package, but it will help with Node development on Windows in general.
 
 ## Installation
