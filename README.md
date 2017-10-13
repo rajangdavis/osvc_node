@@ -127,7 +127,7 @@ dti("January 1st") # => 2017-01-01T00:00:00-08:00 # => 12:00 AM, January First o
 
 ### CREATE
 ```node
-//// OSCNodeConnect.post( options, callback )
+//// OSCNode.Connect.post( options, callback )
 //// returns callback function
 
 // Here's how you could create a new ServiceProduct object
@@ -179,10 +179,10 @@ var newProduct = {
 //		if(err){
 //			console.log(err);
 //		}else{
-//			console.log(response.statusCode); // => 201
-//			console.log(JSON.stringify(body, null, 4)); // => JSON representation
+//			console.log(response.statusCode); // 201
+//			console.log(JSON.stringify(body, null, 4)); // JSON representation
 //			// Do something here
-//			return body; // => Callback
+//			return body; // Callback
 //		}
 //	});
 
@@ -193,10 +193,10 @@ OSCNode.Connect.post(rn_client,'serviceProducts',newProduct,(err,body,response) 
 	if(err){
 		console.log(err);
 	}else{
-		console.log(response.statusCode); // => 201
-		console.log(JSON.stringify(body, null, 4)); // => JSON representation
+		console.log(response.statusCode); // 201
+		console.log(JSON.stringify(body, null, 4)); // JSON representation
 		// Do something here
-		return body; // => Callback
+		return body; // Callback
 	}
 });
 
@@ -209,7 +209,7 @@ OSCNode.Connect.post(rn_client,'serviceProducts',newProduct,(err,body,response) 
 
 ### READ
 ```node
-//// OSCNodeConnect.get(options, callback )
+//// OSCNode.Connect.get(options, callback )
 //// returns callback function
 // Here's how you could get an instance of ServiceProducts
 
@@ -236,8 +236,8 @@ var rn_client = OSCNode.Client({
 //		if(err){
 //			console.log(err);
 //		}else{
-//			console.log(response.statusCode); // => 201
-//			console.log(JSON.stringify(body, null, 4)); // => JSON representation
+//			console.log(response.statusCode); // 201
+//			console.log(JSON.stringify(body, null, 4)); // JSON representation
 //			return body;
 //		}
 //	});
@@ -249,8 +249,8 @@ OSCNode.Connect.get(rn_client,'serviceProducts/168',(err,body,response) => {
 	if(err){
 		console.log(err);
 	}else{
-		console.log(response.statusCode); // => 200
-		console.log(JSON.stringify(body, null, 4)); // => JSON representation
+		console.log(response.statusCode); // 200
+		console.log(JSON.stringify(body, null, 4)); // JSON representation
 		return body;
 	}
 });
@@ -263,7 +263,7 @@ OSCNode.Connect.get(rn_client,'serviceProducts/168',(err,body,response) => {
 
 ### UPDATE
 ```node
-//// OSCNodeConnect.patch(options, callback )
+//// OSCNode.Connect.patch(options, callback )
 //// returns callback
 // Here's how you could update an Answer object
 // using JSON objects
@@ -293,8 +293,8 @@ var productUpdated = {
 //		if(err){
 //			console.log(err);
 //		}else{
-//			console.log(response.statusCode); // => 201
-//			console.log(body); // => empty
+//			console.log(response.statusCode); // 201
+//			console.log(body); // empty
 //			return body;
 //		}
 //	});
@@ -307,8 +307,8 @@ OSCNode.Connect.patch(rn_client,'serviceProducts/170',productUpdatedHash,(err,bo
 	if(err){
 		console.log(err);
 	}else{
-		console.log(response.statusCode);  // => 201
-		console.log(body); // => empty
+		console.log(response.statusCode);  // 201
+		console.log(body); // empty
 		return body;
 	}
 });
@@ -316,27 +316,41 @@ OSCNode.Connect.patch(rn_client,'serviceProducts/170',productUpdatedHash,(err,bo
 ```
 
 
-
-
-
-
-<!-- 
+ 
 ### DELETE
 ```node
-#### OSCNodeConnect.delete(<url> )
-#### returns a OSCNodeResponse object
-# Here's how you could delete an Answer object
-# and OSCNodeConnect classes
+//// OSCNode.Connect.delete(options )
+//// returns a OSCNodeResponse object
+// Here's how you could delete a serviceProduct object
 
-from osc_Node import env,OSCNodeClient, OSCNodeConnect
+// Proposed API
+//
+// 	var options = { 
+//		client: rn_client,
+// 	 	url:'serviceProducts/169'
+// 	}
+//  
+//	OSCNode.Connect.delete(options,(err,body,response) => {
+//		if(err){
+//			console.log(err);
+//		}else{
+//			console.log(response.statusCode); // 200
+//			console.log(body); // Empty
+//			return body;
+//		}
+//	});
 
-rn_client = OSCNodeClient(env['OSC_ADMIN'],
-			    env['OSC_PASSWORD'],
-			    env['OSC_SITE'])
 
-opc = OSCNodeConnect(rn_client)
-deleted_answer = opc.delete('answers/154')
-print deleted_answer.status_code #=> 200
+// Current API
+
+OSCNode.Connect.delete(rn_client,'serviceProducts/169',(err,body,response) => {
+	if(err){
+		console.log(err);
+	}else{
+		console.log(response.statusCode); // 200
+		console.log(body); // Empty
+		return body;
+	}
+});
 
 ```
- -->
