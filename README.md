@@ -24,7 +24,11 @@ All of the HTTP methods should work on any version of Oracle Service Cloud since
 
 
 ## Use Cases
-You can use this Node Library for basic scripting and microservices. The main features that work to date are as follows:
+You can use this Node Library for basic scripting and microservices. 
+
+Please use this as a server side library *only*. While it is theoretically possible to utilize this library in a browser, it is not recommended as a matter of security.
+
+The main features that work to date are as follows:
 
 1. [Simple configuration](#client-configuration)
 2. Basic CRUD Operations via HTTP Methods
@@ -139,9 +143,9 @@ var rn_client = OSCNode.Client({
 });
 
 
-// This is the and object we will
-// use to construct the JSON data
-// that we want to send to 
+// JSON object
+// provides structure
+// 
 
 var newProduct = {
   'names': [{
