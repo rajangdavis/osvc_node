@@ -4,12 +4,14 @@ An (under development) Node library for using the [Oracle Service Cloud REST API
 
 ## Todo
 I am looking to implement the following items soon:
-1. OSCNodeQueryResultsSet, an object for performing multiple queries
-2. OSCNodeAnalyticsReportResults, an object for running Analytics Reports
-3. Test suite (in progress)
-4. Travis CI for continuous integration
-5. Code Climate for code quality
-6. Documentation
+1. OSCNodeQueryResults, an object for performing a ROQL query
+2. OSCNodeQueryResultsSet, an object for performing multiple ROQL queries
+3. OSCNodeAnalyticsReportResults, an object for running Analytics Reports
+4. Convenience Methods for Analytics Filters and Date Time
+5. Test suite (in progress)
+6. Travis CI for continuous integration
+7. Code Climate for code quality
+8. Documentation
 
 
 ## Compatibility
@@ -62,7 +64,7 @@ var rn_client = OSCNode.Client({
 	interface: env['OSC_SITE'],
 
 	// Optional Configuration Settings
-	demo_site: true				// Changes domain from 'custhelp' to 'rightnowdemo'
+	demo_site: true,			// Changes domain from 'custhelp' to 'rightnowdemo'
 
 	// STILL TO BE IMPLEMENTED
 	// change_version: 'v1.4', 		// Changes REST API version, default is 'v1.3'
@@ -119,11 +121,11 @@ dti("January 1st") # => 2017-01-01T00:00:00-08:00 # => 12:00 AM, January First o
 
 ### CREATE
 ```node
-//// OSCNodeConnect.post( <client>, <url>, <json_data> )
-//// returns a OSCNodeResponse object
+//// OSCNodeConnect.post( options, callback )
+//// returns callback function
 
 // Here's how you could create a new ServiceProduct object
-// using Node variables, hashes(sort of like JSON), and arrays to set field information
+// using Node variables and objects (sort of like JSON)
 
 const OSCNode = require('osc_node');
 const env = process.env;
@@ -137,16 +139,48 @@ var rn_client = OSCNode.Client({
 });
 
 
-// CREATE/POST example
-var newProduct = {};
-newProduct['names'] = []
-newProduct['names'].push({'labelText':'newProduct', 'language':{'id':1}})
-newProduct['displayOrder'] = 4
-newProduct['adminVisibleInterfaces'] = []
-newProduct['adminVisibleInterfaces'].push({'id':1})
-newProduct['endUserVisibleInterfaces'] = []
-newProduct['endUserVisibleInterfaces'].push({'id':1})
+// This is the and object we will
+// use to construct the JSON data
+// that we want to send to 
 
+var newProduct = {
+  'names': [{
+    'labelText': 'newProduct',
+    'language': {
+      'id': 1
+    }
+  }],
+  'displayOrder': 4,
+  'adminVisibleInterfaces': [{
+    'id': 1
+  }],
+  'endUserVisibleInterfaces': [{
+    'id': 1
+  }]
+};
+
+// 	Proposed API
+//
+//	var options = {
+//		client: rn_client,
+// 	    url:'serviceProducts',
+//		json: newProduct
+//	}
+//
+//
+//	OSCNode.Connect.post(options,(err,body,response) => {
+//		if(err){
+//			console.log(err);
+//		}else{
+//			console.log(response.statusCode); // => 201
+//			console.log(JSON.stringify(body, null, 4)); // => JSON representation
+//			// Do something here
+//			return body; // => Callback
+//		}
+//	});
+
+
+// Current API
 
 OSCNode.Connect.post(rn_client,'serviceProducts',newProduct,(err,body,response) => {
 	if(err){
@@ -159,56 +193,66 @@ OSCNode.Connect.post(rn_client,'serviceProducts',newProduct,(err,body,response) 
 	}
 });
 
-
-
 ```
 
 
-<!-- 
 
 
 
 
 ### READ
 ```node
-//// OSCNodeConnect.get( <client>, optional (<url>/<id>/...<params>) )
-//// returns a OSCNodeResponse object
+//// OSCNodeConnect.get(options, callback )
+//// returns callback function
 // Here's how you could get an instance of ServiceProducts
 
-from osc_Node import env,OSCNodeClient, OSCNodeConnect
+const OSCNode = require('osc_node');
+const env = process.env;
 
-rn_client = OSCNodeClient(env['OSC_ADMIN'],
-			    env['OSC_PASSWORD'],
-			    env['OSC_SITE'])
+// Create an OSCNode.Client object
+var rn_client = OSCNode.Client({
+	username: env['OSC_ADMIN'],
+	password: env['OSC_PASSWORD'],
+	interface: env['OSC_SITE'],
+	demo_site: true
+});
 
-opc = OSCNodeConnect(rn_client)
-res = opc.get('serviceProducts/164')
 
-print res.status_code // => 200
-print res.pretty_content // => Pretty Printed JSON response
-// {
-//     "links": [
-//         {
-//             "href": "https://{env['OSC_SITE']}.rightnowdemo.com/services/rest/connect/v1.3/serviceProducts/164", 
-//             "rel": "self"
-//         }, 
-//         {
-//             "href": "https://{env['OSC_SITE']}.rightnowdemo.com/services/rest/connect/v1.3/serviceProducts/164", 
-//             "rel": "canonical"
-//         }, 
-//         {
-//             "href": "https://{env['OSC_SITE']}.rightnowdemo.com/services/rest/connect/v1.3/metadata-catalog/serviceProducts", 
-//             "mediaType": "application/schema+json", 
-//             "rel": "describedby"
-//         }
-//     ], 
-// ...
-// }
+// 	Proposed API
+//
+//	var options = {
+//		client: rn_client,
+//		url:'serviceProducts/168'
+//	};
+//	
+//	OSCNode.Connect.get(options,(err,body,response) => {
+//		if(err){
+//			console.log(err);
+//		}else{
+//			console.log(response.statusCode);
+//			console.log(JSON.stringify(body, null, 4));
+//			return body;
+//		}
+//	});
+
+
+// Current API
+
+OSCNode.Connect.get(rn_client,'serviceProducts/168',(err,body,response) => {
+	if(err){
+		console.log(err);
+	}else{
+		console.log(response.statusCode);
+		console.log(JSON.stringify(body, null, 4));
+		return body;
+	}
+});
 ```
 
 
 
 
+<!-- 
 
 
 ### UPDATE
