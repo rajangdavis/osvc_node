@@ -25,9 +25,9 @@ All of the HTTP methods should work on any version of Oracle Service Cloud since
 
 
 ## Use Cases
-# Please use this as a server side library *only*. 
 You can use this Node Library for basic scripting and microservices. 
 
+# Please use this as a server side library *only*.
 While it is theoretically possible to utilize this library in a browser, it is not recommended as a matter of security.
 
 The main features that work to date are as follows:
