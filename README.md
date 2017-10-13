@@ -124,29 +124,41 @@ dti("January 1st") # => 2017-01-01T00:00:00-08:00 # => 12:00 AM, January First o
 // Here's how you could create a new ServiceProduct object
 // using Node variables, hashes(sort of like JSON), and arrays to set field information
 
-from osc_Node import env,OSCNodeClient, OSCNodeConnect
+const OSCNode = require('osc_node');
+const env = process.env;
 
-rn_client = OSCNodeClient(env['OSC_ADMIN'],
-			    env['OSC_PASSWORD'],
-			    env['OSC_SITE'])
+// Create an OSCNode.Client object
+var rn_client = OSCNode.Client({
+	username: env['OSC_ADMIN'],
+	password: env['OSC_PASSWORD'],
+	interface: env['OSC_SITE'],
+	demo_site: true
+});
 
-opc = OSCNodeConnect(rn_client)
 
-new_product = {}
-new_product['names'] = []
-new_product['names'].append({'labelText':'NEW_PRODUCT', 'language':{'id':1}})
-new_product['displayOrder'] = 4
+// CREATE/POST example
+var newProduct = {};
+newProduct['names'] = []
+newProduct['names'].push({'labelText':'newProduct', 'language':{'id':1}})
+newProduct['displayOrder'] = 4
+newProduct['adminVisibleInterfaces'] = []
+newProduct['adminVisibleInterfaces'].push({'id':1})
+newProduct['endUserVisibleInterfaces'] = []
+newProduct['endUserVisibleInterfaces'].push({'id':1})
 
-new_product['adminVisibleInterfaces'] = []
-new_product['adminVisibleInterfaces'].append({'id':1})
-new_product['endUserVisibleInterfaces'] = []
-new_product['endUserVisibleInterfaces'].append({'id':1})
 
-res = opc.post('serviceProducts',new_product)
+OSCNode.Connect.post(rn_client,'serviceProducts',newProduct,(err,body,response) => {
+	if(err){
+		console.log(err);
+	}else{
+		console.log(response.statusCode); // => 201
+		console.log(JSON.stringify(body, null, 4)); // => JSON representation
+		// Do something here
+		return body; // => Callback
+	}
+});
 
-print res.status_code // => 201
-print res.content // => JSON body
-// callback with JSON details
+
 
 ```
 
