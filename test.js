@@ -46,9 +46,39 @@ OSCNode.Connect.get(rn_client,'serviceProducts/170',(err,body,response) => {
 
 
 // UPDATE/PATCH example
-var productUpdatedHash = {};
-productUpdatedHash['names'] = [];
-productUpdatedHash['names'].push({'labelText':'newProduct UPDATED', 'language':{'id':1}})
+
+// JSON Object
+// With data for updating
+var productUpdated = {
+  'name': [{
+    'labelText': 'newProduct UPDATED',
+    'language': {
+      'id': 1
+    }
+  }]
+};
+
+// Proposed API
+//
+//	var options = {
+//		client: rn_client,
+//		url:'serviceProducts/170',
+//		json: productUpdated
+//	}
+//
+//
+//	OSCNode.Connect.patch(options,(err,body,response) => {
+//		if(err){
+//			console.log(err);
+//		}else{
+//			console.log(response.statusCode);
+//			console.log(JSON.stringify(body, null, 4));
+//			return body;
+//		}
+//	});
+
+
+// Current API
 
 OSCNode.Connect.patch(rn_client,'serviceProducts/170',productUpdatedHash,(err,body,response) => {
 	if(err){
@@ -59,6 +89,8 @@ OSCNode.Connect.patch(rn_client,'serviceProducts/170',productUpdatedHash,(err,bo
 		return body;
 	}
 });
+
+
 
 // DELETE example
 OSCNode.Connect.delete(rn_client,'serviceProducts/169',(err,body,response) => {

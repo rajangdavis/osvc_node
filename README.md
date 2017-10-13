@@ -146,8 +146,9 @@ var rn_client = OSCNode.Client({
 
 
 // JSON object
-// provides structure
-// 
+// containing data
+// for creating
+// a new product 
 
 var newProduct = {
   'names': [{
@@ -235,8 +236,8 @@ var rn_client = OSCNode.Client({
 //		if(err){
 //			console.log(err);
 //		}else{
-//			console.log(response.statusCode);
-//			console.log(JSON.stringify(body, null, 4));
+//			console.log(response.statusCode); // => 201
+//			console.log(JSON.stringify(body, null, 4)); // => JSON representation
 //			return body;
 //		}
 //	});
@@ -248,8 +249,8 @@ OSCNode.Connect.get(rn_client,'serviceProducts/168',(err,body,response) => {
 	if(err){
 		console.log(err);
 	}else{
-		console.log(response.statusCode);
-		console.log(JSON.stringify(body, null, 4));
+		console.log(response.statusCode); // => 200
+		console.log(JSON.stringify(body, null, 4)); // => JSON representation
 		return body;
 	}
 });
@@ -258,31 +259,59 @@ OSCNode.Connect.get(rn_client,'serviceProducts/168',(err,body,response) => {
 
 
 
-<!-- 
 
 
 ### UPDATE
 ```node
-//// OSCNodeConnect.patch(<url>, <json_data> )
-//// returns a OSCNodeResponse object
-# Here's how you could update an Answer object
-# using Node variables, lists, and dicts
-# to set field information
-from osc_Node import env,OSCNodeClient, OSCNodeConnect
+//// OSCNodeConnect.patch(options, callback )
+//// returns callback
+// Here's how you could update an Answer object
+// using JSON objects
+// to set field information
 
-rn_client = OSCNodeClient(env['OSC_ADMIN'],
-			    env['OSC_PASSWORD'],
-			    env['OSC_SITE'])
-			    
-opc = OSCNodeConnect(rn_client)
+// JSON Object
+// With data for updating
+var productUpdated = {
+  'name': [{
+    'labelText': 'newProduct UPDATED',
+    'language': {
+      'id': 1
+    }
+  }]
+};
 
-# Patch example
-answer_updated_hash = {}
-answer_updated_hash['summary'] = "Node TEST UPDATED"
-answer_updated_hash['solution'] = "Node TEST UPDATED"
-updated_answer = opc.patch('answers/154',answer_updated_hash)
-print updated_answer.status_code
-print updated_answer.content #=> Returns as JSON
+// Proposed API
+//
+//	var options = {
+//		client: rn_client,
+//		url:'serviceProducts/170',
+//		json: productUpdated
+//	}
+//
+//
+//	OSCNode.Connect.patch(options,(err,body,response) => {
+//		if(err){
+//			console.log(err);
+//		}else{
+//			console.log(response.statusCode); // => 201
+//			console.log(body); // => empty
+//			return body;
+//		}
+//	});
+
+
+
+// Current API
+
+OSCNode.Connect.patch(rn_client,'serviceProducts/170',productUpdatedHash,(err,body,response) => {
+	if(err){
+		console.log(err);
+	}else{
+		console.log(response.statusCode);  // => 201
+		console.log(body); // => empty
+		return body;
+	}
+});
 
 ```
 
@@ -291,6 +320,7 @@ print updated_answer.content #=> Returns as JSON
 
 
 
+<!-- 
 ### DELETE
 ```node
 #### OSCNodeConnect.delete(<url> )
