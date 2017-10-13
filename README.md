@@ -129,7 +129,7 @@ dti("January 1st") # => 2017-01-01T00:00:00-08:00 # => 12:00 AM, January First o
 
 ### CREATE
 ```node
-//// OSCNode.Connect.post( options, callback )
+//// OSCNode.Connect.post(options, callback)
 //// returns callback function
 
 // Here's how you could create a new ServiceProduct object
@@ -211,7 +211,7 @@ OSCNode.Connect.post(rn_client,'serviceProducts',newProduct,(err,body,response) 
 
 ### READ
 ```node
-//// OSCNode.Connect.get(options, callback )
+//// OSCNode.Connect.get(options, callback)
 //// returns callback function
 // Here's how you could get an instance of ServiceProducts
 
@@ -265,7 +265,7 @@ OSCNode.Connect.get(rn_client,'serviceProducts/168',(err,body,response) => {
 
 ### UPDATE
 ```node
-//// OSCNode.Connect.patch(options, callback )
+//// OSCNode.Connect.patch(options, callback)
 //// returns callback
 // Here's how you could update an Answer object
 // using JSON objects
@@ -321,8 +321,8 @@ OSCNode.Connect.patch(rn_client,'serviceProducts/170',productUpdatedHash,(err,bo
  
 ### DELETE
 ```node
-//// OSCNode.Connect.delete(options )
-//// returns a OSCNodeResponse object
+//// OSCNode.Connect.delete(options, callback)
+//// returns callback
 // Here's how you could delete a serviceProduct object
 
 // Proposed API
