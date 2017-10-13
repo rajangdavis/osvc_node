@@ -1,27 +1,72 @@
-const oscNode = require('./lib/oscNode.js');
+const OSCNode = require('./lib/OSCNode.js');
 const env = process.env;
 
-// As it is today
-// closer to https://github.com/rajangdavis/osc_ruby API
-
-// Create an oscNode.Client object
-var rnClient = oscNode.Client({
+// Create an OSCNode.Client object
+var rn_client = OSCNode.Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
 	demo_site: true
 });
 
-// Use oscNode.Connect Method to pass in:
-// 1. Client Credentials
-// 2. Make a GET Request to a specified URL
-// 3. Handle callback
-oscNode.Connect.get(rnClient,'answers?q=ID < 100',(err,body,response) => {
+
+// CREATE/POST example
+var newProduct = {};
+newProduct['names'] = []
+newProduct['names'].push({'labelText':'newProduct', 'language':{'id':1}})
+newProduct['displayOrder'] = 4
+newProduct['adminVisibleInterfaces'] = []
+newProduct['adminVisibleInterfaces'].push({'id':1})
+newProduct['endUserVisibleInterfaces'] = []
+newProduct['endUserVisibleInterfaces'].push({'id':1})
+
+
+OSCNode.Connect.post(rn_client,'serviceProducts',newProduct,(err,body,response) => {
 	if(err){
 		console.log(err);
 	}else{
 		console.log(response.statusCode);
-		console.log(JSON.stringify(body.items, null, 4));
+		console.log(JSON.stringify(body, null, 4));
+		return body;
+	}
+});
+
+
+// READ/GET example
+OSCNode.Connect.get(rn_client,'serviceProducts/170',(err,body,response) => {
+	if(err){
+		console.log(err);
+	}else{
+		console.log(response.statusCode);
+		console.log(JSON.stringify(body, null, 4));
+		return body;
+	}
+});
+
+
+
+// UPDATE/PATCH example
+var productUpdatedHash = {};
+productUpdatedHash['names'] = [];
+productUpdatedHash['names'].push({'labelText':'newProduct UPDATED', 'language':{'id':1}})
+
+OSCNode.Connect.patch(rn_client,'serviceProducts/170',productUpdatedHash,(err,body,response) => {
+	if(err){
+		console.log(err);
+	}else{
+		console.log(response.statusCode);
+		console.log(JSON.stringify(body, null, 4));
+		return body;
+	}
+});
+
+// DELETE example
+OSCNode.Connect.delete(rn_client,'serviceProducts/169',(err,body,response) => {
+	if(err){
+		console.log(err);
+	}else{
+		console.log(response.statusCode);
+		console.log(JSON.stringify(body, null, 4));
 		return body;
 	}
 });
