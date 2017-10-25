@@ -83,31 +83,40 @@ var rn_client = OSCNode.Client({
 
 ```
 
-<!-- ## OSCNodeQueryResults example
+## OSCNodeQueryResults example
 
 This is for running one ROQL query. Whatever is allowed by the REST API (limits and sorting) is allowed with this library.
 
 OSCNodeQueryResults only has one function: 'query', which takes an OSCNodeClient object and string query (example below).
 
 ```node
-from 'osc_Node' import OSCNodeClient,OSCNodeQueryResults
+const OSCNode = require('osc_node');
+const env = process.env;
 
-rn_client = OSCNodeClient(env['OSC_ADMIN'],
-			    env['OSC_PASSWORD'],
-    			    env['OSC_SITE'])
+var rn_client = OSCNode.Client({
+	username: env['OSC_ADMIN'],
+	password: env['OSC_PASSWORD'],
+	interface: env['OSC_SITE'],
+	demo_site:true
+});
 
-q = OSCNodeQueryResults(rn_client)
-query = "DESCRIBE Answers"
-results = q.query(query)
+var contactsQuery = `DESCRIBE`
 
-print results.status_code 			#=> 200
-print results.content 				#=> JSON representation of results
-print results.pretty_content	 		#=> Pretty printed JSON String of results
+var options = {
+	client: rn_client,
+	query: contactsQuery
+}
+
+OSCNode.QueryResults.query(options,(err,results) =>{
+	results.map(function(result){
+		console.log(result);
+	})
+});
 
 
 ```
 
-
+<!-- 
 ### 'dti' => date to iso8601
 
 dti lets you type in a date and get it in ISO8601 format. Explicit date formatting is best.
@@ -168,30 +177,13 @@ var newProduct = {
   }]
 };
 
-// 	Proposed API
-//
-//	var options = {
-//		client: rn_client,
-// 	    url:'serviceProducts',
-//		json: newProduct
-//	}
-//
-//
-//	OSCNode.Connect.post(options,(err,body,response) => {
-//		if(err){
-//			console.log(err);
-//		}else{
-//			console.log(response.statusCode); // 201
-//			console.log(JSON.stringify(body, null, 4)); // JSON representation
-//			// Do something here
-//			return body; // Callback
-//		}
-//	});
+var options = {
+	client: rn_client,
+	    url:'serviceProducts',
+	json: newProduct
+}
 
-
-// Current API
-
-OSCNode.Connect.post(rn_client,'serviceProducts',newProduct,(err,body,response) => {
+OSCNode.Connect.post(options,(err,body,response) => {
 	if(err){
 		console.log(err);
 	}else{
@@ -226,32 +218,16 @@ var rn_client = OSCNode.Client({
 	demo_site: true
 });
 
+var options = {
+	client: rn_client,
+	url:'serviceProducts/168'
+};
 
-// 	Proposed API
-//
-//	var options = {
-//		client: rn_client,
-//		url:'serviceProducts/168'
-//	};
-//	
-//	OSCNode.Connect.get(options,(err,body,response) => {
-//		if(err){
-//			console.log(err);
-//		}else{
-//			console.log(response.statusCode); // 201
-//			console.log(JSON.stringify(body, null, 4)); // JSON representation
-//			return body;
-//		}
-//	});
-
-
-// Current API
-
-OSCNode.Connect.get(rn_client,'serviceProducts/168',(err,body,response) => {
+OSCNode.Connect.get(options,(err,body,response) => {
 	if(err){
 		console.log(err);
 	}else{
-		console.log(response.statusCode); // 200
+		console.log(response.statusCode); // 201
 		console.log(JSON.stringify(body, null, 4)); // JSON representation
 		return body;
 	}
@@ -282,38 +258,23 @@ var productUpdated = {
   }]
 };
 
-// Proposed API
-//
-//	var options = {
-//		client: rn_client,
-//		url:'serviceProducts/170',
-//		json: productUpdated
-//	}
-//
-//
-//	OSCNode.Connect.patch(options,(err,body,response) => {
-//		if(err){
-//			console.log(err);
-//		}else{
-//			console.log(response.statusCode); // 201
-//			console.log(body); // empty
-//			return body;
-//		}
-//	});
 
+var options = {
+	client: rn_client,
+	url:'serviceProducts/170',
+	json: productUpdated
+}
 
-
-// Current API
-
-OSCNode.Connect.patch(rn_client,'serviceProducts/170',productUpdatedHash,(err,body,response) => {
+OSCNode.Connect.patch(options,(err,body,response) => {
 	if(err){
 		console.log(err);
 	}else{
-		console.log(response.statusCode);  // 201
+		console.log(response.statusCode); // 201
 		console.log(body); // empty
 		return body;
 	}
 });
+
 
 ```
 
@@ -325,34 +286,19 @@ OSCNode.Connect.patch(rn_client,'serviceProducts/170',productUpdatedHash,(err,bo
 //// returns callback
 // Here's how you could delete a serviceProduct object
 
-// Proposed API
-//
-// 	var options = { 
-//		client: rn_client,
-// 	 	url:'serviceProducts/169'
-// 	}
-//  
-//	OSCNode.Connect.delete(options,(err,body,response) => {
-//		if(err){
-//			console.log(err);
-//		}else{
-//			console.log(response.statusCode); // 200
-//			console.log(body); // Empty
-//			return body;
-//		}
-//	});
-
-
-// Current API
-
-OSCNode.Connect.delete(rn_client,'serviceProducts/169',(err,body,response) => {
-	if(err){
-		console.log(err);
-	}else{
-		console.log(response.statusCode); // 200
-		console.log(body); // Empty
-		return body;
-	}
-});
+ 	var options = { 
+		client: rn_client,
+ 	 	url:'serviceProducts/169'
+ 	}
+  
+	OSCNode.Connect.delete(options,(err,body,response) => {
+		if(err){
+			console.log(err);
+		}else{
+			console.log(response.statusCode); // 200
+			console.log(body); // Empty
+			return body;
+		}
+	});
 
 ```

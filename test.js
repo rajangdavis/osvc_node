@@ -1,4 +1,4 @@
-const OSCNode = require('./lib/OSCNode.js');
+const OSCNode = require('osc_node');
 const env = process.env;
 
 var rn_client = OSCNode.Client({
@@ -17,6 +17,6 @@ var options = {
 
 OSCNode.QueryResults.query(options,(err,results) =>{
 	results.map(function(result){
-		console.log(result.Name);
+		console.log(result);
 	})
 });
