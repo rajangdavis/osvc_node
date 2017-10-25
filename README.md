@@ -4,15 +4,13 @@ An (under development) Node library for using the [Oracle Service Cloud REST API
 
 ## Todo
 I am looking to implement the following items soon:
-1. Update Connect Class API to take option Object as a parameter
-2. OSCNode.QueryResults, an object for performing a ROQL query
-3. OSCNode.QueryResultsSet, an object for performing multiple ROQL queries
-4. OSCNode.AnalyticsReportResults, an object for running Analytics Reports
-5. Convenience Methods for Analytics Filters and Date Time
-6. Test suite (in progress)
-7. Travis CI for continuous integration
-8. Code Climate for code quality
-9. Documentation
+1. OSCNode.QueryResultsSet, an object for performing multiple ROQL queries
+2. OSCNode.AnalyticsReportResults, an object for running Analytics Reports
+3. Convenience Methods for Analytics Filters and Date Time
+4. Test suite (in progress)
+5. Travis CI for continuous integration
+6. Code Climate for code quality
+7. Documentation
 
 
 ## Compatibility

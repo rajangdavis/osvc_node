@@ -1,4 +1,4 @@
-const OSCNode = require('osc_node');
+const OSCNode = require('./lib/OSCNode.js');
 const env = process.env;
 
 var rn_client = OSCNode.Client({
@@ -8,7 +8,7 @@ var rn_client = OSCNode.Client({
 	demo_site:true
 });
 
-var contactsQuery = `DESCRIBE`
+var contactsQuery = `DESC`
 
 var options = {
 	client: rn_client,
@@ -16,7 +16,13 @@ var options = {
 }
 
 OSCNode.QueryResults.query(options,(err,results) =>{
-	results.map(function(result){
-		console.log(result);
-	})
+	if(err){
+		// handle error
+	}else if(results.status){
+		console.log(results);
+	}else{
+		results.map(function(result){
+			console.log(result);
+		})
+	}
 });
