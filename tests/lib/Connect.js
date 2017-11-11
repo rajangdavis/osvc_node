@@ -1,6 +1,5 @@
 const assert = require('chai').assert;
 const nock = require('nock')
-// var expect = require('chai').expect;
 var oscNode = require('../../lib/oscNode.js');
 
 const env = process.env;
@@ -14,21 +13,27 @@ describe('connect.get',function(){
 		password: env['OSC_PASSWORD'],
 		interface: env['OSC_SITE'],
 		demo_site: true
-	}); 
+	});
+
+	options = {
+		client: rnClient,
+		url: ''
+	}
 	
 
 	it('should take a url as a param and make a HTTP GET Request' + 
 		' with a response code of 200 and a body of JSON',function(){
 
 		
-		oscNode.Connect.get('',function(err,body,response){
+		oscNode.Connect.get(options,function(err,body,response){
 			console.log(err);
 			console.log(body);
 			console.log(response);
+			console.log(test);
+			assert.strictEqual(answers.code,200);
+			done();
 		});
 		
-		// console.log(test);
-		// assert.strictEqual(answers.code,200);
 
 	});
 

@@ -8,7 +8,7 @@ var rn_client = OSCNode.Client({
 	demo_site:true
 });
 
-var contactsQuery = `DESC`
+var contactsQuery = `DESCRIBE Incidents`
 
 var options = {
 	client: rn_client,
@@ -26,3 +26,5 @@ OSCNode.QueryResults.query(options,(err,results) =>{
 		})
 	}
 });
+
+console.log('Query ran');
