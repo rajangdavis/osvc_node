@@ -5,9 +5,8 @@ language: node_js
 node_js:
   - "iojs"
   - "7"
-before_install:
-  - npm i -g npm
 before_script:
+  - chmod 0777 ./node_modules/.bin/mocha
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
