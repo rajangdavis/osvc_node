@@ -1,5 +1,7 @@
 # OSCNode
 
+[![Build Status](https://travis-ci.org/rajangdavis/osc_node.svg?branch=master)](https://travis-ci.org/rajangdavis/osc_node)
+
 [![Maintainability](https://api.codeclimate.com/v1/badges/8b1c155f9d02491e656b/maintainability)](https://codeclimate.com/github/rajangdavis/osc_node/maintainability)
 
 An (under development) Node library for using the [Oracle Service Cloud REST API](https://docs.oracle.com/cloud/latest/servicecs_gs/CXSVC/) influenced by the [ConnectPHP API](http://documentation.custhelp.com/euf/assets/devdocs/november2016/Connect_PHP/Default.htm)
@@ -10,9 +12,7 @@ I am looking to implement the following items soon:
 2. OSCNode.AnalyticsReportResults, an object for running Analytics Reports
 3. Convenience Methods for Analytics Filters and Date Time
 4. Test suite (in progress)
-5. Travis CI for continuous integration
-6. Code Climate for code quality
-7. Documentation
+5. Documentation
 
 
 ## Compatibility

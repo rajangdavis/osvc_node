@@ -1,7 +1,7 @@
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 var client = require('../../lib/Client.js');
-let env = process.env;
+var env = process.env;
 
 describe('client module',function(){
 
@@ -58,7 +58,7 @@ describe('client module',function(){
 		interface: env['OSC_SITE1'],
 	}
 
-	let BAD_USERNAME_CONFIG = function(){
+	var BAD_USERNAME_CONFIG = function(){
 		new client(BAD_USERNAME);
 	}
 
@@ -74,7 +74,7 @@ describe('client module',function(){
 		interface: env['OSC_SITE1'],
 	}
 
-	let BAD_PASSWORD_CONFIG = function(){
+	var BAD_PASSWORD_CONFIG = function(){
 		new client(BAD_PASSWORD);
 	}
 
@@ -90,7 +90,7 @@ describe('client module',function(){
 		interface: env['OSC_SITE1'],
 	}
 
-	let BAD_INTERFACE_CONFIG = function(){
+	var BAD_INTERFACE_CONFIG = function(){
 		new client(BAD_INTERFACE);
 	}
 
