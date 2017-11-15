@@ -4,6 +4,9 @@ env:
 language: node_js
 node_js:
   - "8"
+cache:
+  directories:
+    - "node_modules"
 before_script:
   - chmod 0777 ./node_modules/.bin/mocha
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -11,4 +14,4 @@ before_script:
   - ./cc-test-reporter before-build
 script: npm test
 after_script:
-  - ./cc-test-reporter after-build -t lcov --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter after-build -t lcov --exit-code $TRAVIS_TEST_RESULT -d

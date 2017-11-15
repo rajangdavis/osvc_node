@@ -1,6 +1,5 @@
 const assert = require('chai').assert;
-const nock = require('nock')
-var oscNode = require('../../lib/oscNode.js');
+const oscNode = require('../../lib/oscNode.js');
 
 const env = process.env;
 
