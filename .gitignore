@@ -12,5 +12,5 @@ logs
 results
 
 node_modules
-coverage
+coverage/
 npm-debug.log
