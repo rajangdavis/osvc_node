@@ -1,6 +1,6 @@
 {
   "name": "osc_node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "An unofficial Node  wrapper for Oracle Service Cloud (fka RightNow Technologies) REST API",
   "main": "./lib/OSCNode.js",
   "scripts": {
