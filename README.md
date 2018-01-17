@@ -10,11 +10,10 @@ An (under development) Node library for using the [Oracle Service Cloud REST API
 
 ## Todo
 I am looking to implement the following items soon:
-1. OSCNode.QueryResultsSet, an object for performing multiple ROQL queries
-2. OSCNode.AnalyticsReportResults, an object for running Analytics Reports
-3. Convenience Methods for Analytics Filters and Date Time
-4. Test suite (in progress)
-5. Documentation
+1. OSCNode.AnalyticsReportResults, an object for running Analytics Reports
+2. Convenience Methods for Analytics Filters and Date Time
+3. Test suite (in progress)
+4. Documentation
 
 
 ## Compatibility
@@ -27,10 +26,7 @@ All of the HTTP methods should work on any version of Oracle Service Cloud since
 
 
 ## Use Cases
-You can use this Node Library for basic scripting and microservices. 
-
-# Please use this as a server side library *only*.
-While it is theoretically possible to utilize this library in a browser, it is not recommended as a matter of security.
+You can use this Node Library for basic scripting and microservices.
 
 The main features that work to date are as follows:
 
