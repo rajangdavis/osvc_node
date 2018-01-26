@@ -50,11 +50,11 @@ OSCNode.QueryResultsSet.query_set(options,(err,data) =>{
 	}else{
 		// HTTP OK
 		console.log("ANSWER SCHEMA:");
-		// console.log(data.answerSchema);
+		console.log(data.answerSchema);
 		console.log(data.answers.map((a)=>{return [a.id,a.summary]}).join("\n"));
-		// console.log(data.categoriesSchema);
-		// console.log(data.categories);
-		// console.log(data.productsSchema);
-		// console.log(data.products);
+		console.log(data.categoriesSchema);
+		console.log(data.categories);
+		console.log(data.productsSchema);
+		console.log(data.products);
 	}
 });
