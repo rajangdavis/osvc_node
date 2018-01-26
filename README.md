@@ -10,10 +10,9 @@ An (under development) Node library for using the [Oracle Service Cloud REST API
 
 ## Todo
 I am looking to implement the following items soon:
-1. OSCNode.AnalyticsReportResults, an object for running Analytics Reports
-2. Convenience Methods for Analytics Filters and Date Time
-3. Test suite (in progress)
-4. Documentation
+1. Convenience Methods for Analytics Filters and Date Time
+2. Test suite (in progress)
+3. Documentation
 
 
 ## Compatibility

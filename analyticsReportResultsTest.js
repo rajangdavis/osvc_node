@@ -16,8 +16,8 @@ var options = {
 OSCNode.AnalyticsReportResults.run(options,function(err,data){
 	console.log(data);
 
-	// data.map((res)=>{
-	// 	console.log(`Columns: ${res.keys.join(',')}`);
-	// 	console.log(`Values: ${res.values.join(',')}`);
-	// })
+	data.map((res)=>{
+		console.log(`Columns: ${Object.keys(res).join(", ")}`);
+		console.log(`Values: ${Object.values(res).join(", ")}`);
+	})
 })
