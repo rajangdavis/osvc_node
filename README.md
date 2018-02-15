@@ -19,8 +19,6 @@ I am looking to implement the following items soon:
 
 The library is being tested against Oracle Service Cloud May 2017 using Node v8.2.1
 
-TravisCI to be set up soon!
-
 All of the HTTP methods should work on any version of Oracle Service Cloud since version May 2015; however, there maybe some issues with querying items on any version before May 2016. This is because ROQL queries were not exposed via the REST API until May 2016.
 
 

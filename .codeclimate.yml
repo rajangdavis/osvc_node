@@ -3,3 +3,5 @@ exclude_paths:
 - "coverage/"
 - "node_modules/"
 - "*.js"
+duplication:
+  enabled: false
