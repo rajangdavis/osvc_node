@@ -3,8 +3,6 @@ const oscNode = require('../../lib/oscNode.js');
 
 const env = process.env;
 
-
-
 describe('connect.get',function(){ 
 
 	var rnClient = new oscNode.Client({
