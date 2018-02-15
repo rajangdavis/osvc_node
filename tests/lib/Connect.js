@@ -4,30 +4,42 @@ var connect = require('../../lib/Connect.js');
 
 const env = process.env;
 
-describe('connect.clientUrl',function(){
+// GET
+describe('connect.get',function(){ 
 
 	var rnClient = new client({
-		username: 'OSC_ADMIN',
-		password: 'OSC_PASSWORD',
-		interface: 'OSC_SITE'
-	});	
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		demo_site: true
+	});
 
-	var options ={
-		client: rnClient
+	options = {
+		client: rnClient,
+		url: ''
 	}
-
-	it('should take a options object as a param and return a URL',function(){
 	
-		var clientUrl = connect.clientUrl(options);
-		assert.strictEqual(clientUrl,"https://OSC_ADMIN:OSC_PASSWORD@OSC_SITE.custhelp.com/services/rest/connect/v1.3/");
+
+	it('should take a url as a param and make a HTTP GET Request' + 
+		' with a response code of 200 and a body of JSON',function(){
+
+		
+		connect.get(options,function(err,body,response){
+			console.log(err);
+			console.log(body);
+			console.log(response);
+			console.log(test);
+			assert.strictEqual(answers.code,200);
+			done();
+		});
+		
 
 	});
 
-
 });
 
+// POST
 var createdID = 0;
-
 describe('connect.post',function(){ 
 
 	var rnClient = new client({
@@ -67,33 +79,21 @@ describe('connect.post',function(){
 
 	});
 
-});
+	it('should take a url as a param and make a HTTP POST Request' + 
+		' with a response code of 201 and a body of JSON',function(){
 
-describe('connect.get',function(){ 
-
-	var rnClient = new client({
-		username: env['OSC_ADMIN'],
-		password: env['OSC_PASSWORD'],
-		interface: env['OSC_SITE'],
-		demo_site: true
-	});
-
-	options = {
-		client: rnClient,
-		url: ''
-	}
 	
+	var reportOptions = {
+		client: rnClient,
+		url: 'analyticsReports',
+		id: 176
+	}
 
-	it('should take a url as a param and make a HTTP GET Request' + 
-		' with a response code of 200 and a body of JSON',function(){
 
-		
-		connect.get(options,function(err,body,response){
+		connect.post(reportOptions,function(err,body,response){
 			console.log(err);
 			console.log(body);
 			console.log(response);
-			console.log(test);
-			assert.strictEqual(answers.code,200);
 			done();
 		});
 		
@@ -143,7 +143,6 @@ describe('connect.patch',function(){
 
 
 // DELETE
-
 describe('connect.delete',function(){ 
 
 	var rnClient = new client({
@@ -155,7 +154,7 @@ describe('connect.delete',function(){
 
 	var options = {
 		client: rnClient,
-		url: `incident/${createdID}`
+		url: `incidents/${createdID}`
 	}
 	
 
@@ -165,6 +164,23 @@ describe('connect.delete',function(){
 			console.log(results);
 			assert.strictEqual(body,undefined);
 			assert.strictEqual(results.statusCode,200);
+			done();
+		})
+	});
+
+	// error test
+
+	var badOptions = {
+		client: rnClient,
+		url: `incidents/${createdID}`
+	}
+	
+
+	it('should take a url as a param and make a HTTP DELETE Request' + 
+		' with a response code of 200 and an empty body',function(){
+		connect.delete(badOptions,function(err,body,results){
+			console.log(err);
+			assert.strictEqual(results.statusCode,404);
 			done();
 		})
 	});
