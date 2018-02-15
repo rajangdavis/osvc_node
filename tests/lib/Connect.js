@@ -1,11 +1,12 @@
 const assert = require('chai').assert;
-const oscNode = require('../../lib/oscNode.js');
+var client = require('../../lib/Client.js');
+var connect = require('../../lib/Connect.js');
 
 const env = process.env;
 
 describe('connect.clientUrl',function(){
 
-	var rnClient = new oscNode.Client({
+	var rnClient = new client({
 		username: 'OSC_ADMIN',
 		password: 'OSC_PASSWORD',
 		interface: 'OSC_SITE'
@@ -17,8 +18,7 @@ describe('connect.clientUrl',function(){
 
 	it('should take a options object as a param and return a URL',function(){
 	
-		var clientUrl = oscNode.Connect.clientUrl(options);
-		console.log(clientUrl);
+		var clientUrl = connect.clientUrl(options);
 		assert.strictEqual(clientUrl,"https://OSC_ADMIN:OSC_PASSWORD@OSC_SITE.custhelp.com/services/rest/connect/v1.3/");
 
 	});
@@ -26,9 +26,11 @@ describe('connect.clientUrl',function(){
 
 });
 
+var createdID = 0;
+
 describe('connect.post',function(){ 
 
-	var rnClient = new oscNode.Client({
+	var rnClient = new client({
 		username: env['OSC_ADMIN'],
 		password: env['OSC_PASSWORD'],
 		interface: env['OSC_SITE'],
@@ -53,9 +55,10 @@ describe('connect.post',function(){
 		' with a response code of 201 and a body of JSON',function(){
 
 		
-		oscNode.Connect.post(options,function(err,body,response){
+		connect.post(options,function(err,body,response){
 			console.log(err);
 			console.log(body);
+			createdID = body['id'];
 			console.log(response);
 			assert.strictEqual(answers.code,201);
 			done();
@@ -68,7 +71,7 @@ describe('connect.post',function(){
 
 describe('connect.get',function(){ 
 
-	var rnClient = new oscNode.Client({
+	var rnClient = new client({
 		username: env['OSC_ADMIN'],
 		password: env['OSC_PASSWORD'],
 		interface: env['OSC_SITE'],
@@ -85,7 +88,7 @@ describe('connect.get',function(){
 		' with a response code of 200 and a body of JSON',function(){
 
 		
-		oscNode.Connect.get(options,function(err,body,response){
+		connect.get(options,function(err,body,response){
 			console.log(err);
 			console.log(body);
 			console.log(response);
@@ -102,7 +105,7 @@ describe('connect.get',function(){
 // PATCH
 describe('connect.patch',function(){ 
 
-	var rnClient = new oscNode.Client({
+	var rnClient = new client({
 		username: env['OSC_ADMIN'],
 		password: env['OSC_PASSWORD'],
 		interface: env['OSC_SITE'],
@@ -124,7 +127,7 @@ describe('connect.patch',function(){
 		' with a response code of 201 and an empty body',function(){
 
 		
-		oscNode.Connect.patch(options,function(err,body,response){
+		connect.patch(options,function(err,body,response){
 			console.log(err);
 			console.log(body);
 			console.log(response);
@@ -143,7 +146,7 @@ describe('connect.patch',function(){
 
 describe('connect.delete',function(){ 
 
-	var rnClient = new oscNode.Client({
+	var rnClient = new client({
 		username: env['OSC_ADMIN'],
 		password: env['OSC_PASSWORD'],
 		interface: env['OSC_SITE'],
@@ -152,34 +155,18 @@ describe('connect.delete',function(){
 
 	var options = {
 		client: rnClient,
-		query: `SELECT id FROM Incidents LIMIT 1`
+		url: `incident/${createdID}`
 	}
 	
 
 	it('should take a url as a param and make a HTTP DELETE Request' + 
 		' with a response code of 200 and an empty body',function(){
-
-		var deleteIncident = function(options,incidentID){
-			var dupedOptions = options;
-			dupedOptions.url = `incidents/${incidentID}`;
-			oscNode.Connect.delete(dupedOptions,function(err,body,results){
-				console.log(results);
-				assert.strictEqual(body,undefined);
-				assert.strictEqual(results.statusCode,200);
-				done();
-			})
-		}
-
-		oscNode.QueryResults.query(options,function(err,results){
-			if(err){
-				console.log("ERROR");
-				console.log(err);
-			}else{
-				deleteIncident(options,results[0]['id']);
-			}
-		});	
-		
-
+		connect.delete(options,function(err,body,results){
+			console.log(results);
+			assert.strictEqual(body,undefined);
+			assert.strictEqual(results.statusCode,200);
+			done();
+		})
 	});
 
 });
