@@ -3,6 +3,46 @@ const oscNode = require('../../lib/oscNode.js');
 
 const env = process.env;
 
+describe('connect.post',function(){ 
+
+	var rnClient = new oscNode.Client({
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		demo_site: true
+	});
+
+	var data = {
+		"primaryContact": {
+	    	"id": 2
+		},
+		"subject": "FishPhone not working"
+	}
+
+	var options = {
+		client: rnClient,
+		url: 'incidents',
+		json: data
+	}
+	
+
+	it('should take a url as a param and make a HTTP POST Request' + 
+		' with a response code of 201 and a body of JSON',function(){
+
+		
+		oscNode.Connect.post(options,function(err,body,response){
+			console.log(err);
+			console.log(body);
+			console.log(response);
+			assert.strictEqual(answers.code,201);
+			done();
+		});
+		
+
+	});
+
+});
+
 describe('connect.get',function(){ 
 
 	var rnClient = new oscNode.Client({
@@ -36,62 +76,87 @@ describe('connect.get',function(){
 
 });
 
-// describe('connect.headersCheck',function(){ 
+// PATCH
+describe('connect.patch',function(){ 
 
-// 	let Connect = require('../../lib/Connect.js');
-// 	let Client = require('../../lib/Client.js');
+	var rnClient = new oscNode.Client({
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		demo_site: true
+	});
 
-// 	var oscConfigHeaders = {
-// 		username: 'username',
-// 		password: 'password',
-// 		interface: 'interface',
-// 		demo_site: true,
-// 		version: 'v1.4',
-// 		no_ssl_verify: true,
-// 		suppress_rules: true
-// 	}
+	var data = {
+		"subject": "FishPhone not working UPDATED"
+	}
 
-// 	var rnClient = new Client(oscConfigHeaders); 
-
-// 	var oncHeaders = Connect(rnClient);
-
-// 	it('should take a client object and return a hash of header settings; ' +
-// 		'the "suppress_rules" setting should return ' +
-// 		'headers["OSvC-CREST-Suppress-All"] as true',function(){
-// 		assert.strictEqual(oncHeaders.headersHash["OSvC-CREST-Suppress-All"],true);
-// 	});
-
-// });
-
-// describe('connect.clientUrl',function(){
+	var options = {
+		client: rnClient,
+		url: 'incidents/24790',
+		json: data
+	}
 	
-// 	let Connect = require('../../lib/Connect.js');
-// 	let Client = require('../../lib/Client.js');
 
-// 	var oscConfigURL = {
-// 		username: 'username',
-// 		password: 'password',
-// 		interface: 'interface',
-// 		demo_site: true,
-// 		version: 'v1.4',
-// 		no_ssl_verify: true,
-// 		suppress_rules: true
-// 	}
+	it('should take a url as a param and make a HTTP PATCH Request' + 
+		' with a response code of 201 and an empty body',function(){
 
-// 	var rnClient = new Client(oscConfigURL); 
+		
+		oscNode.Connect.patch(options,function(err,body,response){
+			console.log(err);
+			console.log(body);
+			console.log(response);
+			assert.strictEqual(answers.code,201);
+			done();
+		});
+		
+
+	});
+
+});
+
+
+
+// DELETE
+
+describe('connect.delete',function(){ 
+
+	var rnClient = new oscNode.Client({
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		demo_site: true
+	});
+
+	var options = {
+		client: rnClient,
+		query: `SELECT id FROM Incidents LIMIT 1`
+	}
 	
-// 	var oncURL = Connect(rnClient);
 
-// 	it('should take a client object and change the url to include "rightnowdemo" if '+
-// 		'the "demo_site" setting is set to true',function(){
-// 		assert.match(oncURL.clientUrl,/rightnowdemo/);
+	it('should take a url as a param and make a HTTP DELETE Request' + 
+		' with a response code of 200 and an empty body',function(){
 
-// 	});
+		var deleteIncident = function(options,incidentID){
+			var dupedOptions = options;
+			dupedOptions.url = `incidents/${incidentID}`;
+			oscNode.Connect.delete(dupedOptions,function(err,body,results){
+				console.log(results);
+				assert.strictEqual(body,undefined);
+				assert.strictEqual(results.statusCode,200);
+				done();
+			})
+		}
 
-// 	it('should take a client object and change the url to include a different verions if '+
-// 		'the "version" setting is changed',function(){
-// 		assert.match(oncURL.clientUrl,/v1.4/);
+		oscNode.QueryResults.query(options,function(err,results){
+			if(err){
+				console.log("ERROR");
+				console.log(err);
+			}else{
+				deleteIncident(options,results[0]['id']);
+			}
+		});	
+		
 
-// 	});
+	});
 
-// });
+});
