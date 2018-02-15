@@ -3,6 +3,29 @@ const oscNode = require('../../lib/oscNode.js');
 
 const env = process.env;
 
+describe('connect.clientUrl',function(){
+
+	var rnClient = new oscNode.Client({
+		username: 'OSC_ADMIN',
+		password: 'OSC_PASSWORD',
+		interface: 'OSC_SITE'
+	});	
+
+	var options ={
+		client: rnClient
+	}
+
+	it('should take a options object as a param and return a URL',function(){
+	
+		var clientUrl = oscNode.Connect.clientUrl(options);
+		console.log(clientUrl);
+		assert.strictEqual(clientUrl,"https://OSC_ADMIN:OSC_PASSWORD@OSC_SITE.custhelp.com/services/rest/connect/v1.3/");
+
+	});
+
+
+});
+
 describe('connect.post',function(){ 
 
 	var rnClient = new oscNode.Client({
