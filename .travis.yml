@@ -13,6 +13,8 @@ before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
+duplication:
+  enabled: false
 script: npm test
 after_script:
   - istanbul cover node_modules/mocha/bin/_mocha -R tests/lib/
