@@ -100,4 +100,18 @@ describe('client module',function(){
 
 	});
 
+	const VERSION_CHECK_INTERFACE = {
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+	}
+
+	var VERSION_CHECK_INTERFACE_CONFIG = new client(VERSION_CHECK_INTERFACE);
+
+	it('should should have version set to "v1.3" if unspecified',function(){
+	
+		assert.strictEqual(VERSION_CHECK_INTERFACE_CONFIG.version,"v1.3");
+
+	});
+
 })
