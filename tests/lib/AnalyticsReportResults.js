@@ -23,7 +23,6 @@ describe('analyticsReportResults.run',function(){
 	it('should take a url as a param and make a HTTP GET Request',function(done){
 		
 		analyticsReportResults.run(options,function(err,data){
-			console.log(data);
 			assert.strictEqual(data[0].hasOwnProperty('Summary'),true);
 			done();
 		});	

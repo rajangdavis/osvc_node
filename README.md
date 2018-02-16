@@ -28,7 +28,12 @@ You can use this Node Library for basic scripting and microservices.
 The main features that work to date are as follows:
 
 1. [Simple configuration](#client-configuration)
-2. Basic CRUD Operations via HTTP Methods
+2. Running ROQL queries [either 1 at a time](#oscnode.queryresults-example) or [multiple queries in a set](#oscnode.queryresultsset-example)
+3. [Running Reports](#oscnode.analyticsreportsresults)
+<!-- 4. Convenience methods for Analytics filters and setting dates
+	1. ['arrf', an analytics report results filter](#arrf--analytics-report-results-filter)
+	2. ['dti', converts a date string to ISO8601 format](#dti--date-to-iso8601) -->
+4. Basic CRUD Operations via HTTP Methods
 	1. [Create => Post](#create)
 	2. [Read => Get](#read)
 	3. [Update => Patch](#update)
@@ -50,7 +55,7 @@ Install with npm:
 
 ## Client Configuration
 
-An OSCNodeClient class lets the library know which credentials and interface to use for interacting with the Oracle Service Cloud REST API.
+An OSCNode.Client class lets the library know which credentials and interface to use for interacting with the Oracle Service Cloud REST API.
 This is helpful if you need to interact with multiple interfaces or set different headers for different objects.
 
 ```node
@@ -60,7 +65,7 @@ This is helpful if you need to interact with multiple interfaces or set differen
 
 const OSCNode = require('osc_node');
 
-# Configuration Client
+// Configuration Client
 var rn_client = OSCNode.Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
@@ -78,11 +83,11 @@ var rn_client = OSCNode.Client({
 
 ```
 
-## OSCNodeQueryResults example
+## OSCNode.QueryResults example
 
 This is for running one ROQL query. Whatever is allowed by the REST API (limits and sorting) is allowed with this library.
 
-OSCNodeQueryResults only has one function: 'query', which takes an OSCNodeClient object and string query (example below).
+OSCNode.QueryResults only has one function: 'query', which takes an OSCNode.Client object and string query (example below).
 
 ```node
 const OSCNode = require('osc_node');
@@ -108,6 +113,213 @@ OSCNode.QueryResults.query(options,(err,results) =>{
 	})
 });
 
+
+```
+
+
+## OSCNode.QueryResultsSet example
+
+This is for running multiple queries and assigning the results of each query to a key for further manipulation.
+
+OSCNode.QueryResultsSet only has one function: 'query_set', which takes an OSCNode.Client object and multiple query hashes (example below).
+
+```node
+// Pass in each query into a hash
+	// set query: to the query you want to execute
+	// set key: to the value you want the results to of the query to be referenced to
+
+const OSCNode = require('osc_node');
+const env = process.env;
+
+var rn_client = OSCNode.Client({
+  username: env['OSC_ADMIN'],
+  password: env['OSC_PASSWORD'],
+  interface: env['OSC_SITE'],
+});
+
+var multipleQueries = [
+	{
+		query:"DESCRIBE ANSWERS",
+		key: "answerSchema"
+	},
+ 	{
+ 		query:"SELECT * FROM ANSWERS LIMIT 1",
+ 		key: "answers"
+ 	},
+ 	{
+ 		query:"DESCRIBE SERVICECATEGORIES",
+ 		key: "categoriesSchema"
+ 	},
+ 	{
+ 		query:"SELECT * FROM SERVICECATEGORIES",
+ 		key:"categories"
+ 	},
+ 	{
+ 		query:"DESCRIBE SERVICEPRODUCTS",
+ 		key: "productsSchema"
+ 	},
+ 	{
+ 		query:"SELECT * FROM SERVICEPRODUCTS",
+ 		key:"products"
+ 	}
+];
+					 
+var options = {
+	client: rn_client,
+	queries: multipleQueries
+}
+
+OSCNode.QueryResultsSet.query_set(options,(err, data) =>{
+	console.log(data.answerSchema);
+	console.log(data.answers);
+	console.log(data.categoriesSchema);
+	console.log(data.categories);
+	console.log(data.productsSchema);
+	console.log(data.products);
+});
+
+//  Results for "DESCRIBE ANSWERS"
+// 
+//  [
+//   {
+//     "Name": "id",
+//     "Type": "Integer",
+//     "Path": ""
+//   },
+//   {
+//     "Name": "lookupName",
+//     "Type": "String",
+//     "Path": ""
+//   },
+//   {
+//     "Name": "createdTime",
+//     "Type": "String",
+//     "Path": ""
+//   }
+//   ... everything else including customfields and objects...
+// ]
+
+//  Results for "SELECT * FROM ANSWERS LIMIT 1"
+// 
+//  [
+//   {
+//     "id": 1,
+//     "lookupName": 1,
+//     "createdTime": "2016-03-04T18:25:50Z",
+//     "updatedTime": "2016-09-12T17:12:14Z",
+//     "accessLevels": 1,
+//     "adminLastAccessTime": "2016-03-04T18:25:50Z",
+//     "answerType": 1,
+//     "expiresDate": null,
+//     "guidedAssistance": null,
+//     "keywords": null,
+//     "language": 1,
+//     "lastAccessTime": "2016-03-04T18:25:50Z",
+//     "lastNotificationTime": null,
+//     "name": 1,
+//     "nextNotificationTime": null,
+//     "originalReferenceNumber": null,
+//     "positionInList": 1,
+//     "publishOnDate": null,
+//     "question": null,
+//     "solution": "<HTML SOLUTION WITH INLINE CSS>",
+//     "summary": "SPRING IS ALMOST HERE!",
+//     "updatedByAccount": 16,
+//     "uRL": null
+//   }
+// ]
+
+//  Results for "DESCRIBE SERVICECATEGORIES"
+//  
+// [
+// ... skipping the first few ... 
+//  {
+//     "Name": "adminVisibleInterfaces",
+//     "Type": "SubTable",
+//     "Path": "serviceCategories.adminVisibleInterfaces"
+//   },
+//   {
+//     "Name": "descriptions",
+//     "Type": "SubTable",
+//     "Path": "serviceCategories.descriptions"
+//   },
+//   {
+//     "Name": "displayOrder",
+//     "Type": "Integer",
+//     "Path": ""
+//   },
+//   {
+//     "Name": "endUserVisibleInterfaces",
+//     "Type": "SubTable",
+//     "Path": "serviceCategories.endUserVisibleInterfaces"
+//   },
+//   ... everything else include parents and children ...
+// ]
+
+
+//  Results for "SELECT * FROM SERVICECATEGORIES"
+// 
+//  [
+//   {
+//     "id": 3,
+//     "lookupName": "Manuals",
+//     "createdTime": null,
+//     "updatedTime": null,
+//     "displayOrder": 3,
+//     "name": "Manuals",
+//     "parent": 60
+//   },
+//   {
+//     "id": 4,
+//     "lookupName": "Installations",
+//     "createdTime": null,
+//     "updatedTime": null,
+//     "displayOrder": 4,
+//     "name": "Installations",
+//     "parent": 60
+//   },
+//   {
+//     "id": 5,
+//     "lookupName": "Downloads",
+//     "createdTime": null,
+//     "updatedTime": null,
+//     "displayOrder": 2,
+//     "name": "Downloads",
+//     "parent": 60
+//   },
+//   ... you should get the idea by now ...
+// ]
+
+```
+
+## OSCNode.AnalyticsReportsResults
+
+You can create a new instance either by the report 'id' or 'lookupName'.
+
+OSCNode.AnalyticsReportsResults only has one function: 'run', which takes an OSCNode.Client object.
+
+OSCNode.AnalyticsReportsResults have the following properties: 'id', 'lookupName', and 'filters'. More on filters and supported datetime methods are below this OSCNode.AnalyticsReportsResults example script.
+```node
+const OSCNode = require('osc_node');
+const env = process.env;
+
+var rn_client = OSCNode.Client({
+	username: env['OSC_ADMIN'],
+	password: env['OSC_PASSWORD'],
+	interface: env['OSC_SITE'],
+});
+
+var options = {
+	client: rn_client,
+	id: 176
+}
+
+OSCNode.AnalyticsReportResults.run(options,(err,data) =>{
+	data.map((res)=>{
+		console.log(`Columns: ${res.keys.join(',')}`);
+		console.log(`Values: ${res.values.join(',')}`);
+	})
+})
 
 ```
 

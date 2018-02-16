@@ -83,9 +83,6 @@ describe('connect.post',function(){
 
 
 		connect.post(reportOptions,function(err,body,response){
-			console.log(err);
-			console.log(body);
-			console.log(response);
 			done();
 		});
 		
@@ -150,7 +147,6 @@ describe('connect.delete',function(){
 	it('should take a url as a param and make a HTTP DELETE Request' + 
 		' with a response code of 200 and an empty body',function(done){
 		connect.delete(options,function(err,body,response){
-			console.log(response);
 			// assert.strictEqual(body,undefined);
 			assert.strictEqual(response.statusCode,404);
 			done();
