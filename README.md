@@ -28,8 +28,8 @@ You can use this Node Library for basic scripting and microservices.
 The main features that work to date are as follows:
 
 1. [Simple configuration](#client-configuration)
-2. Running ROQL queries [either 1 at a time](#oscnode.queryresults-example) or [multiple queries in a set](#oscnode.queryresultsset-example)
-3. [Running Reports](#oscnode.analyticsreportsresults)
+2. Running ROQL queries [either 1 at a time](#oscnodequeryresults-example) or [multiple queries in a set](#oscnodequeryresultsset-example)
+3. [Running Reports](#oscnodeanalyticsreportsresults)
 <!-- 4. Convenience methods for Analytics filters and setting dates
 	1. ['arrf', an analytics report results filter](#arrf--analytics-report-results-filter)
 	2. ['dti', converts a date string to ISO8601 format](#dti--date-to-iso8601) -->
