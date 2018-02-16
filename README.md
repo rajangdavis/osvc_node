@@ -73,11 +73,9 @@ var rn_client = OSCNode.Client({
 
 	// Optional Configuration Settings
 	demo_site: true,			// Changes domain from 'custhelp' to 'rightnowdemo'
-
-	// STILL TO BE IMPLEMENTED
-	// change_version: 'v1.4', 		// Changes REST API version, default is 'v1.3'
-	// ssl_off: true,			// Turns off SSL verification
-	// suppress_rules: true			// Supresses Business Rules
+	change_version: 'v1.4', 		// Changes REST API version, default is 'v1.3'
+	ssl_off: true,			// Turns off SSL verification
+	suppress_rules: true			// Supresses Business Rules
 });
 
 
@@ -298,7 +296,7 @@ You can create a new instance either by the report 'id' or 'lookupName'.
 
 OSCNode.AnalyticsReportsResults only has one function: 'run', which takes an OSCNode.Client object.
 
-OSCNode.AnalyticsReportsResults have the following properties: 'id', 'lookupName', and 'filters'. More on filters and supported datetime methods are below this OSCNode.AnalyticsReportsResults example script.
+OSCNode.AnalyticsReportsResults have the following properties: 'id', 'lookupName', and 'filters'. <!-- More on filters and supported datetime methods are below this OSCNode.AnalyticsReportsResults example script. -->
 ```node
 const OSCNode = require('osc_node');
 const env = process.env;
