@@ -114,4 +114,4 @@ describe('client module',function(){
 
 	});
 
-})
+});
