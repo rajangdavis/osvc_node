@@ -74,7 +74,7 @@ var rn_client = OSCNode.Client({
 	// Optional Configuration Settings
 	demo_site: true,			// Changes domain from 'custhelp' to 'rightnowdemo'
 	change_version: 'v1.4', 		// Changes REST API version, default is 'v1.3'
-	ssl_off: true,			// Turns off SSL verification
+	ssl_off: true,				// Turns off SSL verification
 	suppress_rules: true			// Supresses Business Rules
 });
 
