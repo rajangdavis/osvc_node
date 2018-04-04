@@ -1,7 +1,7 @@
 # OSvCNode
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/8b1c155f9d02491e656b/maintainability)](https://codeclimate.com/github/rajangdavis/osvc_node/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/8b1c155f9d02491e656b/test_coverage)](https://codeclimate.com/github/rajangdavis/osvc_node/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/85f3765473ab32f49832/maintainability)](https://codeclimate.com/github/rajangdavis/osvc_node/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/85f3765473ab32f49832/test_coverage)](https://codeclimate.com/github/rajangdavis/osvc_node/test_coverage)
 [![Build Status](https://travis-ci.org/rajangdavis/osvc_node.svg?branch=master)](https://travis-ci.org/rajangdavis/osvc_node)
 [![npm version](https://badge.fury.io/js/osvc_node.svg)](https://badge.fury.io/js/osvc_node)
 [![Known Vulnerabilities](https://snyk.io/test/github/rajangdavis/osvc_node/badge.svg)](https://snyk.io/test/github/rajangdavis/osvc_node)
