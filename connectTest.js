@@ -1,7 +1,7 @@
-const OSCNode = require('./lib/OSCNode.js');
+const OSvCNode = require('./lib/OSvCNode.js');
 const env = process.env;
 
-var rn_client = OSCNode.Client({
+var rn_client = OSvCNode.Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
@@ -15,7 +15,7 @@ options = {
 	url: ''
 }
 
-OSCNode.Connect.get(options,function(err,body,response){
+OSvCNode.Connect.get(options,function(err,body,response){
 	console.log(err);
 	console.log(body);
 	console.log(response.toJSON());
@@ -36,7 +36,7 @@ var options = {
 	json: data
 }
 
-OSCNode.Connect.post(options,function(err,body,response){
+OSvCNode.Connect.post(options,function(err,body,response){
 	console.log(err);
 	console.log(body);
 	console.log(response.toJSON());
@@ -57,7 +57,7 @@ var options = {
 	json: data
 }
 
-OSCNode.Connect.patch(options,function(err,body,response){
+OSvCNode.Connect.patch(options,function(err,body,response){
 	console.log(err);
 	console.log(body);
 	console.log(response.toJSON());
@@ -73,14 +73,14 @@ var options = {
 var deleteIncident = function(options,incidentID){
 	var dupedOptions = options;
 	dupedOptions.url = `incidents/${incidentID}`;
-	OSCNode.Connect.delete(dupedOptions,function(err,body,results){
+	OSvCNode.Connect.delete(dupedOptions,function(err,body,results){
 		console.log(err);
 		console.log(body);
 		console.log(results);
 	})
 }
 
-OSCNode.QueryResults.query(options,function(err,results){
+OSvCNode.QueryResults.query(options,function(err,results){
 	if(err){
 		console.log("ERROR");
 		console.log(err);

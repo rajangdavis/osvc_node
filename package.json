@@ -1,14 +1,14 @@
 {
-  "name": "osc_node",
+  "name": "osvc_node",
   "version": "0.0.3",
   "description": "An unofficial Node  wrapper for Oracle Service Cloud (fka RightNow Technologies) REST API",
-  "main": "./lib/OSCNode.js",
+  "main": "./lib/OSvCNode.js",
   "scripts": {
     "test": "mocha tests/lib/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rajangdavis/osc_node.git"
+    "url": "git+https://github.com/rajangdavis/osvc_node.git"
   },
   "dependencies": {
     "request": "^2.74.0"
@@ -21,9 +21,9 @@
   "author": "Rajan Davis",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rajangdavis/osc_node/issues"
+    "url": "https://github.com/rajangdavis/osvc_node/issues"
   },
-  "homepage": "https://github.com/rajangdavis/osc_node#readme",
+  "homepage": "https://github.com/rajangdavis/osvc_node#readme",
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^3.5.3"

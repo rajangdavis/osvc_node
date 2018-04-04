@@ -1,10 +1,10 @@
-# OSCNode
+# OSvCNode
 
-[![Maintainability](https://api.codeclimate.com/v1/badges/8b1c155f9d02491e656b/maintainability)](https://codeclimate.com/github/rajangdavis/osc_node/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/8b1c155f9d02491e656b/test_coverage)](https://codeclimate.com/github/rajangdavis/osc_node/test_coverage)
-[![Build Status](https://travis-ci.org/rajangdavis/osc_node.svg?branch=master)](https://travis-ci.org/rajangdavis/osc_node)
-[![npm version](https://badge.fury.io/js/osc_node.svg)](https://badge.fury.io/js/osc_node)
-[![Known Vulnerabilities](https://snyk.io/test/github/rajangdavis/osc_node/badge.svg)](https://snyk.io/test/github/rajangdavis/osc_node)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8b1c155f9d02491e656b/maintainability)](https://codeclimate.com/github/rajangdavis/osvc_node/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8b1c155f9d02491e656b/test_coverage)](https://codeclimate.com/github/rajangdavis/osvc_node/test_coverage)
+[![Build Status](https://travis-ci.org/rajangdavis/osvc_node.svg?branch=master)](https://travis-ci.org/rajangdavis/osvc_node)
+[![npm version](https://badge.fury.io/js/osvc_node.svg)](https://badge.fury.io/js/osvc_node)
+[![Known Vulnerabilities](https://snyk.io/test/github/rajangdavis/osvc_node/badge.svg)](https://snyk.io/test/github/rajangdavis/osvc_node)
 
 An (under development) Node library for using the [Oracle Service Cloud REST API](https://docs.oracle.com/cloud/latest/servicecs_gs/CXSVC/) influenced by the [ConnectPHP API](http://documentation.custhelp.com/euf/assets/devdocs/november2016/Connect_PHP/Default.htm)
 
@@ -50,12 +50,12 @@ The main features that work to date are as follows:
 
 Install with npm:
 
-    $ npm install osc_node -g
+    $ npm install osvc_node -g
 
 
 ## Client Configuration
 
-An OSCNode.Client class lets the library know which credentials and interface to use for interacting with the Oracle Service Cloud REST API.
+An OSvCNode.Client class lets the library know which credentials and interface to use for interacting with the Oracle Service Cloud REST API.
 This is helpful if you need to interact with multiple interfaces or set different headers for different objects.
 
 ```node
@@ -63,10 +63,10 @@ This is helpful if you need to interact with multiple interfaces or set differen
 // Configuration is as simple as requiring the package
 // and passing in an object
 
-const OSCNode = require('osc_node');
+const OSvCNode = require('osvc_node');
 
 // Configuration Client
-var rn_client = OSCNode.Client({
+var rn_client = OSvCNode.Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
@@ -81,17 +81,17 @@ var rn_client = OSCNode.Client({
 
 ```
 
-## OSCNode.QueryResults example
+## OSvCNode.QueryResults example
 
 This is for running one ROQL query. Whatever is allowed by the REST API (limits and sorting) is allowed with this library.
 
-OSCNode.QueryResults only has one function: 'query', which takes an OSCNode.Client object and string query (example below).
+OSvCNode.QueryResults only has one function: 'query', which takes an OSvCNode.Client object and string query (example below).
 
 ```node
-const OSCNode = require('osc_node');
+const OSvCNode = require('osvc_node');
 const env = process.env;
 
-var rn_client = OSCNode.Client({
+var rn_client = OSvCNode.Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
@@ -105,7 +105,7 @@ var options = {
 	query: contactsQuery
 }
 
-OSCNode.QueryResults.query(options,(err,results) =>{
+OSvCNode.QueryResults.query(options,(err,results) =>{
 	results.map(function(result){
 		console.log(result);
 	})
@@ -115,21 +115,21 @@ OSCNode.QueryResults.query(options,(err,results) =>{
 ```
 
 
-## OSCNode.QueryResultsSet example
+## OSvCNode.QueryResultsSet example
 
 This is for running multiple queries and assigning the results of each query to a key for further manipulation.
 
-OSCNode.QueryResultsSet only has one function: 'query_set', which takes an OSCNode.Client object and multiple query hashes (example below).
+OSvCNode.QueryResultsSet only has one function: 'query_set', which takes an OSvCNode.Client object and multiple query hashes (example below).
 
 ```node
 // Pass in each query into a hash
 	// set query: to the query you want to execute
 	// set key: to the value you want the results to of the query to be referenced to
 
-const OSCNode = require('osc_node');
+const OSvCNode = require('osvc_node');
 const env = process.env;
 
-var rn_client = OSCNode.Client({
+var rn_client = OSvCNode.Client({
   username: env['OSC_ADMIN'],
   password: env['OSC_PASSWORD'],
   interface: env['OSC_SITE'],
@@ -167,7 +167,7 @@ var options = {
 	queries: multipleQueries
 }
 
-OSCNode.QueryResultsSet.query_set(options,(err, data) =>{
+OSvCNode.QueryResultsSet.query_set(options,(err, data) =>{
 	console.log(data.answerSchema);
 	console.log(data.answers);
 	console.log(data.categoriesSchema);
@@ -290,18 +290,18 @@ OSCNode.QueryResultsSet.query_set(options,(err, data) =>{
 
 ```
 
-## OSCNode.AnalyticsReportsResults
+## OSvCNode.AnalyticsReportsResults
 
 You can create a new instance either by the report 'id' or 'lookupName'.
 
-OSCNode.AnalyticsReportsResults only has one function: 'run', which takes an OSCNode.Client object.
+OSvCNode.AnalyticsReportsResults only has one function: 'run', which takes an OSvCNode.Client object.
 
-OSCNode.AnalyticsReportsResults have the following properties: 'id', 'lookupName', and 'filters'. <!-- More on filters and supported datetime methods are below this OSCNode.AnalyticsReportsResults example script. -->
+OSvCNode.AnalyticsReportsResults have the following properties: 'id', 'lookupName', and 'filters'. <!-- More on filters and supported datetime methods are below this OSvCNode.AnalyticsReportsResults example script. -->
 ```node
-const OSCNode = require('osc_node');
+const OSvCNode = require('osvc_node');
 const env = process.env;
 
-var rn_client = OSCNode.Client({
+var rn_client = OSvCNode.Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
@@ -312,7 +312,7 @@ var options = {
 	id: 176
 }
 
-OSCNode.AnalyticsReportResults.run(options,(err,data) =>{
+OSvCNode.AnalyticsReportResults.run(options,(err,data) =>{
 	data.map((res)=>{
 		console.log(`Columns: ${res.keys.join(',')}`);
 		console.log(`Values: ${res.values.join(',')}`);
@@ -343,17 +343,17 @@ dti("January 1st") # => 2017-01-01T00:00:00-08:00 # => 12:00 AM, January First o
 
 ### CREATE
 ```node
-//// OSCNode.Connect.post(options, callback)
+//// OSvCNode.Connect.post(options, callback)
 //// returns callback function
 
 // Here's how you could create a new ServiceProduct object
 // using Node variables and objects (sort of like JSON)
 
-const OSCNode = require('osc_node');
+const OSvCNode = require('osvc_node');
 const env = process.env;
 
-// Create an OSCNode.Client object
-var rn_client = OSCNode.Client({
+// Create an OSvCNode.Client object
+var rn_client = OSvCNode.Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
@@ -388,7 +388,7 @@ var options = {
 	json: newProduct
 }
 
-OSCNode.Connect.post(options,(err,body,response) => {
+OSvCNode.Connect.post(options,(err,body,response) => {
 	if(err){
 		console.log(err);
 	}else{
@@ -408,15 +408,15 @@ OSCNode.Connect.post(options,(err,body,response) => {
 
 ### READ
 ```node
-//// OSCNode.Connect.get(options, callback)
+//// OSvCNode.Connect.get(options, callback)
 //// returns callback function
 // Here's how you could get an instance of ServiceProducts
 
-const OSCNode = require('osc_node');
+const OSvCNode = require('osvc_node');
 const env = process.env;
 
-// Create an OSCNode.Client object
-var rn_client = OSCNode.Client({
+// Create an OSvCNode.Client object
+var rn_client = OSvCNode.Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
@@ -428,7 +428,7 @@ var options = {
 	url:'serviceProducts/168'
 };
 
-OSCNode.Connect.get(options,(err,body,response) => {
+OSvCNode.Connect.get(options,(err,body,response) => {
 	if(err){
 		console.log(err);
 	}else{
@@ -446,7 +446,7 @@ OSCNode.Connect.get(options,(err,body,response) => {
 
 ### UPDATE
 ```node
-//// OSCNode.Connect.patch(options, callback)
+//// OSvCNode.Connect.patch(options, callback)
 //// returns callback
 // Here's how you could update an Answer object
 // using JSON objects
@@ -470,7 +470,7 @@ var options = {
 	json: productUpdated
 }
 
-OSCNode.Connect.patch(options,(err,body,response) => {
+OSvCNode.Connect.patch(options,(err,body,response) => {
 	if(err){
 		console.log(err);
 	}else{
@@ -487,7 +487,7 @@ OSCNode.Connect.patch(options,(err,body,response) => {
  
 ### DELETE
 ```node
-//// OSCNode.Connect.delete(options, callback)
+//// OSvCNode.Connect.delete(options, callback)
 //// returns callback
 // Here's how you could delete a serviceProduct object
 
@@ -496,7 +496,7 @@ OSCNode.Connect.patch(options,(err,body,response) => {
  	 	url:'serviceProducts/169'
  	}
   
-	OSCNode.Connect.delete(options,(err,body,response) => {
+	OSvCNode.Connect.delete(options,(err,body,response) => {
 		if(err){
 			console.log(err);
 		}else{

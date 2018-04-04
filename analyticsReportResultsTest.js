@@ -1,7 +1,7 @@
-const OSCNode = require('./lib/OSCNode.js');
+const OSvCNode = require('./lib/OSvCNode.js');
 const env = process.env;
 
-var rn_client = OSCNode.Client({
+var rn_client = OSvCNode.Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
@@ -13,7 +13,7 @@ var options = {
 	id: 176
 }
 
-OSCNode.AnalyticsReportResults.run(options,function(err,data){
+OSvCNode.AnalyticsReportResults.run(options,function(err,data){
 	console.log(data);
 
 	data.map((res)=>{

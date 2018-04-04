@@ -1,7 +1,7 @@
-const OSCNode = require('./lib/OSCNode.js');
+const OSvCNode = require('./lib/OSvCNode.js');
 const env = process.env;
 
-var rn_client = OSCNode.Client({
+var rn_client = OSvCNode.Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
@@ -41,7 +41,7 @@ var options = {
 	queries: multipleQueries
 }
 
-OSCNode.QueryResultsSet.query_set(options,(err,data) =>{
+OSvCNode.QueryResultsSet.query_set(options,(err,data) =>{
 	if(err){
 		// handle error
 	}else if(data.status){
