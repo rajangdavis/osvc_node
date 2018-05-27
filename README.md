@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/rajangdavis/osvc_node.svg?branch=master)](https://travis-ci.org/rajangdavis/osvc_node)
 [![npm version](https://badge.fury.io/js/osvc_node.svg)](https://badge.fury.io/js/osvc_node)
 [![Known Vulnerabilities](https://snyk.io/test/github/rajangdavis/osvc_node/badge.svg)](https://snyk.io/test/github/rajangdavis/osvc_node)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frajangdavis%2Fosvc_node.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Frajangdavis%2Fosvc_node?ref=badge_shield)
 
 An (under development) Node library for using the [Oracle Service Cloud REST API](https://docs.oracle.com/cloud/latest/servicecs_gs/CXSVC/) influenced by the [ConnectPHP API](http://documentation.custhelp.com/euf/assets/devdocs/november2016/Connect_PHP/Default.htm)
 
@@ -507,3 +508,6 @@ OSvCNode.Connect.patch(options,(err,body,response) => {
 	});
 
 ```
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frajangdavis%2Fosvc_node.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Frajangdavis%2Fosvc_node?ref=badge_large)
