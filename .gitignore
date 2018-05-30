@@ -15,5 +15,4 @@ node_modules
 coverage/
 npm-debug.log
 
-package.json
 package-lock.json
