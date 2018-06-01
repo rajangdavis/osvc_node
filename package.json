@@ -11,7 +11,7 @@
     "url": "git+https://github.com/rajangdavis/osvc_node.git"
   },
   "dependencies": {
-    "request": "^2.74.0"
+    "axios": "^0.18.0"
   },
   "keywords": [
     "Oracle",

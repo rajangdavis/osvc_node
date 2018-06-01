@@ -12,14 +12,15 @@ var rn_client = OSvCNode.Client({
 // GET TEST
 options = {
 	client: rn_client,
-	url: ''
+	url: '',
+	prettyPrint: true
 }
 
-OSvCNode.Connect.get(options,function(err,body,response){
-	console.log(err);
-	console.log(body);
-	console.log(response.toJSON());
-})
+OSvCNode.Connect.get(options).then((res)=>{
+	console.log(res)
+}).catch(function (error) {
+	console.log(error);
+});
 
 
 // POST TEST
@@ -36,14 +37,13 @@ var options = {
 	json: data
 }
 
-OSvCNode.Connect.post(options,function(err,body,response){
-	console.log(err);
-	console.log(body);
-	console.log(response.toJSON());
+OSvCNode.Connect.post(options).then((res)=>{
+	console.log(res)
+}).catch(function (error) {
+	console.log(error);
 });
 
-
-// PATCH TEST
+PATCH TEST
 var data = {
 	"primaryContact": {
     	"id": 2
@@ -51,40 +51,27 @@ var data = {
 	"subject": "FishPhone not working UPDATED"
 }
 
-var options = {
+var patchOptions = {
 	client: rn_client,
-	url: 'incidents/24790',
-	json: data
+	url: 'incidents/24922',
+	json: data,
+	debug: true
 }
 
-OSvCNode.Connect.patch(options,function(err,body,response){
-	console.log(err);
-	console.log(body);
-	console.log(response.toJSON());
+OSvCNode.Connect.patch(patchOptions).then((res)=>{
+	console.log(res)
+}).catch(function (error) {
+	console.log(error);
 });
 
 // DELETE TEST
-
-var options = {
+var deleteOptions = {
 	client: rn_client,
-	query: `SELECT id FROM Incidents LIMIT 1`
+	url: "incidents/24922"
 }
 
-var deleteIncident = function(options,incidentID){
-	var dupedOptions = options;
-	dupedOptions.url = `incidents/${incidentID}`;
-	OSvCNode.Connect.delete(dupedOptions,function(err,body,results){
-		console.log(err);
-		console.log(body);
-		console.log(results);
-	})
-}
-
-OSvCNode.QueryResults.query(options,function(err,results){
-	if(err){
-		console.log("ERROR");
-		console.log(err);
-	}else{
-		deleteIncident(options,results[0]['id']);
-	}
+OSvCNode.Connect.delete(deleteOptions).then((res)=>{
+	console.log(res)
+}).catch(function (error) {
+	console.log(error);
 });
