@@ -16,14 +16,17 @@ describe('analyticsReportResults.run',function(){
 
 	const options = {
 		client: rnClient,
-		id: 176
+		json: {id: 176}
 	}
 	
 
 	it('should take a url as a param and make a HTTP GET Request',function(done){
 		
-		analyticsReportResults.run(options,function(err,data){
+		analyticsReportResults.run(options).then( data =>{
 			assert.strictEqual(data[0].hasOwnProperty('Summary'),true);
+			done();
+		}).catch( err =>{
+			console.log("ERROR");
 			done();
 		});	
 

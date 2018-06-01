@@ -166,7 +166,8 @@ describe('connect.delete',function(){
 			assert.strictEqual(response.status,404);
 			done();
 		}).catch((err)=>{
-			console.log(err)
+			// console.log(err)
+			console.log("ERROR")
 			done();
 		});
 	});
