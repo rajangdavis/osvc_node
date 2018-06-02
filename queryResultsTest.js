@@ -11,18 +11,12 @@ var rn_client = OSvCNode.Client({
 var options = {
 	client: rn_client,
 	query: `DESCRIBE Incidents`
-	// query: `SELECT * FROM Incidents LIMIT 10`
 }
 
-OSvCNode.QueryResults.query(options,(err,results) =>{
-	if(err){
-		// handle error
-	}else if(results.status){
-		console.log(results);
-		console.log("Status");
-	}else{
-		results.map(function(result){
-			console.log(result);
-		})
-	}
+OSvCNode.QueryResults.query(options).then(data =>{
+	data.map(function(result){
+		console.log(result);
+	})
+}).catch(err => {
+	console.log(err);
 });

@@ -161,13 +161,12 @@ describe('connect.delete',function(){
 	
 
 	it('should take a url as a param and make a HTTP DELETE Request' + 
-		' with a response code of 200 and an empty body',function(done){
+		' with a response code of 404 because the incident with ID of 0 does not exist',function(done){
 		connect.delete(options).then(function(response){
-			assert.strictEqual(response.status,404);
+			// assert.strictEqual(response.status,404);
 			done();
 		}).catch((err)=>{
-			// console.log(err)
-			console.log("ERROR")
+			assert.strictEqual(err.response.status,404);
 			done();
 		});
 	});
