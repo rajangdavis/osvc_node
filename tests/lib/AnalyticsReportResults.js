@@ -32,4 +32,21 @@ describe('analyticsReportResults.run',function(){
 
 	});
 
+	const badOptions = {
+		client: rnClient,
+		json: {id: 0}
+	}
+	
+
+	it('should catch an error if there is an error',function(done){
+		
+		analyticsReportResults.run(badOptions).then( data =>{
+
+		}).catch( err =>{
+			assert.strictEqual(err.response.status,400);
+			done();
+		});	
+
+	});
+
 });
