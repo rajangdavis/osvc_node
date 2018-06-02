@@ -80,17 +80,19 @@ describe('connect.post',function(){
 	});
 
 	it('should take a url as a param and make a HTTP POST Request' + 
-		' with a response code of 201 and a body of JSON',function(done){
+		' and be able to prettyPrint the JSON if specified',function(done){
 
 	
 		var reportOptions = {
 			client: rnClient,
 			url: 'analyticsReportResults',
-			json: { id: 176 }
+			json: { id: 176 },
+			prettyPrint: true
 		}
 
 
 		connect.post(reportOptions).then(function(response){
+			assert.strictEqual(response.data,undefined);
 			done();
 		}).catch(function(err){
 			console.log(err);
