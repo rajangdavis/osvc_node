@@ -31,7 +31,7 @@ describe('connect.get',function(){
 			done();
 		}).catch(function(err){
 			console.log(err);
-			done();		
+			
 		})
 		
 
@@ -64,17 +64,37 @@ describe('connect.post',function(){
 	}
 	
 
-	it('should take a url as a param and make a HTTP POST Request' + 
+	it('should take a url and debug parameters and make a HTTP POST Request' + 
 		' with a response code of 201 and a body of JSON object',function(done){
 
 		
 		connect.post(options).then(function(response){
-			assert.strictEqual(response.status,201);
+			assert.strictEqual(response.status, 201);
 			assert.strictEqual(typeof response.data,'object');
 			done();
 		}).catch(function(err){
 			console.log(err);
+			
+		})
+		
+
+	});
+
+	var optionsNoDebug = {
+		client: rnClient,
+		url: 'incidents',
+		json: data,
+	}
+
+	it('should take a url as a param and make a HTTP POST Request' + 
+		' and return a JSON object',function(done){
+		
+		connect.post(optionsNoDebug).then(function(response){
+			assert.strictEqual(typeof response,'object');
 			done();
+		}).catch(function(err){
+			console.log(err);
+			
 		})
 		
 
@@ -97,7 +117,7 @@ describe('connect.post',function(){
 			done();
 		}).catch(function(err){
 			console.log(err);
-			done();
+			
 		})
 		
 
@@ -136,7 +156,7 @@ describe('connect.patch',function(){
 			done();
 		}).catch(function(err){
 			console.log(err);
-			done();
+			
 		});
 		
 
