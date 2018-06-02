@@ -2,7 +2,7 @@ var assert = require('chai').assert;
 var config = require('../../lib/Config.js');
 var client = require('../../lib/Client.js');
 
-describe('connect.optionsFinalize', function(){ 
+describe('Config.optionsFinalize', function(){ 
 
 	var rnClient = new client({
 		username: 'username',

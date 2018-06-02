@@ -11,14 +11,16 @@ An (under development) Node library for using the [Oracle Service Cloud REST API
 
 ## Todo
 I am looking to implement the following items soon:
-1. Convenience Methods for Analytics Filters and Date Time
-2. Test suite (in progress)
-3. Documentation
+
+1. Update QueryResults and QueryResultsSet to use Promises
+2. Have JSON show up if 404/400 error
+3. Update Documentation
+4. Test suite (in progress)
 
 
 ## Compatibility
 
-The library is being tested against Oracle Service Cloud May 2017 using Node v8.2.1
+The library is being tested against Oracle Service Cloud May 2017 using Node v8.9.1
 
 All of the HTTP methods should work on any version of Oracle Service Cloud since version May 2015; however, there maybe some issues with querying items on any version before May 2016. This is because ROQL queries were not exposed via the REST API until May 2016.
 
@@ -31,9 +33,6 @@ The main features that work to date are as follows:
 1. [Simple configuration](#client-configuration)
 2. Running ROQL queries [either 1 at a time](#oscnodequeryresults-example) or [multiple queries in a set](#oscnodequeryresultsset-example)
 3. [Running Reports](#oscnodeanalyticsreportsresults)
-<!-- 4. Convenience methods for Analytics filters and setting dates
-	1. ['arrf', an analytics report results filter](#arrf--analytics-report-results-filter)
-	2. ['dti', converts a date string to ISO8601 format](#dti--date-to-iso8601) -->
 4. Basic CRUD Operations via HTTP Methods
 	1. [Create => Post](#create)
 	2. [Read => Get](#read)
