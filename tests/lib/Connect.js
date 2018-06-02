@@ -65,11 +65,12 @@ describe('connect.post',function(){
 	
 
 	it('should take a url as a param and make a HTTP POST Request' + 
-		' with a response code of 201 and a body of JSON',function(done){
+		' with a response code of 201 and a body of JSON object',function(done){
 
 		
 		connect.post(options).then(function(response){
 			assert.strictEqual(response.status,201);
+			assert.strictEqual(typeof response.data,'object');
 			done();
 		}).catch(function(err){
 			console.log(err);
