@@ -8,7 +8,6 @@ var rn_client = OSvCNode.Client({
 	demo_site:true
 });
 
-
 var multipleQueries = [
 	{
 		query:"DESCRIBE ANSWERS",
@@ -41,20 +40,13 @@ var options = {
 	queries: multipleQueries
 }
 
-OSvCNode.QueryResultsSet.query_set(options,(err,data) =>{
-	if(err){
-		// handle error
-	}else if(data.status){
-		// HTTP error
-		console.log(data);
-	}else{
-		// HTTP OK
-		console.log("ANSWER SCHEMA:");
-		console.log(data.answerSchema);
-		console.log(data.answers.map((a)=>{return [a.id,a.summary]}).join("\n"));
-		console.log(data.categoriesSchema);
-		console.log(data.categories);
-		console.log(data.productsSchema);
-		console.log(data.products);
-	}
+OSvCNode.QueryResultsSet.query_set(options).then(data=>{ 
+	// console.log(data.answerSchema);
+	console.log(data.answers.map((a)=>{return [a.id,a.summary]}).join("\n"));
+	// console.log(data.categoriesSchema);
+	// console.log(data.categories);
+	console.log(data.productsSchema);
+	// console.log(data.products);
+}).catch(err => {
+	console.log(err);
 });
