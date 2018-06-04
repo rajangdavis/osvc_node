@@ -11,8 +11,8 @@ var rn_client = OSvCNode.Client({
 var options = {
 	client: rn_client,
 	query: `DESCRIBE Incidents`,
-	// prettyPrint: true
-	debug: true
+	// prettyPrint: true,
+	// debug: true
 }
 
 OSvCNode.QueryResults.query(options).then(data =>{
