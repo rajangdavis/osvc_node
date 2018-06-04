@@ -79,6 +79,7 @@ describe('queryResults.query',function(){
 	it('should return a raw error object if the debug option is set to true and a bad request is made',function(done){
 		
 		QueryResults.query(badDebugOptions).catch( err =>{
+			assert.isDefined(err);
 			assert.strictEqual(err.hasOwnProperty("response"),true);
 			done();
 		});	
