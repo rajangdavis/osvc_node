@@ -45,7 +45,7 @@ describe('queryResults.query',function(){
 		QueryResults.query(badOptions).then( data =>{
 
 		}).catch( err =>{
-			assert.strictEqual(err.response.status,400);
+			assert.strictEqual(err.status,400);
 			done();
 		});	
 

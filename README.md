@@ -12,8 +12,7 @@ An (under development) Node library for using the [Oracle Service Cloud REST API
 ## Todo
 I am looking to implement the following items soon:
 
-1. Update QueryResults and QueryResultsSet to use Promises
-2. Have JSON show up if 404/400 error
+1. Update QueryResultsSet to use Promises
 3. Update Documentation
 4. Test suite (in progress)
 

@@ -14,7 +14,7 @@ describe('connect.get',function(){
 		demo_site: true
 	});
 
-	options = {
+	getOptions = {
 		client: rnClient,
 		url: '',
 		debug: true
@@ -26,7 +26,7 @@ describe('connect.get',function(){
 		' with a response code of 200 and a body of JSON',function(done){
 
 		
-		connect.get(options).then(function(res){
+		connect.get(getOptions).then(function(res){
 			assert.strictEqual(res.status,200);
 			done();
 		}).catch(function(err){
@@ -56,7 +56,7 @@ describe('connect.post',function(){
 		"subject": "FishPhone not working"
 	}
 
-	var options = {
+	var postOptions = {
 		client: rnClient,
 		url: 'incidents',
 		json: data,
@@ -68,7 +68,7 @@ describe('connect.post',function(){
 		' with a response code of 201 and a body of JSON object',function(done){
 
 		
-		connect.post(options).then(function(response){
+		connect.post(postOptions).then(function(response){
 			assert.strictEqual(response.status, 201);
 			assert.strictEqual(typeof response.data,'object');
 			done();
@@ -139,7 +139,7 @@ describe('connect.patch',function(){
 		"subject": "FishPhone not working UPDATED"
 	}
 
-	var options = {
+	var patchOptions = {
 		client: rnClient,
 		url: 'incidents/24790',
 		json: data,
@@ -151,7 +151,7 @@ describe('connect.patch',function(){
 		' with a response code of 201 and an empty body',function(done){
 
 		
-		connect.patch(options).then(function(resp){
+		connect.patch(patchOptions).then(function(resp){
 			assert.strictEqual(resp.status,200);
 			done();
 		}).catch(function(err){
@@ -176,7 +176,7 @@ describe('connect.delete',function(){
 		demo_site: true
 	});
 
-	var options = {
+	var deleteOptions = {
 		client: rnClient,
 		url: `incidents/0`,
 		debug: true
@@ -185,7 +185,7 @@ describe('connect.delete',function(){
 
 	it('should take a url as a param and make a HTTP DELETE Request' + 
 		' with a response code of 404 because the incident with ID of 0 does not exist',function(done){
-		connect.delete(options).then(function(response){
+		connect.delete(deleteOptions).then(function(response){
 			// assert.strictEqual(response.status,404);
 			done();
 		}).catch((err)=>{

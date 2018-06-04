@@ -10,14 +10,15 @@ var rn_client = OSvCNode.Client({
 
 var options = {
 	client: rn_client,
-	json: {id: 176}
+	json: {id: 176},
 }
 
 OSvCNode.AnalyticsReportResults.run(options).then((results) => {
-	results.map((result)=>{
-		console.log(`Columns: ${Object.keys(result).join(", ")}`);
-		console.log(`Values: ${Object.values(result).join(", ")}`);
-	})
+	console.log(results)
+	// results.map((result)=>{
+	// 	console.log(`Columns: ${Object.keys(result).join(", ")}`);
+	// 	console.log(`Values: ${Object.values(result).join(", ")}`);
+	// })
 }).catch((error)=>{
 	console.log(error);
 })
