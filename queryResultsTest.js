@@ -10,16 +10,16 @@ var rn_client = OSvCNode.Client({
 
 var options = {
 	client: rn_client,
-	query: `DESCRIBE Incidentss`,
+	query: `DESCRIBE Incidents`,
 	// prettyPrint: true
-	// debug: true
+	debug: true
 }
 
 OSvCNode.QueryResults.query(options).then(data =>{
+	// console.log("SUCCSESs")
 	console.log(data)
-	// data.map(function(result){
-		// console.log(result);
-	// })
 }).catch(err => {
+	// console.log("ERROR")
+
 	console.log(err);
 });
