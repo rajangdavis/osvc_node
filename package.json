@@ -4,7 +4,7 @@
   "description": "An unofficial Node  wrapper for Oracle Service Cloud (fka RightNow Technologies) REST API",
   "main": "./lib/OSvCNode.js",
   "scripts": {
-    "test": "mocha tests/lib/"
+    "test": "mocha tests/lib/ -t 3000"
   },
   "repository": {
     "type": "git",

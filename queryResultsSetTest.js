@@ -37,15 +37,16 @@ var multipleQueries = [
 
 var options = {
 	client: rn_client,
-	queries: multipleQueries
+	queries: multipleQueries,
+	prettyPrint: true,
 }
 
 OSvCNode.QueryResultsSet.query_set(options).then(data=>{ 
-	// console.log(data.answerSchema);
-	console.log(data.answers.map((a)=>{return [a.id,a.summary]}).join("\n"));
+	console.log(data.answerSchema);
+	// console.log(data.answers.map((a)=>{return [a.id,a.summary]}).join("\n"));
 	// console.log(data.categoriesSchema);
 	// console.log(data.categories);
-	console.log(data.productsSchema);
+	// console.log(data.productsSchema);
 	// console.log(data.products);
 }).catch(err => {
 	console.log(err);

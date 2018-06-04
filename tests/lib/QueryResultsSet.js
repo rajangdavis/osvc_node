@@ -23,22 +23,22 @@ describe('queryResultsSet.query_set',function(){
 	 		query:"SELECT * FROM ANSWERS LIMIT 10",
 	 		key: "answers"
 	 	},
-	 	{
-	 		query:"DESCRIBE SERVICECATEGORIES",
-	 		key: "categoriesSchema"
-	 	},
-	 	{
-	 		query:"SELECT * FROM SERVICECATEGORIES",
-	 		key:"categories"
-	 	},
-	 	{
-	 		query:"DESCRIBE SERVICEPRODUCTS",
-	 		key: "productsSchema"
-	 	},
-	 	{
-	 		query:"SELECT * FROM SERVICEPRODUCTS",
-	 		key:"products"
-	 	}
+	 	// {
+	 	// 	query:"DESCRIBE SERVICECATEGORIES",
+	 	// 	key: "categoriesSchema"
+	 	// },
+	 	// {
+	 	// 	query:"SELECT * FROM SERVICECATEGORIES LIMIT 10",
+	 	// 	key:"categories"
+	 	// },
+	 	// {
+	 	// 	query:"DESCRIBE SERVICEPRODUCTS",
+	 	// 	key: "productsSchema"
+	 	// },
+	 	// {
+	 	// 	query:"SELECT * FROM SERVICEPRODUCTS LIMIT 10",
+	 	// 	key:"products"
+	 	// }
 	];
 
 	const options = {
@@ -61,72 +61,84 @@ describe('queryResultsSet.query_set',function(){
 
 	});
 
-	// const badOptions = {
-	// 	client: rnClient,
-	// 	query: "bad query"
-	// }
+	var badQueries = [
+		{
+			query:"DESCRIBE ANSWERS",
+			key: "answerSchema"
+		},
+	 	{
+	 		query:"SELECT * FROM ANSWERSS LIMIT 10",
+	 		key: "answers"
+	 	},
+	];
+
+	const badOptions = {
+		client: rnClient,
+		queries: badQueries
+	}
 	
 
-	// it('should catch an error if there is an error',function(done){
+	it('should catch an error if there is an error',function(done){
 		
-	// 	QueryResultsSet.query_set(badOptions).catch( err =>{
-	// 		assert.strictEqual(err.status,400);
-	// 		done();
-	// 	});	
+		QueryResultsSet.query_set(badOptions).catch( err =>{
+			assert.strictEqual(err.status,400);
+			done();
+		});	
 
-	// });
+	});
 
-	// const debugOptions = {
-	// 	client: rnClient,
-	// 	query:"DESCRIBE",
-	// 	debug: true
-	// }
+	const debugOptions = {
+		client: rnClient,
+		queries: multipleQueries,
+		debug: true
+	}
 	
 
-	// it('should return a raw response object if the debug option is set to true',function(done){
+	it('should return a raw response object if the debug option is set to true',function(done){
 		
-	// 	QueryResultsSet.query_set(debugOptions).then( response =>{
-	// 		assert.strictEqual(response.hasOwnProperty("data"),true);
-	// 		done();
-	// 	}).catch( err =>{
-	// 		console.log(err)
-	// 	});	
+		QueryResultsSet.query_set(debugOptions).then( response =>{
+			assert.strictEqual(response.hasOwnProperty("data"),true);
+			done();
+		}).catch( err =>{
+			console.log(err)
+		});	
 
-	// });
+	});
 
-	// const badDebugOptions = {
-	// 	client: rnClient,
-	// 	query:"DESCRIBE incidentss",
-	// 	debug: true
-	// }
+	const badDebugOptions = {
+		client: rnClient,
+		queries: badQueries,
+		debug: true
+	}
 	
 
-	// it('should return a raw error object if the debug option is set to true and a bad request is made',function(done){
+	it('should return a raw error object if the debug option is set to true and a bad request is made',function(done){
 		
-	// 	QueryResultsSet.query_set(badDebugOptions).catch( err =>{
-	// 		assert.isDefined(err);
-	// 		assert.strictEqual(err.hasOwnProperty("response"),true);
-	// 		done();
-	// 	});	
+		QueryResultsSet.query_set(badDebugOptions).catch( err =>{
+			assert.isDefined(err);
+			assert.strictEqual(err.hasOwnProperty("response"),true);
+			done();
+		});	
 
-	// });
+	});
 
-	// const prettyPrintOptions = {
-	// 	client: rnClient,
-	// 	query:"DESCRIBE",
-	// 	prettyPrint: true
-	// }
+	const prettyPrintOptions = {
+		client: rnClient,
+		queries:multipleQueries,
+		prettyPrint: true
+	}
 	
 
-	// it('should return a pretty printed JSON string if the prettyPrint option is set to true',function(done){
+	it('should return a pretty printed JSON string if the prettyPrint option is set to true',function(done){
 		
-	// 	QueryResultsSet.query_set(prettyPrintOptions).then( response =>{
-	// 		assert.strictEqual(typeof response,"string");
-	// 		done();
-	// 	}).catch( err =>{
-	// 		console.log(err)
-	// 	});	
+		QueryResultsSet.query_set(prettyPrintOptions).then( response =>{
+			assert.strictEqual(typeof response,"object");
+			assert.strictEqual(typeof response.answerSchema,"string");
+			done();
+		}).catch( err =>{
+			console.log(err)
+		});	
 
-	// });
+	});
 
 });
