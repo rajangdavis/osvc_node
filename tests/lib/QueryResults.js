@@ -51,4 +51,40 @@ describe('queryResults.query',function(){
 
 	});
 
+	const debugOptions = {
+		client: rnClient,
+		query:"DESCRIBE",
+		debug: true
+	}
+	
+
+	it('should return a raw response object if the debug option is set to true',function(done){
+		
+		QueryResults.query(debugOptions).then( response =>{
+			assert.strictEqual(response.hasOwnProperty("data"),true);
+			done();
+		}).catch( err =>{
+			console.log(err)
+		});	
+
+	});
+
+	const prettyPrintOptions = {
+		client: rnClient,
+		query:"DESCRIBE",
+		prettyPrint: true
+	}
+	
+
+	it('should return a pretty printed JSON string if the prettyPrint option is set to true',function(done){
+		
+		QueryResults.query(prettyPrintOptions).then( response =>{
+			assert.strictEqual(typeof response,"string");
+			done();
+		}).catch( err =>{
+			console.log(err)
+		});	
+
+	});
+
 });

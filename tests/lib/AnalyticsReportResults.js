@@ -32,7 +32,6 @@ describe('analyticsReportResults.run',function(){
 		}).catch( err =>{
 			console.log("ERROR");
 			console.log(err);
-			done();
 		});	
 
 	});
@@ -50,6 +49,42 @@ describe('analyticsReportResults.run',function(){
 		}).catch( err =>{
 			assert.strictEqual(err.status,400);
 			done();
+		});	
+
+	});
+
+	const debugOptions = {
+		client: rnClient,
+		json: {id: 176},
+		debug: true
+	}
+	
+
+	it('should return a raw response object if the debug option is set to true',function(done){
+		
+		analyticsReportResults.run(debugOptions).then( response =>{
+			assert.strictEqual(response.hasOwnProperty("data"),true);
+			done();
+		}).catch( err =>{
+			console.log(err)
+		});	
+
+	});
+
+	const prettyPrintOptions = {
+		client: rnClient,
+		json: {id: 176},
+		prettyPrint: true
+	}
+	
+
+	it('should return a pretty printed JSON string if the prettyPrint option is set to true',function(done){
+		
+		analyticsReportResults.run(prettyPrintOptions).then( response =>{
+			assert.strictEqual(typeof response,"string");
+			done();
+		}).catch( err =>{
+			console.log(err)
 		});	
 
 	});
