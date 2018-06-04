@@ -71,6 +71,25 @@ describe('analyticsReportResults.run',function(){
 
 	});
 
+
+	const badDebugOptions = {
+		client: rnClient,
+		json: {id: 0},
+		debug: true
+	}
+	
+
+	it('should return a raw error object if the debug option is set to true and a bad request is made',function(done){
+		
+		analyticsReportResults.run(badDebugOptions).then( response =>{
+
+		}).catch( err =>{
+			assert.strictEqual(err.hasOwnProperty("response"),true);
+			done();
+		});	
+
+	});
+
 	const prettyPrintOptions = {
 		client: rnClient,
 		json: {id: 176},
