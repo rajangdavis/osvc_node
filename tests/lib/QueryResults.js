@@ -69,6 +69,22 @@ describe('queryResults.query',function(){
 
 	});
 
+	const badDebugOptions = {
+		client: rnClient,
+		query:"DESCRIBE incidentss",
+		debug: true
+	}
+	
+
+	it('should return a raw error object if the debug option is set to true and a bad request is made',function(done){
+		
+		QueryResults.query(badDebugOptions).catch( err =>{
+			assert.strictEqual(err.hasOwnProperty("response"),true);
+			done();
+		});	
+
+	});
+
 	const prettyPrintOptions = {
 		client: rnClient,
 		query:"DESCRIBE",
