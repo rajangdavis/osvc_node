@@ -9,17 +9,17 @@ var rn_client = OSvCNode.Client({
 });
 
 
-// // GET TEST
-// let options = {
-// 	client: rn_client,
-// 	url: '',
-// }
+// GET TEST
+let options = {
+	client: rn_client,
+	url: 'incidents/24900/fileAttachments/256',
+}
 
-// OSvCNode.Connect.get(options).then((res)=>{
-// 	console.log(res)
-// }).catch(function (error) {
-// 	console.log(error);
-// });
+OSvCNode.Connect.get(options).then((res)=>{
+	console.log(res)
+}).catch(function (error) {
+	console.log(error);
+});
 
 // // POST TEST
 // var newProduct = {

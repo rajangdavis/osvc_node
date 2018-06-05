@@ -12,10 +12,29 @@ An (under development) Node library for using the [Oracle Service Cloud REST API
 ## Todo
 I am looking to implement the following items soon:
 
-1. Update QueryResultsSet to use Promises
-3. Update Documentation
-4. Test suite (in progress)
-
+0. Options
+1. Downloading one or more attachments
+2. Uploading one or more attachments
+3. Session Authentication
+4. OAuth Authentication
+5. Access token flag
+6. Annotation
+7. Exclude null headers
+8. Next request
+9. Schema headers
+10. UTC time
+11. Validations
+	1. AnalyticsReportResults - setting an ID or filters
+	2. QueryResults - setting at least one query
+	3. QueryResultsSet - setting at least one query
+	4. File Handling - file location error, 
+	5. Configuration
+		1. Setting an interface
+		2. Password is set but user is not
+		3. User is set but password is not
+		4. No authentication is set
+		5. Annotation cannot be greater than 40 characters
+		6. Annotation must be set for CCOM versions v1.4 and up
 
 ## Compatibility
 
