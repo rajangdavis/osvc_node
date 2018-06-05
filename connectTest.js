@@ -1,4 +1,4 @@
-const OSvCNode = require('./lib/OSvCNode.js');
+const OSvCNode = require('./lib/osvcNode.js');
 const env = process.env;
 
 var rn_client = OSvCNode.Client({
@@ -9,69 +9,75 @@ var rn_client = OSvCNode.Client({
 });
 
 
-// GET TEST
-options = {
-	client: rn_client,
-	url: '',
-	prettyPrint: true
-}
+// // GET TEST
+// let options = {
+// 	client: rn_client,
+// 	url: '',
+// }
 
-OSvCNode.Connect.get(options).then((res)=>{
-	console.log(res)
-}).catch(function (error) {
-	console.log(error);
-});
+// OSvCNode.Connect.get(options).then((res)=>{
+// 	console.log(res)
+// }).catch(function (error) {
+// 	console.log(error);
+// });
 
+// // POST TEST
+// var newProduct = {
+//   'names': [{
+//     'labelText': 'newProduct',
+//     'language': {
+//       'id': 1
+//     }
+//   }],
+//   'displayOrder': 4,
+//   'adminVisibleInterfaces': [{
+//     'id': 1
+//   }],
+//   'endUserVisibleInterfaces': [{
+//     'id': 1
+//   }]
+// };
 
-// POST TEST
-var data = {
-	"primaryContact": {
-    	"id": 2
-	},
-	"subject": "FishPhone not working"
-}
+// var options = {
+// 	client: rn_client,
+// 	url:'serviceProducts',
+// 	json: newProduct
+// }
 
-var options = {
-	client: rn_client,
-	url: 'incidents',
-	json: data
-}
+// OSvCNode.Connect.post(options).then((res)=>{
+// 	console.log(res)
+// }).catch(function (error) {
+// 	console.log(error);
+// });
 
-OSvCNode.Connect.post(options).then((res)=>{
-	console.log(res)
-}).catch(function (error) {
-	console.log(error);
-});
+// PATCH TEST
+// var data = {
+// 	"primaryContact": {
+//     	"id": 2
+// 	},
+// 	"subject": "FishPhone not working UPDATED"
+// }
 
-PATCH TEST
-var data = {
-	"primaryContact": {
-    	"id": 2
-	},
-	"subject": "FishPhone not working UPDATED"
-}
+// var patchOptions = {
+// 	client: rn_client,
+// 	url: 'incidents/24922',
+// 	json: data
+// }
 
-var patchOptions = {
-	client: rn_client,
-	url: 'incidents/24922',
-	json: data,
-	debug: true
-}
+// OSvCNode.Connect.patch(patchOptions).then((res)=>{
+// 	console.log(res)
+// }).catch(function (error) {
+// 	console.log(error);
+// });
 
-OSvCNode.Connect.patch(patchOptions).then((res)=>{
-	console.log(res)
-}).catch(function (error) {
-	console.log(error);
-});
+// // DELETE TEST
+// var deleteOptions = {
+// 	client: rn_client,
+// 	url: "incidents/24922"
+// }
 
-// DELETE TEST
-var deleteOptions = {
-	client: rn_client,
-	url: "incidents/24922"
-}
-
-OSvCNode.Connect.delete(deleteOptions).then((res)=>{
-	console.log(res)
-}).catch(function (error) {
-	console.log(error);
-});
+// OSvCNode.Connect.delete(deleteOptions).then((res)=>{
+// 	console.log(res)
+// }).catch(function (error) {
+// 	console.log(error);
+// });

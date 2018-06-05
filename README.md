@@ -104,10 +104,10 @@ var options = {
 	query: contactsQuery
 }
 
-OSvCNode.QueryResults.query(options,(err,results) =>{
-	results.map(function(result){
-		console.log(result);
-	})
+OSvCNode.QueryResults.query(options).then(data =>{
+	console.log(data)
+}).catch(err => {
+	console.log(err);
 });
 
 
@@ -166,14 +166,19 @@ var options = {
 	queries: multipleQueries
 }
 
-OSvCNode.QueryResultsSet.query_set(options,(err, data) =>{
+var options = {
+	client: rn_client,
+	queries: multipleQueries
+}
+
+OSvCNode.QueryResultsSet.query_set(options).then(data=>{ 
 	console.log(data.answerSchema);
 	console.log(data.answers);
 	console.log(data.categoriesSchema);
 	console.log(data.categories);
 	console.log(data.productsSchema);
 	console.log(data.products);
-});
+})
 
 //  Results for "DESCRIBE ANSWERS"
 // 
@@ -308,14 +313,16 @@ var rn_client = OSvCNode.Client({
 
 var options = {
 	client: rn_client,
-	id: 176
+	json: {id: 176},
 }
 
-OSvCNode.AnalyticsReportResults.run(options,(err,data) =>{
-	data.map((res)=>{
-		console.log(`Columns: ${res.keys.join(',')}`);
-		console.log(`Values: ${res.values.join(',')}`);
+OSvCNode.AnalyticsReportResults.run(options).then((results) => {
+	results.map((result)=>{
+		console.log(`Columns: ${Object.keys(result).join(", ")}`);
+		console.log(`Values: ${Object.values(result).join(", ")}`);
 	})
+}).catch((error)=>{
+	console.log(error);
 })
 
 ```
@@ -342,8 +349,8 @@ dti("January 1st") # => 2017-01-01T00:00:00-08:00 # => 12:00 AM, January First o
 
 ### CREATE
 ```node
-//// OSvCNode.Connect.post(options, callback)
-//// returns callback function
+//// OSvCNode.Connect.post(options)
+//// returns a Promise
 
 // Here's how you could create a new ServiceProduct object
 // using Node variables and objects (sort of like JSON)
@@ -365,6 +372,7 @@ var rn_client = OSvCNode.Client({
 // for creating
 // a new product 
 
+
 var newProduct = {
   'names': [{
     'labelText': 'newProduct',
@@ -383,19 +391,14 @@ var newProduct = {
 
 var options = {
 	client: rn_client,
-	    url:'serviceProducts',
+	url:'serviceProducts',
 	json: newProduct
 }
 
-OSvCNode.Connect.post(options,(err,body,response) => {
-	if(err){
-		console.log(err);
-	}else{
-		console.log(response.statusCode); // 201
-		console.log(JSON.stringify(body, null, 4)); // JSON representation
-		// Do something here
-		return body; // Callback
-	}
+OSvCNode.Connect.post(options).then((res)=>{
+	console.log(res)
+}).catch(function (error) {
+	console.log(error);
 });
 
 ```
@@ -407,8 +410,8 @@ OSvCNode.Connect.post(options,(err,body,response) => {
 
 ### READ
 ```node
-//// OSvCNode.Connect.get(options, callback)
-//// returns callback function
+//// OSvCNode.Connect.get(options)
+//// returns a Promise
 // Here's how you could get an instance of ServiceProducts
 
 const OSvCNode = require('osvc_node');
@@ -427,14 +430,10 @@ var options = {
 	url:'serviceProducts/168'
 };
 
-OSvCNode.Connect.get(options,(err,body,response) => {
-	if(err){
-		console.log(err);
-	}else{
-		console.log(response.statusCode); // 201
-		console.log(JSON.stringify(body, null, 4)); // JSON representation
-		return body;
-	}
+OSvCNode.Connect.get(options).then((res)=>{
+	console.log(res)
+}).catch(function (error) {
+	console.log(error);
 });
 ```
 
@@ -445,11 +444,22 @@ OSvCNode.Connect.get(options,(err,body,response) => {
 
 ### UPDATE
 ```node
-//// OSvCNode.Connect.patch(options, callback)
+//// OSvCNode.Connect.patch(options)
 //// returns callback
 // Here's how you could update an Answer object
 // using JSON objects
 // to set field information
+
+const OSvCNode = require('osvc_node');
+const env = process.env;
+
+// Create an OSvCNode.Client object
+var rn_client = OSvCNode.Client({
+	username: env['OSC_ADMIN'],
+	password: env['OSC_PASSWORD'],
+	interface: env['OSC_SITE'],
+	demo_site: true
+});
 
 // JSON Object
 // With data for updating
@@ -463,20 +473,16 @@ var productUpdated = {
 };
 
 
-var options = {
+var patchOptions = {
 	client: rn_client,
 	url:'serviceProducts/170',
 	json: productUpdated
 }
 
-OSvCNode.Connect.patch(options,(err,body,response) => {
-	if(err){
-		console.log(err);
-	}else{
-		console.log(response.statusCode); // 201
-		console.log(body); // empty
-		return body;
-	}
+OSvCNode.Connect.patch(patchOptions).then((res)=>{
+	console.log(res)
+}).catch(function (error) {
+	console.log(error);
 });
 
 
@@ -486,23 +492,30 @@ OSvCNode.Connect.patch(options,(err,body,response) => {
  
 ### DELETE
 ```node
-//// OSvCNode.Connect.delete(options, callback)
+//// OSvCNode.Connect.delete(options)
 //// returns callback
 // Here's how you could delete a serviceProduct object
+  	const OSvCNode = require('osvc_node');
+	const env = process.env;
 
- 	var options = { 
-		client: rn_client,
- 	 	url:'serviceProducts/169'
- 	}
-  
-	OSvCNode.Connect.delete(options,(err,body,response) => {
-		if(err){
-			console.log(err);
-		}else{
-			console.log(response.statusCode); // 200
-			console.log(body); // Empty
-			return body;
-		}
+	// Create an OSvCNode.Client object
+	var rn_client = OSvCNode.Client({
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		demo_site: true
+	});
+
+
+	var deleteOptions = {
+	 	client: rn_client,
+	 	url: "incidents/24922"
+	}
+
+	OSvCNode.Connect.delete(deleteOptions).then((res)=>{
+	 	console.log(res)
+	}).catch(function (error) {
+	 	console.log(error);
 	});
 
 ```

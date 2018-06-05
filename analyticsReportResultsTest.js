@@ -14,11 +14,10 @@ var options = {
 }
 
 OSvCNode.AnalyticsReportResults.run(options).then((results) => {
-	console.log(results)
-	// results.map((result)=>{
-	// 	console.log(`Columns: ${Object.keys(result).join(", ")}`);
-	// 	console.log(`Values: ${Object.values(result).join(", ")}`);
-	// })
+	results.map((result)=>{
+		console.log(`Columns: ${Object.keys(result).join(", ")}`);
+		console.log(`Values: ${Object.values(result).join(", ")}`);
+	})
 }).catch((error)=>{
 	console.log(error);
 })
