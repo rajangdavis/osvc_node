@@ -1,6 +1,7 @@
 const assert = require('chai').assert;
 var client = require('../../lib/Client.js');
 var connect = require('../../lib/Connect.js');
+var fs = require('fs');
 
 const env = process.env;
 
@@ -14,7 +15,7 @@ describe('connect.get',function(){
 		demo_site: true
 	});
 
-	getOptions = {
+	let getOptions = {
 		client: rnClient,
 		url: '',
 		debug: true
@@ -32,6 +33,65 @@ describe('connect.get',function(){
 		}).catch(function(err){
 			console.log(err);
 			
+		})
+		
+
+	});
+
+});
+
+
+// GET DOWNLOAD
+describe('connect.get download functionality',function(){ 
+
+	var rnClient = new client({
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		demo_site: true,
+		debug: true
+	});
+
+	
+	it('should download a file if there is a "?download" query parameter',function(done){
+
+		let getDownloadOptions = {
+			client: rnClient,
+			url: 'incidents/24898/fileAttachments/245?download'
+		}
+
+		connect.get(getDownloadOptions).then(function(res){
+			assert.strictEqual(res, "Downloaded haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png");
+			assert.strictEqual(fs.existsSync("./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png"), true);
+			setTimeout(function(){
+				fs.unlink("./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png",(err)=>{ if(err){ console.log(err); return err; }});
+			},3000);
+			done();
+		}).catch(function(err){
+			console.log(err);
+			done();
+		})
+		
+
+	});
+
+	it('should create a tgz file if there is a "?download" query parameter and multiple files',function(done){
+
+		let downloadMultipleFilesOptions = {
+			client: rnClient,
+			url: 'incidents/24898/fileAttachments?download'
+		}
+
+		connect.get(downloadMultipleFilesOptions).then(function(res){
+			assert.strictEqual(res, "Downloaded downloadedAttachment.tgz");
+			assert.strictEqual(fs.existsSync("./downloadedAttachment.tgz"), true);
+			setTimeout(function(){
+				fs.unlink("./downloadedAttachment.tgz",(err)=>{ if(err){ console.log(err); return err; }});
+			},3000);
+			done();
+		}).catch(function(err){
+			console.log(err);
+			done();
 		})
 		
 
@@ -191,6 +251,35 @@ describe('connect.delete',function(){
 		}).catch((err)=>{
 			assert.strictEqual(err.response.status,404);
 			done();
+		});
+	});
+});
+
+// OPTIONS
+describe('connect.options',function(){ 
+
+	var rnClient = new client({
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		demo_site: true
+	});
+
+	// I know, this is a stupid variable name...
+	var optionsOptions = {
+		client: rnClient,
+		url: `incidents`,
+	}
+	
+
+	it('should be able to make an OPTIONS request and send back the headers',function(done){
+		connect.options(optionsOptions).then(function(response){
+			assert.strictEqual(response.osvcstatus,'200');
+			done();
+		}).catch((err)=>{
+			// assert.strictEqual(err.response.status,404);
+			console.log(err)
+			console.log("ERROR")
 		});
 	});
 });
