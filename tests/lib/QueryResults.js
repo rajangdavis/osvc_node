@@ -86,22 +86,4 @@ describe('queryResults.query',function(){
 
 	});
 
-	const prettyPrintOptions = {
-		client: rnClient,
-		query:"DESCRIBE",
-		prettyPrint: true
-	}
-	
-
-	it('should return a pretty printed JSON string if the prettyPrint option is set to true',function(done){
-		
-		QueryResults.query(prettyPrintOptions).then( response =>{
-			assert.strictEqual(typeof response,"string");
-			done();
-		}).catch( err =>{
-			console.log(err)
-		});	
-
-	});
-
 });

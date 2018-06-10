@@ -122,23 +122,4 @@ describe('queryResultsSet.query_set',function(){
 
 	});
 
-	const prettyPrintOptions = {
-		client: rnClient,
-		queries:multipleQueries,
-		prettyPrint: true
-	}
-	
-
-	it('should return a pretty printed JSON string if the prettyPrint option is set to true',function(done){
-		
-		QueryResultsSet.query_set(prettyPrintOptions).then( response =>{
-			assert.strictEqual(typeof response,"object");
-			assert.strictEqual(typeof response.answerSchema,"string");
-			done();
-		}).catch( err =>{
-			console.log(err)
-		});	
-
-	});
-
 });

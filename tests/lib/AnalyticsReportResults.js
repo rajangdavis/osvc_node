@@ -89,22 +89,4 @@ describe('analyticsReportResults.run',function(){
 
 	});
 
-	const prettyPrintOptions = {
-		client: rnClient,
-		json: {id: 176},
-		prettyPrint: true
-	}
-	
-
-	it('should return a pretty printed JSON string if the prettyPrint option is set to true',function(done){
-		
-		analyticsReportResults.run(prettyPrintOptions).then( response =>{
-			assert.strictEqual(typeof response,"string");
-			done();
-		}).catch( err =>{
-			console.log(err)
-		});	
-
-	});
-
 });
