@@ -63,9 +63,6 @@ describe('connect.get download functionality',function(){
 		connect.get(getDownloadOptions).then(function(res){
 			assert.strictEqual(res, "Downloaded haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png");
 			assert.strictEqual(fs.existsSync("./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png"), true);
-			setTimeout(function(){
-				fs.unlink("./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png",(err)=>{ if(err){ console.log(err); return err; }});
-			},3000);
 			done();
 		}).catch(function(err){
 			console.log(err);
@@ -85,9 +82,6 @@ describe('connect.get download functionality',function(){
 		connect.get(downloadMultipleFilesOptions).then(function(res){
 			assert.strictEqual(res, "Downloaded downloadedAttachment.tgz");
 			assert.strictEqual(fs.existsSync("./downloadedAttachment.tgz"), true);
-			setTimeout(function(){
-				fs.unlink("./downloadedAttachment.tgz",(err)=>{ if(err){ console.log(err); return err; }});
-			},3000);
 			done();
 		}).catch(function(err){
 			console.log(err);
@@ -160,24 +154,72 @@ describe('connect.post',function(){
 
 	});
 
-	it('should take a url as a param and make a HTTP POST Request' + 
-		' and be able to prettyPrint the JSON if specified',function(done){
+});
 
-	
-		var reportOptions = {
+// UPLOAD TEST
+describe('connect.post upload functionality',function(){ 
+
+	var rnClient = new client({
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		demo_site: true
+	});
+
+	it('should upload one file',function(done){
+
+		let postUploadOptions = {
 			client: rnClient,
-			url: 'analyticsReportResults',
-			json: { id: 176 },
-			prettyPrint: true
+			url: 'incidents',
+			json: {
+				"primaryContact": {
+			    	"id": 2
+				},
+				"subject": "FishPhone not working"
+			}, files :[
+				'./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+			],
 		}
 
-
-		connect.post(reportOptions).then(function(response){
-			assert.strictEqual(response.data,undefined);
+		connect.post(postUploadOptions).then(function(res){
+			assert.notEqual(res.id, undefined);
 			done();
 		}).catch(function(err){
 			console.log(err);
+			done();
+		})
+		
+
+	});
+
+	it('should upload multiple files',function(done){
+
+		let uploadMultipleFilesOptions = {
+			client: rnClient,
+			url: 'incidents',
+			json: {
+				"primaryContact": {
+			    	"id": 2
+				},
+				"subject": "FishPhone not working"
+			}, files :[
+				'./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+				'./downloadedAttachment.tgz'
+			],
+			debug: true
+		}
+
+		connect.post(uploadMultipleFilesOptions).then(function(res){
+			assert.notEqual(res.data.id, undefined);
+
+			setTimeout(function(){
+				fs.unlink("./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png",(err)=>{ if(err){ console.log(err); return err; }});
+				fs.unlink("./downloadedAttachment.tgz",(err)=>{ if(err){ console.log(err); return err; }});
+			},3000);
 			
+			done();
+		}).catch(function(err){
+			console.log(err);
 		})
 		
 
