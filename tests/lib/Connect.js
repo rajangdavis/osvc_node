@@ -158,6 +158,7 @@ describe('connect.post',function(){
 
 // UPLOAD TEST
 describe('connect.post upload functionality',function(){ 
+	this.timeout(8000);
 
 	var rnClient = new client({
 		username: env['OSC_ADMIN'],
