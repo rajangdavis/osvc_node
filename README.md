@@ -12,10 +12,9 @@ An (under development) Node library for using the [Oracle Service Cloud REST API
 ## Todo
 I am looking to implement the following items soon:
 
-~~ 0. Options
-~~ 1. Downloading one or more attachments
-~~ 2. Uploading one or more attachments
-
+0. ~~Options
+1. ~~Downloading one or more attachments
+2. ~~Uploading one or more attachments
 3. Session Authentication
 4. OAuth Authentication
 5. Access token flag
