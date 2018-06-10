@@ -179,9 +179,26 @@ describe('Config.optionsFinalize', function(){
 
 		var oauthResourceUrl = config.optionsFinalize("get", oauthConfigURL);
 
-		assert.match(oauthResourceUrl.headers['Authorization'], /Bearer /);
+		assert.strictEqual(oauthResourceUrl.headers['Authorization'], 'Bearer OAUTH_TOKEN');
 
 		assert.strictEqual(oauthResourceUrl.url,`https://${env['OSC_SITE']}.rightnowdemo.com/services/rest/connect/v1.3/`);
+
+	});
+
+	it('should be able to set an access token for authentication',function(){
+
+		var accessTokenConfigURL = {
+			client: new client({
+				access_token: env['OSC_ACCESS_TOKEN'],
+				username: 'username123',
+				password: 'password456',
+				interface: 'interface789'
+			})
+		}
+
+		var accessTokenResourceUrl = config.optionsFinalize("get", accessTokenConfigURL);
+
+		assert.strictEqual(accessTokenResourceUrl.headers['osvc-crest-api-access-token'], env['OSC_ACCESS_TOKEN']);
 
 	});
 
