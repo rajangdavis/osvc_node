@@ -1,6 +1,9 @@
 var assert = require('chai').assert;
 var config = require('../../lib/Config.js');
 var client = require('../../lib/Client.js');
+var connect = require('../../lib/Connect.js');
+const axios = require('axios');
+var env = process.env;
 
 describe('Config.optionsFinalize', function(){ 
 
@@ -100,7 +103,7 @@ describe('Config.optionsFinalize', function(){
 
 	
 	var defaultConfigURL = {
-		client: client({
+		client: new client({
 			username: 'username123',
 			password: 'password456',
 			interface: 'interface789'
@@ -123,6 +126,63 @@ describe('Config.optionsFinalize', function(){
 
 	it('should equal "https://interface789.custhelp.com/services/rest/connect/v1.3/"',function(){
 		assert.strictEqual(defaultResourceUrl.url,"https://interface789.custhelp.com/services/rest/connect/v1.3/")
+	});
+
+	it('should be able to set a session id and it should work if retrieved',function(done){
+		
+		async function getSessionId(){
+			let url = `https://${env['OSC_SITE']}.rightnowdemo.com/cgi-bin/${env['OSC_CONFIG']}.cfg/php/custom/login_test.php?username=${env['OSC_ADMIN']}&password=${env['OSC_PASSWORD']}`;
+			const response = await axios.get(url);
+			return response.data.session_id;
+		}
+
+		getSessionId().then((sessionId)=>{ 
+
+			var sessionConfigURL = {
+				client: new client({
+					session: sessionId,
+					interface: env['OSC_SITE'],
+					demo_site: true
+				}),
+				debug: true
+			}
+
+			var sessionResourceUrl = config.optionsFinalize("get", sessionConfigURL);
+
+			assert.match(sessionResourceUrl.headers['Authorization'], /Session /);
+
+			assert.strictEqual(sessionResourceUrl.url,`https://${env['OSC_SITE']}.rightnowdemo.com/services/rest/connect/v1.3/`);
+
+			connect.get(sessionConfigURL).then((data)=>{
+				assert.strictEqual(data.status, 200);
+				done();
+			}).catch((err)=>{
+				console.log(err);
+			})
+
+
+		});
+
+
+	});
+
+
+	it('should be able to set an oauth token for authentication',function(){
+
+		var oauthConfigURL = {
+			client: new client({
+				oauth: "OAUTH_TOKEN",
+				interface: env['OSC_SITE'],
+				demo_site: true
+			})
+		}
+
+		var oauthResourceUrl = config.optionsFinalize("get", oauthConfigURL);
+
+		assert.match(oauthResourceUrl.headers['Authorization'], /Bearer /);
+
+		assert.strictEqual(oauthResourceUrl.url,`https://${env['OSC_SITE']}.rightnowdemo.com/services/rest/connect/v1.3/`);
+
 	});
 
 });
