@@ -20,11 +20,11 @@ I am looking to implement the following items soon:
 - [X] Access token flag
 
 The following will get passed in an options object
-- [ ] Exclude null headers
-- [ ] Next request
-- [ ] Schema headers
-- [ ] UTC time
-- [ ] Annotation
+- [X] Exclude null headers
+- [X] Next request
+- [X] Schema headers
+- [X] UTC time
+- [X] Annotation
 
 Validations:
 - [ ] AnalyticsReportResults - setting an ID or filters
@@ -38,6 +38,13 @@ Validations:
 	- [ ] No authentication is set
 	- [ ] Annotation cannot be greater than 40 characters
 	- [ ] Annotation must be set for CCOM versions v1.4 and latest
+
+Update Documentation:
+- [ ] Optional Headers
+- [ ] Downloading one or more file attachments
+- [ ] Uploading one or more file attachments
+- [ ] Bulk Delete
+- [ ] Performing Session Authentication
 
 ## Compatibility
 

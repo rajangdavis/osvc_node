@@ -202,4 +202,31 @@ describe('Config.optionsFinalize', function(){
 
 	});
 
+	it('should be able to set optional headers',function(){
+
+		var optionalHeadersOptions = {
+			client: new client({
+				access_token: env['OSC_ACCESS_TOKEN'],
+				username: 'username123',
+				password: 'password456',
+				interface: 'interface789',
+				version: 'v1.4'
+			}),
+			exclude_null: true,
+			next_request: 1000,
+			schema: true,
+			utc_time: true,
+			annotation: "This is an annotation"
+		}
+
+		var optionalHeaders = config.optionsFinalize("get", optionalHeadersOptions);
+
+		assert.strictEqual(optionalHeaders.headers['prefer'], 'exclude-null-properties');
+		assert.strictEqual(optionalHeaders.headers['osvc-crest-next-request-after'], 1000);
+		assert.strictEqual(optionalHeaders.headers['Accept'], 'application/schema+json');
+		assert.strictEqual(optionalHeaders.headers['OSvC-CREST-Time-UTC'], 'yes');
+		assert.strictEqual(optionalHeaders.headers['OSvC-CREST-Application-Context'],"This is an annotation");
+
+	});
+
 });
