@@ -19,25 +19,25 @@ I am looking to implement the following items soon:
 - [X] OAuth Authentication
 - [X] Access token flag
 
-The following will get passed in an options object
-[] Exclude null headers
-[] Next request
-[] Schema headers
-[] UTC time
-[] Annotation
+The following will get passed
+- [ ] Exclude null headers
+- [ ] Next request
+- [ ] Schema headers
+- [ ] UTC time
+- [ ] Annotation
 
 Validations
-[] AnalyticsReportResults - setting an ID or filters
-[] QueryResults - setting at least one query
-[] QueryResultsSet - setting at least one query
-[] File Handling - file location error, 
-[] Configuration
-	[] Setting an interface
-	[] Password is set but user is not
-	[] User is set but password is not
-	[] No authentication is set
-	[] Annotation cannot be greater than 40 characters
-	[] Annotation must be set for CCOM versions v1.4 and up
+- [ ] AnalyticsReportResults - setting an ID or filters
+- [ ] QueryResults - setting at least one query
+- [ ] QueryResultsSet - setting at least one query
+- [ ] File Handling - file location error, 
+- [ ] Configuration
+	- [ ] Setting an interface
+	- [ ] Password is set but user is not
+	- [ ] User is set but password is not
+	- [ ] No authentication is set
+	- [ ] Annotation cannot be greater than 40 characters
+	- [ ] Annotation must be set for CCOM versions v1.4 and up
 
 ## Compatibility
 
