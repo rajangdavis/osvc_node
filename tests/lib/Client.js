@@ -114,4 +114,20 @@ describe('client module',function(){
 
 	});
 
+
+	const ACCESS_TOKEN_CHECK_INTERFACE = {
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		access_token: env['OSC_ACCESS_TOKEN']
+	}
+
+	const ACCESS_TOKEN_CHECK_INTERFACE_CONFIG = new client(ACCESS_TOKEN_CHECK_INTERFACE);
+
+	it('should take an access token',function(){
+	
+		assert.strictEqual(ACCESS_TOKEN_CHECK_INTERFACE_CONFIG.access_token,env['OSC_ACCESS_TOKEN']);
+
+	});
+
 });

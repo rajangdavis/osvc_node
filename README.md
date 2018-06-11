@@ -17,25 +17,27 @@ I am looking to implement the following items soon:
 - [X] Uploading one or more attachments
 - [X] Session Authentication
 - [X] OAuth Authentication
-- [] Access token flag
-- [] Annotation
-- [] Exclude null headers
-- [] Next request
-- [] Schema headers
-- [] UTC time
+- [X] Access token flag
+
+The following will get passed in an options object
+[] Exclude null headers
+[] Next request
+[] Schema headers
+[] UTC time
+[] Annotation
 
 Validations
-- [] AnalyticsReportResults - setting an ID or filters
-- [] QueryResults - setting at least one query
-- [] QueryResultsSet - setting at least one query
-- [] File Handling - file location error, 
-- [] Configuration
-	- [] Setting an interface
-	- [] Password is set but user is not
-	- [] User is set but password is not
-	- [] No authentication is set
-	- [] Annotation cannot be greater than 40 characters
-	- [] Annotation must be set for CCOM versions v1.4 and up
+[] AnalyticsReportResults - setting an ID or filters
+[] QueryResults - setting at least one query
+[] QueryResultsSet - setting at least one query
+[] File Handling - file location error, 
+[] Configuration
+	[] Setting an interface
+	[] Password is set but user is not
+	[] User is set but password is not
+	[] No authentication is set
+	[] Annotation cannot be greater than 40 characters
+	[] Annotation must be set for CCOM versions v1.4 and up
 
 ## Compatibility
 
@@ -320,7 +322,7 @@ You can create a new instance either by the report 'id' or 'lookupName'.
 
 OSvCNode.AnalyticsReportsResults only has one function: 'run', which takes an OSvCNode.Client object.
 
-OSvCNode.AnalyticsReportsResults have the following properties: 'id', 'lookupName', and 'filters'. <!-- More on filters and supported datetime methods are below this OSvCNode.AnalyticsReportsResults example script. -->
+OSvCNode.AnalyticsReportsResults have the following properties: 'id', 'lookupName', and 'filters'. 
 ```node
 const OSvCNode = require('osvc_node');
 const env = process.env;
@@ -346,24 +348,6 @@ OSvCNode.AnalyticsReportResults.run(options).then((results) => {
 })
 
 ```
-
-<!-- 
-### 'dti' => date to iso8601
-
-dti lets you type in a date and get it in ISO8601 format. Explicit date formatting is best.
-
-```node
-
-dti("January 1st, 2014") # => 2014-01-01T00:00:00-08:00  # => 1200 AM, January First of 2014
-
-dti("January 1st, 2014 11:59PM MDT") # => 2014-01-01T23:59:00-06:00 # => 11:59 PM Mountain Time, January First of 2014
-
-dti("January 1st, 2014 23:59 PDT") # => 2014-01-01T23:59:00-07:00 # => 11:59 PM Pacific Time, January First of 2014
-
-dti("January 1st") # => 2017-01-01T00:00:00-08:00 # => 12:00 AM, January First of this Year
-
-```
- -->
 
 ## Basic CRUD operations
 

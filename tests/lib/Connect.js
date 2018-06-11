@@ -26,7 +26,6 @@ describe('connect.get',function(){
 	it('should take a url as a param and make a HTTP GET Request' + 
 		' with a response code of 200 and a body of JSON',function(done){
 
-		
 		connect.get(getOptions).then(function(res){
 			assert.strictEqual(res.status,200);
 			done();
