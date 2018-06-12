@@ -27,10 +27,10 @@ The following will get passed in an options object
 - [X] Annotation
 
 Validations:
-- [ ] AnalyticsReportResults - setting an ID or filters
+- [X] AnalyticsReportResults - setting an ID
 - [ ] QueryResults - setting at least one query
 - [ ] QueryResultsSet - setting at least one query
-- [ ] File Handling - file location error, 
+- [ ] File Handling - file location error
 - [ ] Configuration
 	- [ ] Setting an interface
 	- [ ] Password is set but user is not
@@ -126,7 +126,7 @@ var rn_client = OSvCNode.Client({
 	demo_site:true
 });
 
-var contactsQuery = `DESCRIBE`
+var contactsQuery = `DESCRIBE CONTACTS`
 
 var options = {
 	client: rn_client,

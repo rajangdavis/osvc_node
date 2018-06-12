@@ -51,6 +51,22 @@ describe('queryResults.query',function(){
 
 	});
 
+	const worseOptions = {
+		client: rnClient
+	}
+	
+
+	it('should return an error if there is no query set in the options object',function(done){
+		
+		QueryResults.query(worseOptions).then( data =>{
+
+		}).catch( err =>{
+			assert.strictEqual(err,"\033[31mError: QueryResults must have at least one query set within the options.\033[0m \n\nExample: \n\nconst OSvCNode = require('osvc_node');\nconst env = process.env;\n\nconst rn_client = OSvCNode.Client({\n\tusername: env['OSC_ADMIN'],\n\tpassword: env['OSC_PASSWORD'],\n\tinterface: env['OSC_SITE'],\n});\n\nvar options = {\n\tclient: rn_client,\n\tquery: \"DESCRIBE CONTACTS\"\n}\n\nOSvCNode.QueryResults.query(options).then(data =>{\n\tconsole.log(data)\n}).catch(err => {\n\tconsole.log(err);\n});");
+			done();
+		});	
+
+	});
+
 	const debugOptions = {
 		client: rnClient,
 		query:"DESCRIBE",

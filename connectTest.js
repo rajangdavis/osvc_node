@@ -10,16 +10,18 @@ var rn_client = OSvCNode.Client({
 
 
 // GET TEST
-// let options = {
-// 	client: rn_client,
-// 	url: 'incidents/24900/fileAttachments/256',
-// }
+let options = {
+	client: rn_client,
+	url: 'incidents/4268',
+	exclude_null: true,
+	// debug: true
+}
 
-// OSvCNode.Connect.get(options).then((res)=>{
-// 	console.log(res)
-// }).catch(function (error) {
-// 	console.log(error);
-// });
+OSvCNode.Connect.get(options).then((res)=>{
+	console.log(JSON.stringify(res, null, 4))
+}).catch(function (error) {
+	console.log(error);
+});
 
 // // POST TEST
 // var newProduct = {
@@ -85,13 +87,13 @@ var rn_client = OSvCNode.Client({
 
 // OPTIONS TEST
 
-let options = {
-	client: rn_client,
-	url: 'incidents',
-}
+// let options = {
+// 	client: rn_client,
+// 	url: 'incidents',
+// }
 
-OSvCNode.Connect.options(options).then((res)=>{
-	console.log(res.osvcstatus)
-}).catch(function (error) {
-	console.log(error);
-});
+// OSvCNode.Connect.options(options).then((res)=>{
+// 	console.log(res.osvcstatus)
+// }).catch(function (error) {
+// 	console.log(error);
+// });

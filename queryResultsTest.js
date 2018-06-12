@@ -10,7 +10,7 @@ var rn_client = OSvCNode.Client({
 
 var options = {
 	client: rn_client,
-	query: `SELECT id as inc_id, fileAttachments.fileAttachmentlist.* from Incidents where fileAttachments.fileAttachmentlist.id IS NOT NULL`,
+	// query: `SELECT id as inc_id, fileAttachments.fileAttachmentlist.* from Incidents where fileAttachments.fileAttachmentlist.id IS NOT NULL`,
 }
 
 OSvCNode.QueryResults.query(options).then(data =>{
