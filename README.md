@@ -31,13 +31,13 @@ Validations:
 - [X] QueryResults - setting at least one query
 - [X] QueryResultsSet - setting at least one query
 - [X] File Handling - file location error
-- [ ] Configuration
-	- [ ] Setting an interface
-	- [ ] Password is set but user is not
-	- [ ] User is set but password is not
-	- [ ] No authentication is set
-	- [ ] Annotation cannot be greater than 40 characters
-	- [ ] Annotation must be set for CCOM versions v1.4 and latest
+- [ ] Client Configuration
+	- [X] Setting an interface
+	- [X] Password is set but user is not
+	- [X] User is set but password is not
+	- [X] No authentication is set
+- [ ] Annotation cannot be greater than 40 characters
+- [ ] Annotation must be set for CCOM versions v1.4 and latest
 
 Update Documentation:
 - [ ] Optional Headers
@@ -51,7 +51,6 @@ Update Documentation:
 The library is being tested against Oracle Service Cloud May 2017 using Node v8.9.1
 
 All of the HTTP methods should work on any version of Oracle Service Cloud since version May 2015; however, there maybe some issues with querying items on any version before May 2016. This is because ROQL queries were not exposed via the REST API until May 2016.
-
 
 ## Use Cases
 You can use this Node Library for basic scripting and microservices.
@@ -141,8 +140,6 @@ OSvCNode.QueryResults.query(options).then(data =>{
 
 
 ```
-
-
 ## OSvCNode.QueryResultsSet example
 
 This is for running multiple queries and assigning the results of each query to a key for further manipulation.
@@ -317,7 +314,6 @@ OSvCNode.QueryResultsSet.query_set(options).then(data=>{
 // ]
 
 ```
-
 ## OSvCNode.AnalyticsReportsResults
 
 You can create a new instance either by the report 'id' or 'lookupName'.
@@ -408,11 +404,6 @@ OSvCNode.Connect.post(options).then((res)=>{
 });
 
 ```
-
-
-
-
-
 
 ### READ
 ```node

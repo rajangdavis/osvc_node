@@ -1,12 +1,11 @@
-const OSvCNode = require('./lib/osvcNode.js');
-const env = process.env;
+// const OSvCNode = require('./lib/osvcNode.js');
 
-var rn_client = OSvCNode.Client({
-	username: env['OSC_ADMIN'],
-	password: env['OSC_PASSWORD'],
-	interface: env['OSC_SITE'],
-	demo_site: true
-});
+// var rn_client = OSvCNode.Client({
+// 	username: env['OSC_ADMIN'],
+// 	password: env['OSC_PASSWORD'],
+// 	interface: env['OSC_SITE'],
+// 	demo_site: true
+// });
 
 
 // // GET TEST
@@ -23,12 +22,13 @@ var rn_client = OSvCNode.Client({
 // 	console.log(error);
 // });
 const {Client, Connect} = require('./lib/osvcNode.js');
+const env = process.env;
 
 var rnClient = new Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
-	demo_site: true
+	demo_site: true,
 });
 
 let postUploadOptions = {
@@ -40,8 +40,8 @@ let postUploadOptions = {
 		},
 		"subject": "FishPhone not working"
 	}, files :[
-		'./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
-		'./DhaQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+		// './haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+		// './DhaQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
 	],
 }
 
