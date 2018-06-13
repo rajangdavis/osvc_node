@@ -61,7 +61,7 @@ describe('queryResults.query',function(){
 		QueryResults.query(worseOptions).then( data =>{
 
 		}).catch( err =>{
-			assert.strictEqual(err,"\033[31mError: QueryResults must have at least one query set within the options.\033[0m \n\nExample: \n\nconst OSvCNode = require('osvc_node');\nconst env = process.env;\n\nconst rn_client = OSvCNode.Client({\n\tusername: env['OSC_ADMIN'],\n\tpassword: env['OSC_PASSWORD'],\n\tinterface: env['OSC_SITE'],\n});\n\nvar options = {\n\tclient: rn_client,\n\tquery: \"DESCRIBE CONTACTS\"\n}\n\nOSvCNode.QueryResults.query(options).then(data =>{\n\tconsole.log(data)\n}).catch(err => {\n\tconsole.log(err);\n});");
+			assert.strictEqual(err,"\n\033[31mError: QueryResults must have at least one query set within the options.\033[0m \n\n\033[33mExample:\033[0m \n\nconst OSvCNode = require('osvc_node');\nconst env = process.env;\n\nconst rn_client = OSvCNode.Client({\n\tusername: env['OSC_ADMIN'],\n\tpassword: env['OSC_PASSWORD'],\n\tinterface: env['OSC_SITE'],\n});\n\nvar options = {\n\tclient: rn_client,\n\t\033[32mquery: \"DESCRIBE CONTACTS\"\033[0m\n}\n\nOSvCNode.QueryResults.query(options).then(data =>{\n\tconsole.log(data)\n}).catch(err => {\n\tconsole.log(err);\n});");
 			done();
 		});	
 

@@ -167,6 +167,7 @@ describe('connect.post upload functionality',function(){
 	});
 
 	it('should upload one file',function(done){
+		
 
 		let postUploadOptions = {
 			client: rnClient,
@@ -222,6 +223,30 @@ describe('connect.post upload functionality',function(){
 			console.log(err);
 		})
 		
+
+	});
+
+	it('should return an error if a file does not exist in the specified file location',function(done){
+
+		let badFilesOptions = {
+			client: rnClient,
+			url: 'incidents',
+			json: {
+				"primaryContact": {
+			    	"id": 2
+				},
+				"subject": "FishPhone not working"
+			}, files :[
+				'./sdfsdfsdfsdfhaQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+			]
+		}
+
+		connect.post(badFilesOptions).then(function(res){
+			console.log(res)			
+		}).catch(function(err){
+			assert.strictEqual(err, "There was an error with the file specified at " + badFilesOptions.files[0]);
+			done();
+		})
 
 	});
 

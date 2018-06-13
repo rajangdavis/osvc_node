@@ -87,6 +87,41 @@ describe('queryResultsSet.query_set',function(){
 
 	});
 
+	const worseOptions = {
+		client: rnClient,
+	}
+
+	
+
+	it('should return an error if the queries are not defined or if there is only one',function(done){
+		
+		QueryResultsSet.query_set(worseOptions).catch( err =>{
+			assert.strictEqual(err,"\n\033[31mError: QueryResultsSet must have a 'queries' property defined with a minimum of two queries in the options object.\033[0m \n\n\033[33mExample:\033[0m \n\nconst OSvCNode = require('osvc_node');\nconst env = process.env;\n\nvar rn_client = OSvCNode.Client({\n\tusername: env['OSC_ADMIN'],\n\tpassword: env['OSC_PASSWORD'],\n\tinterface: env['OSC_SITE'],\n});\n\n\033[32mvar multipleQueries = [\n\t{\n\t\tquery:\"DESCRIBE ANSWERS\",\n\t\tkey: \"answerSchema\"\n\t},\n\t{\n\t\tquery:\"SELECT * FROM ANSWERS LIMIT 1\",\n\t\tkey: \"answers\"\n\t},\n\t{\n\t\tquery:\"DESCRIBE SERVICECATEGORIES\",\n\t\tkey: \"categoriesSchema\"\n\t},\n];\033[0m\n\nvar options = {\n\tclient: rn_client,\n\t\033[32mqueries: multipleQueries\033[0m\n}\n\nOSvCNode.QueryResultsSet.query_set(options).then(data=>{\n\tconsole.log(data.answerSchema);\n\tconsole.log(data.answers);\n\tconsole.log(data.categoriesSchema);\n\tconsole.log(data.categories);\n\tconsole.log(data.productsSchema);\n\tconsole.log(data.products);\n})");
+			done();
+		});	
+
+
+	});
+	
+	const oneQueryOptions = {
+		client: rnClient,
+		queries: [
+			{
+				query:"SELECT * FROM ANSWERSS LIMIT 10",
+	 			key: "answers"
+	 		}
+		]
+	}
+	
+	it('should return an error if there is only one query',function(done){
+
+		QueryResultsSet.query_set(oneQueryOptions).catch( err =>{
+			assert.strictEqual(err,"\n\033[31mError: QueryResultsSet must have a 'queries' property defined with a minimum of two queries in the options object.\033[0m \n\n\033[33mExample:\033[0m \n\nconst OSvCNode = require('osvc_node');\nconst env = process.env;\n\nvar rn_client = OSvCNode.Client({\n\tusername: env['OSC_ADMIN'],\n\tpassword: env['OSC_PASSWORD'],\n\tinterface: env['OSC_SITE'],\n});\n\n\033[32mvar multipleQueries = [\n\t{\n\t\tquery:\"DESCRIBE ANSWERS\",\n\t\tkey: \"answerSchema\"\n\t},\n\t{\n\t\tquery:\"SELECT * FROM ANSWERS LIMIT 1\",\n\t\tkey: \"answers\"\n\t},\n\t{\n\t\tquery:\"DESCRIBE SERVICECATEGORIES\",\n\t\tkey: \"categoriesSchema\"\n\t},\n];\033[0m\n\nvar options = {\n\tclient: rn_client,\n\t\033[32mqueries: multipleQueries\033[0m\n}\n\nOSvCNode.QueryResultsSet.query_set(options).then(data=>{\n\tconsole.log(data.answerSchema);\n\tconsole.log(data.answers);\n\tconsole.log(data.categoriesSchema);\n\tconsole.log(data.categories);\n\tconsole.log(data.productsSchema);\n\tconsole.log(data.products);\n})");
+			done();
+		});	
+
+	});
+
 	const debugOptions = {
 		client: rnClient,
 		queries: multipleQueries,

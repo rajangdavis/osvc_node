@@ -9,19 +9,47 @@ var rn_client = OSvCNode.Client({
 });
 
 
-// GET TEST
-let options = {
-	client: rn_client,
-	url: 'incidents/4268',
-	exclude_null: true,
-	// debug: true
+// // GET TEST
+// let options = {
+// 	client: rn_client,
+// 	url: 'incidents/4268',
+// 	exclude_null: true,
+// 	// debug: true
+// }
+
+// OSvCNode.Connect.get(options).then((res)=>{
+// 	console.log(JSON.stringify(res, null, 4))
+// }).catch(function (error) {
+// 	console.log(error);
+// });
+const {Client, Connect} = require('./lib/osvcNode.js');
+
+var rnClient = new Client({
+	username: env['OSC_ADMIN'],
+	password: env['OSC_PASSWORD'],
+	interface: env['OSC_SITE'],
+	demo_site: true
+});
+
+let postUploadOptions = {
+	client: rnClient,
+	url: 'incidents',
+	json: {
+		"primaryContact": {
+	    	"id": 2
+		},
+		"subject": "FishPhone not working"
+	}, files :[
+		'./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+		'./DhaQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+	],
 }
 
-OSvCNode.Connect.get(options).then((res)=>{
-	console.log(JSON.stringify(res, null, 4))
-}).catch(function (error) {
-	console.log(error);
-});
+Connect.post(postUploadOptions).then(function(res){
+	console.log(res);
+}).catch(function(err){
+	console.log(err);
+})
 
 // // POST TEST
 // var newProduct = {

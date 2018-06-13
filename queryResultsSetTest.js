@@ -13,32 +13,31 @@ var multipleQueries = [
 		query:"DESCRIBE ANSWERS",
 		key: "answerSchema"
 	},
- 	{
- 		query:"SELECT * FROM ANSWERS LIMIT 10",
- 		key: "answers"
- 	},
- 	{
- 		query:"DESCRIBE SERVICECATEGORIES",
- 		key: "categoriesSchema"
- 	},
- 	{
- 		query:"SELECT * FROM SERVICECATEGORIES",
- 		key:"categories"
- 	},
- 	{
- 		query:"DESCRIBE SERVICEPRODUCTS",
- 		key: "productsSchema"
- 	},
- 	{
- 		query:"SELECT * FROM SERVICEPRODUCTS",
- 		key:"products"
- 	}
+ 	// {
+ 	// 	query:"SELECT * FROM ANSWERS LIMIT 10",
+ 	// 	key: "answers"
+ 	// },
+ 	// {
+ 	// 	query:"DESCRIBE SERVICECATEGORIES",
+ 	// 	key: "categoriesSchema"
+ 	// },
+ 	// {
+ 	// 	query:"SELECT * FROM SERVICECATEGORIES",
+ 	// 	key:"categories"
+ 	// },
+ 	// {
+ 	// 	query:"DESCRIBE SERVICEPRODUCTS",
+ 	// 	key: "productsSchema"
+ 	// },
+ 	// {
+ 	// 	query:"SELECT * FROM SERVICEPRODUCTS",
+ 	// 	key:"products"
+ 	// }
 ];
 
 var options = {
 	client: rn_client,
 	queries: multipleQueries,
-	prettyPrint: true,
 }
 
 OSvCNode.QueryResultsSet.query_set(options).then(data=>{ 

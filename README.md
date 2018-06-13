@@ -28,9 +28,9 @@ The following will get passed in an options object
 
 Validations:
 - [X] AnalyticsReportResults - setting an ID
-- [ ] QueryResults - setting at least one query
-- [ ] QueryResultsSet - setting at least one query
-- [ ] File Handling - file location error
+- [X] QueryResults - setting at least one query
+- [X] QueryResultsSet - setting at least one query
+- [X] File Handling - file location error
 - [ ] Configuration
 	- [ ] Setting an interface
 	- [ ] Password is set but user is not
@@ -190,11 +190,6 @@ var multipleQueries = [
  	}
 ];
 					 
-var options = {
-	client: rn_client,
-	queries: multipleQueries
-}
-
 var options = {
 	client: rn_client,
 	queries: multipleQueries
