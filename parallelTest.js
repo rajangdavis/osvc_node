@@ -15,7 +15,7 @@ for (var i = 0; i < 26; i++) {
 let parallelQueries = queries.map(q => {
 	return axios({ method: 'get',
 		url: `https://${ env['OSC_SITE'] }.rightnowdemo.com/services/rest/connect/v1.3/queryResults/?query=${q}`,
-		headers: { Authorization: `Basic ${ env['UA_BASE_64'] }` }
+		headers: { Authorization: `Basic ${ env['OSC_BASE_64'] }` }
 	});
 })
 
