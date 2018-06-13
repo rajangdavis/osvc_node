@@ -31,13 +31,13 @@ Validations:
 - [X] QueryResults - setting at least one query
 - [X] QueryResultsSet - setting at least one query
 - [X] File Handling - file location error
-- [ ] Client Configuration
+- [X] Client Configuration
 	- [X] Setting an interface
 	- [X] Password is set but user is not
 	- [X] User is set but password is not
 	- [X] No authentication is set
-- [ ] Annotation cannot be greater than 40 characters
-- [ ] Annotation must be set for CCOM versions v1.4 and latest
+- [X] Annotation cannot be greater than 40 characters
+- [X] Annotation must be set for CCOM versions v1.4 and latest
 
 Update Documentation:
 - [ ] Optional Headers

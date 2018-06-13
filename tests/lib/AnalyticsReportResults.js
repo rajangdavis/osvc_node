@@ -58,12 +58,10 @@ describe('analyticsReportResults.run',function(){
 	}
 	
 
-	it('should display an error if the ID is not set',function(done){
+	it('should display an error if the ID or lookupName is not set',function(done){
 		
-		analyticsReportResults.run(worseOptions).then( data =>{
-			done();
-		}).catch( err =>{
-			assert.strictEqual(err,"\n\033[31mError: AnalyticsReportResults must have an 'id' set within the json data object.\033[0m \n\n\033[33mExample:\033[0m \n\nconst OSvCNode = require('osvc_node');\nconst env = process.env;\n\nconst rn_client = OSvCNode.Client({\n\tusername: env['OSC_ADMIN'],\n\tpassword: env['OSC_PASSWORD'],\n\tinterface: env['OSC_SITE'],\n});\n\nvar options = {\n\tclient: rn_client,\n\t\033[32mjson: {id: 176}\033[0m,\n}\n\nOSvCNode.AnalyticsReportResults.run(options).then((results) => {\n\tresults.map((result)=>{\n\t\tconsole.log(`Columns: ${Object.keys(result).join(\", \")}`);\n\t\tconsole.log(`Values: ${Object.values(result).join(\", \")}`);\n\t})\n}).catch((error)=>{\n\tconsole.log(error);\n})");
+		analyticsReportResults.run(worseOptions).catch( err =>{
+			assert.notEqual(err,undefined);
 			done();
 		});	
 

@@ -1,4 +1,5 @@
 var assert = require('chai').assert;
+var expect = require('chai').expect;
 var config = require('../../lib/Config.js');
 var client = require('../../lib/Client.js');
 var connect = require('../../lib/Connect.js');
@@ -63,6 +64,7 @@ describe('Config.optionsFinalize', function(){
 			no_ssl_verify: true,
 			suppress_rules: true
 		}),
+		annotation: "without this, there is an error",
 		url: "incidents"
 	}
 
@@ -226,6 +228,71 @@ describe('Config.optionsFinalize', function(){
 		assert.strictEqual(optionalHeaders.headers['Accept'], 'application/schema+json');
 		assert.strictEqual(optionalHeaders.headers['OSvC-CREST-Time-UTC'], 'yes');
 		assert.strictEqual(optionalHeaders.headers['OSvC-CREST-Application-Context'],"This is an annotation");
+
+	});
+
+	it('should throw an error if version is set to "v1.4" and no annotation is present',function(){
+
+		function noAnnotationError(){
+			return config.optionsFinalize("get",{
+				client: new client({
+					access_token: env['OSC_ACCESS_TOKEN'],
+					username: 'username123',
+					password: 'password456',
+					interface: 'interface789',
+					version: 'v1.4'
+				}),
+				exclude_null: true,
+				next_request: 1000,
+				schema: true,
+				utc_time: true,
+			});
+		}
+		expect(noAnnotationError).to.throw();
+
+	});
+
+	it('should throw an error if annotation is present but blank',function(){
+
+		function emptyAnnotationError(){
+			return config.optionsFinalize("get",{
+				client: new client({
+					access_token: env['OSC_ACCESS_TOKEN'],
+					username: 'username123',
+					password: 'password456',
+					interface: 'interface789',
+					version: 'v1.4'
+				}),
+				exclude_null: true,
+				next_request: 1000,
+				schema: true,
+				utc_time: true,
+				annotation: ""
+			});
+		}
+		expect(emptyAnnotationError).to.throw();
+
+	});
+
+	it('should throw an error if annotation is present but blank',function(){
+
+		function tooLongAnnotationError(){
+			return config.optionsFinalize("get",{
+				client: new client({
+					access_token: env['OSC_ACCESS_TOKEN'],
+					username: 'username123',
+					password: 'password456',
+					interface: 'interface789',
+					version: 'v1.4'
+				}),
+				exclude_null: true,
+				next_request: 1000,
+				schema: true,
+				utc_time: true,
+				annotation: "THIS is a really long long long long annotation"
+			});
+		}
+		expect(tooLongAnnotationError).to.throw();
 
 	});
 
