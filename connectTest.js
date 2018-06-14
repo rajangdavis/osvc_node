@@ -7,7 +7,6 @@
 // 	demo_site: true
 // });
 
-
 // // GET TEST
 // let options = {
 // 	client: rn_client,
@@ -21,10 +20,12 @@
 // }).catch(function (error) {
 // 	console.log(error);
 // });
-// const {Client, Connect} = require('./lib/OSvCNode.js');
+
+
+// const {Client: osvcClient, Connect: osvcConnect} = require('./lib/OSvCNode.js');
 // const env = process.env;
 
-// var rnClient = new Client({
+// var rnClient = new osvcClient({
 // 	username: env['OSC_ADMIN'],
 // 	password: env['OSC_PASSWORD'],
 // 	interface: env['OSC_SITE'],
@@ -45,7 +46,7 @@
 // 	],
 // }
 
-// Connect.post(postUploadOptions).then(function(res){
+// osvcConnect.post(postUploadOptions).then(function(res){
 // 	console.log(res);
 // }).catch(function(err){
 // 	console.log(err);

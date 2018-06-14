@@ -41,11 +41,12 @@ The features that work to date are as follows:
 3. [Running Reports](#osvcnodeanalyticsreportsresults)
 4. [Optional Settings](#optional-settings)
 
-Here are the _spicier_ (more advanced) featuress:
+Here are the _spicier_ (more advanced) features:
 
 1. [Bulk Delete](#bulk-delete)
 <!-- 2. [Running multiple ROQL Queries in parallel](#running-multiple-roql-queries-in-parallel) -->
 2. [Performing Session Authentication](#performing-session-authentication)
+3. [Using osvc_node in the browser](#performing-session-authentication)
 
 ## Authentication
 
@@ -728,6 +729,44 @@ getRequest('incidents').then( data=>{
 	console.log(err);
 })
 ```
+## Using osvc_node in the browser
+
+1. In order to use osvc_node in the browser, you must have (browserify)[https://github.com/browserify/browserify/] and osvc_node installed on your computer.
+	
+		$ npm install -g browserify osvc_node
+
+2. Next, you will need to run the following commands:
+
+		$ browserify -r osvc_node > path/to/name_of_file.js
+
+3. A file will be created in the file location that you specified in the last command.
+
+In a HTML file, you can require osvc_node in the following way:
+
+```html
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	Hello World!
+</body>
+	<script src="./bundle.js"></script>
+	<script type="text/javascript">
+		const osvc_node = require('osvc_node');
+		console.log(osvc_node);
+	</script>
+</html>
+
+```
+
+4. Once you open the html file or host it on a server, you will see the following in the console:
+[HTML Screenshot](html_screenshot.png)
+
+Please note, if you are trying to run this script on your local computer or on a server with a different domain than the interface that you wish to connect with, you will need to enable [CORS in a config setting](https://cx.rightnow.com/app/answers/detail/a_id/10153/kw/CORS).
+
 <!-- ## Running multiple ROQL Queries in parallel
 Instead of running multiple queries in with 1 GET request, you can run multiple GET requests and combine the results
 
