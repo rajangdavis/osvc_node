@@ -21,35 +21,35 @@
 // }).catch(function (error) {
 // 	console.log(error);
 // });
-const {Client, Connect} = require('./lib/osvcNode.js');
-const env = process.env;
+// const {Client, Connect} = require('./lib/osvcNode.js');
+// const env = process.env;
 
-var rnClient = new Client({
-	username: env['OSC_ADMIN'],
-	password: env['OSC_PASSWORD'],
-	interface: env['OSC_SITE'],
-	demo_site: true,
-});
+// var rnClient = new Client({
+// 	username: env['OSC_ADMIN'],
+// 	password: env['OSC_PASSWORD'],
+// 	interface: env['OSC_SITE'],
+// 	demo_site: true,
+// });
 
-let postUploadOptions = {
-	client: rnClient,
-	url: 'incidents',
-	json: {
-		"primaryContact": {
-	    	"id": 2
-		},
-		"subject": "FishPhone not working"
-	}, files :[
-		// './haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
-		// './DhaQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
-	],
-}
+// let postUploadOptions = {
+// 	client: rnClient,
+// 	url: 'incidents',
+// 	json: {
+// 		"primaryContact": {
+// 	    	"id": 2
+// 		},
+// 		"subject": "FishPhone not working"
+// 	}, files :[
+// 		// './haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+// 		// './DhaQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+// 	],
+// }
 
-Connect.post(postUploadOptions).then(function(res){
-	console.log(res);
-}).catch(function(err){
-	console.log(err);
-})
+// Connect.post(postUploadOptions).then(function(res){
+// 	console.log(res);
+// }).catch(function(err){
+// 	console.log(err);
+// })
 
 // // POST TEST
 // var newProduct = {
@@ -114,14 +114,24 @@ Connect.post(postUploadOptions).then(function(res){
 
 
 // OPTIONS TEST
+// const {Client, Connect} = require('./lib/osvcNode.js');
+// const env = process.env;
 
-// let options = {
-// 	client: rn_client,
-// 	url: 'incidents',
+// // Create an OSvCNode.Client object
+// var rnClient = Client({
+// 	username: env['OSC_ADMIN'],
+// 	password: env['OSC_PASSWORD'],
+// 	interface: env['OSC_SITE'],
+// 	demo_site: true
+// });
+
+// var checkOptions = {
+//  	client: rnClient,
+//  	url: "incidents"
 // }
 
-// OSvCNode.Connect.options(options).then((res)=>{
-// 	console.log(res.osvcstatus)
+// Connect.options(checkOptions).then((res)=>{
+//  	console.log(res)
 // }).catch(function (error) {
-// 	console.log(error);
+//  	console.log(error);
 // });

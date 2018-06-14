@@ -1,7 +1,7 @@
-const OSvCNode = require('./lib/OSvCNode.js');
+const {Client, AnalyticsReportResults} = require('./lib/OSvCNode.js');
 const env = process.env;
 
-var rn_client = OSvCNode.Client({
+var rnClient = Client({
 	username: env['OSC_ADMIN'],
 	password: env['OSC_PASSWORD'],
 	interface: env['OSC_SITE'],
@@ -9,11 +9,11 @@ var rn_client = OSvCNode.Client({
 });
 
 var options = {
-	client: rn_client,
-	// json: {id: 176},
+	client: rnClient,
+	json: {id: 176, limit: 2, filters:[{ name: "search_ex", values: ['returns']}]},
 }
 
-OSvCNode.AnalyticsReportResults.run(options).then((results) => {
+AnalyticsReportResults.run(options).then((results) => {
 	results.map((result)=>{
 		console.log(`Columns: ${Object.keys(result).join(", ")}`);
 		console.log(`Values: ${Object.values(result).join(", ")}`);
