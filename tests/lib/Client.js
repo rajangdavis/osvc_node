@@ -54,8 +54,8 @@ describe('client module',function(){
 
 	const BAD_USERNAME = {
 		username: env['OSC_ADMIN1'],
-		password: env['OSC_PASSWORD1'],
-		interface: env['OSC_SITE1'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
 	}
 
 	var BAD_USERNAME_CONFIG = function(){
@@ -71,7 +71,7 @@ describe('client module',function(){
 	const BAD_PASSWORD = {
 		username: env['OSC_ADMIN'],
 		password: env['OSC_PASSWORD1'],
-		interface: env['OSC_SITE1'],
+		interface: env['OSC_SITE'],
 	}
 
 	var BAD_PASSWORD_CONFIG = function(){
