@@ -33,12 +33,12 @@ The features that work to date are as follows:
 
 1. [HTTP Methods](#http-methods)
 	1. For creating objects and [uploading one or more file attachments](#uploading-file-attachments), make a [POST request with the OSvCNode.Connect Object](#post)
-	2. For reading objects and [downloading one or more file attachments](#downloading-file-attachments), make a[GET request with the OSvCNode.Connect Object](#get)
+	2. For reading objects and [downloading one or more file attachments](#downloading-file-attachments), make a [GET request with the OSvCNode.Connect Object](#get)
 	3. For updating objects, make a [PATCH request with the OSvCNode.Connect Object](#patch)
 	4. For deleting objects, make a [DELETE request with the OSvCNode.Connect Object](#delete)
 	5. For looking up options for a given URL, make an [OPTIONS request with the OSvCNode.Connect Object](#options)
-2. Running ROQL queries [either 1 at a time](#oscnodequeryresults-example) or [multiple queries in a set](#oscnodequeryresultsset-example)
-3. [Running Reports](#oscnodeanalyticsreportsresults)
+2. Running ROQL queries [either 1 at a time](#oscnodequeryresults-example) or [multiple queries in a set](#osvcnodequeryresultsset-example)
+3. [Running Reports](#osvcnodeanalyticsreportsresults)
 4. [Optional Settings](#optional-settings)
 
 Here are the _spicier_ (more advanced) featuress:
@@ -47,7 +47,7 @@ Here are the _spicier_ (more advanced) featuress:
 <!-- 2. [Running multiple ROQL Queries in parallel](#running-multiple-roql-queries-in-parallel) -->
 2. [Performing Session Authentication](#performing-session-authentication)
 
-## Authentication:
+## Authentication
 
 An OSvCNode.Client class lets the library know which credentials and interface to use for interacting with the Oracle Service Cloud REST API.
 This is helpful if you need to interact with multiple interfaces or set different headers for different objects.
@@ -113,74 +113,7 @@ var object = {
 
 ```
 
-## Performing Session Authentication
 
-1. Create a custom script with the following code and place in the "Custom Scripts" folder in the File Manager:
-
-```php
-<?php
-
-// Find our position in the file tree
-if (!defined('DOCROOT')) {
-$docroot = get_cfg_var('doc_root');
-define('DOCROOT', $docroot);
-}
- 
-/************* Agent Authentication ***************/
- 
-// Set up and call the AgentAuthenticator
-require_once (DOCROOT . '/include/services/AgentAuthenticator.phph');
-
-// get username and password
-$username = $_GET['username'];
-$password = $_GET['password'];
- 
-// On failure, this includes the Access Denied page and then exits,
-// preventing the rest of the page from running.
-echo json_encode(AgentAuthenticator::authenticateCredentials($username,$password));
-
-```
-2. Create a node script similar to the following and it should connect:
-
-```node
-// Require necessary libraries
-const {Client, Connect} = require('osvc_node');
-const axios = require('axios');
-const env = process.env;
-
-// Create an asynchronous function to grab the session data
-const fetchSessionId = async () =>{
-	try{
-		let result = await axios.get(`https://${env['OSC_SITE']}.custhelp.com/cgi-bin/${env['OSC_CONFIG']}.cfg/php/custom/login_test.php?username=${env['OSC_ADMIN']}&password=${env['OSC_PASSWORD']}`);
-		return result.data.session_id;
-	}catch(err){
-		console.log(err);
-		return;
-	}
-}
-
-// Create an asynchronous function to make a get request for the URL that you wish to fetch data from
-const getRequest = async (url) => {
-	let finalUrl = url == undefined ? '' : url;
-	let sessionID = await fetchSessionId();
-	let options = {
-		client: new Client({
-			session: sessionID,
-			interface: env['OSC_SITE'],
-			url: finalUrl 
-		}),
-	};
-	return await Connect.get(options);
-}
-
-// Run the function; it will return a promise based on whether the connection worked or not
-getRequest('incidents').then( data=>{
-	console.log(data);
-}).catch( err=>{
-	console.log(err);
-})
-
-```
 ## HTTP Methods
 
 To use various HTTP Methods to return raw response objects, use the "Connect" object
@@ -271,7 +204,7 @@ Connect.get(options).then((res)=>{
 ### PATCH
 ```node
 //// OSvCNode.Connect.patch(options)
-//// returns callback
+//// returns a Promise
 // Here's how you could update an Answer object
 // using JSON objects
 // to set field information
@@ -316,7 +249,7 @@ Connect.patch(patchOptions).then((res)=>{
 ### DELETE
 ```node
 //// OSvCNode.Connect.delete(options)
-//// returns callback
+//// returns a Promise
 // Here's how you could delete a serviceProduct object
 
 const {Client, Connect} = require('osvc_node');
@@ -346,7 +279,7 @@ Connect.delete(deleteOptions).then((res)=>{
 ### OPTIONS
 ```node
 //// OSvCNode.Connect.options(options)
-//// returns headers or a raw Response object on error
+//// returns headers object or a raw Response object on error
 // Here's how you can fetch options for incidents
 
 const {Client, Connect} = require('osvc_node');
@@ -432,6 +365,34 @@ Connect.get(getDownloadOptions).then(function(res){
 
 ```
 
+In order to download multiple attachments for a given object, add a "?download" query parameter to the file attachments URL and send a get request using the OSvCNode.Connect.get method. 
+
+All of the files for the specified object will be downloaded and archived in a .tgz file.
+
+```node
+const {Client, Connect} = require('osvc_node');
+const env = process.env;
+
+let getDownloadOptions = {
+	client: new Client({
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+	}),
+	url: 'incidents/24898/fileAttachments?download'
+}
+
+Connect.get(getDownloadOptions).then(function(res){
+	console.log(response)
+}).catch(function(err){
+	console.log(err);
+})
+
+```
+
+You can extract the file using [tar](https://askubuntu.com/questions/499807/how-to-unzip-tgz-file-using-the-terminal/499809#499809)
+    
+	$ tar -xvzf ./downloadedAttachment.tgz
 
 ## OSvCNode.QueryResults example
 
@@ -470,8 +431,8 @@ OSvCNode.QueryResultsSet only has one function: 'query_set', which takes an OSvC
 
 ```node
 // Pass in each query into a hash
-	// set query: to the query you want to execute
-	// set key: to the value you want the results to of the query to be referenced to
+// set query: to the query you want to execute
+// set key: to the value you want the results to of the query to be referenced to
 
 const { Client, QueryResultsSet } = require('osvc_node');
 const env = process.env;
@@ -700,8 +661,73 @@ QueryResults.query(options).then(data =>{
 	console.log(err);
 });
 ```
+## Performing Session Authentication
 
+1. Create a custom script with the following code and place in the "Custom Scripts" folder in the File Manager:
 
+```php
+<?php
+
+// Find our position in the file tree
+if (!defined('DOCROOT')) {
+$docroot = get_cfg_var('doc_root');
+define('DOCROOT', $docroot);
+}
+ 
+/************* Agent Authentication ***************/
+ 
+// Set up and call the AgentAuthenticator
+require_once (DOCROOT . '/include/services/AgentAuthenticator.phph');
+
+// get username and password
+$username = $_GET['username'];
+$password = $_GET['password'];
+ 
+// On failure, this includes the Access Denied page and then exits,
+// preventing the rest of the page from running.
+echo json_encode(AgentAuthenticator::authenticateCredentials($username,$password));
+
+```
+2. Create a node script similar to the following and it should connect:
+
+```node
+// Require necessary libraries
+const {Client, Connect} = require('osvc_node');
+const axios = require('axios');
+const env = process.env;
+
+// Create an asynchronous function to grab the session data
+const fetchSessionId = async () =>{
+	try{
+		let result = await axios.get(`https://${env['OSC_SITE']}.custhelp.com/cgi-bin/${env['OSC_CONFIG']}.cfg/php/custom/login_test.php?username=${env['OSC_ADMIN']}&password=${env['OSC_PASSWORD']}`);
+		return result.data.session_id;
+	}catch(err){
+		console.log(err);
+		return;
+	}
+}
+
+// Create an asynchronous function to make a get request for the URL that you wish to fetch data from
+const getRequest = async (url) => {
+	let finalUrl = url == undefined ? '' : url;
+	let sessionID = await fetchSessionId();
+	let options = {
+		client: new Client({
+			session: sessionID,
+			interface: env['OSC_SITE'],
+			url: finalUrl 
+		}),
+	};
+	return await Connect.get(options);
+}
+
+// Run the function; it will return a promise based on whether the connection worked or not
+getRequest('incidents').then( data=>{
+	console.log(data);
+}).catch( err=>{
+	console.log(err);
+})
+```
 <!-- ## Running multiple ROQL Queries in parallel
 Instead of running multiple queries in with 1 GET request, you can run multiple GET requests and combine the results
 
