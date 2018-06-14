@@ -29,32 +29,17 @@ The library is tested against Oracle Service Cloud 18A using Node v8.9.1
 All of the HTTP methods should work on any version of Oracle Service Cloud since version May 2015; however, there maybe some issues with querying items on any version before May 2016. This is because ROQL queries were not exposed via the REST API until May 2016.
 
 ## Basic Usage
-The basic formula for this library is the following:
-	
-	<require library or specific modules from library> - This specifies which parts of the library you want to use
-	<require other node libraries> - You can use other node packages with this library
-
-	<create a client> - This specifies which site to connect, what type of authentication will use, and which version of CCOM should be used
-
-	<create an options object> - This specifies which URL to use, what kind of data needs to be sent up, and sets option headers
-
-	<module to run>(options).then(data => {
-		If there is a success, do something here;
-	}).catch(error => {
-		If there is a error, do something here;
-	})
-
-The basic features that work to date are as follows:
+The features that work to date are as follows:
 
 1. [HTTP Methods](#http-methods)
-	1. [Create => Post](#post)
+	1. For creating objects and uploading file attachments, make a [POST request with the OSvCNode.Connect Object](#post)
 	2. [Read => Get](#get)
 	3. [Update => Patch](#patch)
 	4. [Destroy => Delete](#delete)
 	4. [Options](#options)
 2. Running ROQL queries [either 1 at a time](#oscnodequeryresults-example) or [multiple queries in a set](#oscnodequeryresultsset-example)
 3. [Running Reports](#oscnodeanalyticsreportsresults)
-<!-- 4. [Optional Settings](#optional-settings) -->
+4. [Optional Settings](#optional-settings)
 
 Here are the _spicier_ (more advanced) featuress:
 
@@ -91,14 +76,43 @@ var rnClient = Client({
 	// oauth: <oauth token>,
 
 	// Optional Client Settings
-	demo_site: true,			// Changes domain from 'custhelp' to 'rightnowdemo'
-	version: 'v1.4',	 		// Changes REST API version, default is 'v1.3'
+	demo_site: true,					// Changes domain from 'custhelp' to 'rightnowdemo'
+	version: 'v1.4',	 				// Changes REST API version, default is 'v1.3'
 	no_ssl_verify: true,				// Turns off SSL verification
-	suppress_rules: true			// Supresses Business Rules
+	suppress_rules: true				// Supresses Business Rules
+	access_token: "My access token" 	// Adds an access token to ensure quality of service
+
 });
 
 
 ```
+## Optional Settings
+
+In addition to a client to specify which credentials, interface, and CCOM version to use, you will need to create an options object to pass in the client as well as specify any additional parameters that you may wish to use.
+
+Here is an example using the client object created in the previous section:
+```node
+const {Client, Connect} = require('osvc_node');
+
+// Configuration Client
+var rnClient = Client({ 
+	interface: env['OSC_SITE'],
+	username: env['OSC_ADMIN'],
+	password: env['OSC_PASSWORD'],
+});
+
+var object = {
+	client: rnClient,
+	annotation: "Custom annotation",  /* Adds a custom header that adds an annotation (CCOM version must be set to "v1.4" or "latest"); limited to 40 characters */
+	debug: true,                 	 // Prints request headers for debugging
+	exclude_null: true,          	 // Adds a custom header to excludes null from results
+	next_request: 500,      		 // Number of milliseconds before another HTTP request can be made; this is an anti-DDoS measure
+	schema: true                	 // Sets 'Accept' header to 'application/schema+json'
+	utc_time: true              	 /* Adds a custom header to return results using Coordinated Universal Time (UTC) format for time (Supported on November 2016+ */
+}
+
+```
+
 ## Performing Session Authentication
 
 1. Create a custom script with the following code and place in the "Custom Scripts" folder in the File Manager:
@@ -357,6 +371,64 @@ Connect.options(checkOptions).then((res)=>{
 }).catch(function (error) {
  	console.log(error);
 });
+
+```
+
+## Uploading File Attachments
+In order to upload a file attachment, add a "files" property to your options object with an array as it's value. In that array, input the file locations of the files that you wish to upload relative to where the script is ran.
+
+```node
+const {Client, Connect} = require('osvc_node');
+const env = process.env;
+
+let postUploadOptions = {
+	client: new Client({
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		demo_site: true,
+	}),
+	url: 'incidents',
+	json: {
+		"primaryContact": {
+	    	"id": 2
+		},
+		"subject": "FishPhone not working"
+	}, 
+	files :[
+		'./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+	],
+}
+
+Connect.post(postUploadOptions).then(function(res){
+	console.log(res);
+}).catch(function(err){
+	console.log(err);
+})
+
+```
+
+## Downloading File Attachments
+In order to download a file attachment, add a "?download" query parameter to the file attachment URL and send a get request using the OSvCNode.Connect.get method. The file will be downloaded to the same location that the script is ran.
+
+```node
+const {Client, Connect} = require('osvc_node');
+const env = process.env;
+
+let getDownloadOptions = {
+	client: new Client({
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+	}),
+	url: 'incidents/24898/fileAttachments/245?download'
+}
+
+Connect.get(getDownloadOptions).then(function(res){
+	console.log(response)
+}).catch(function(err){
+	console.log(err);
+})
 
 ```
 
@@ -635,20 +707,5 @@ Instead of running multiple queries in with 1 GET request, you can run multiple 
 
 	$ osvc-rest query --parallel "SELECT * FROM INCIDENTS LIMIT 20000" "SELECT * FROM INCIDENTS Limit 20000 OFFSET 20000" "SELECT * FROM INCIDENTS Limit 20000 OFFSET 40000" "SELECT * FROM INCIDENTS Limit 20000 OFFSET 60000" "SELECT * FROM INCIDENTS Limit 20000 OFFSET 80000" -u $OSC_ADMIN -p $OSC_PASSWORD -i $OSC_SITE -v latest -a "Fetching a ton of incidents info" -->
 
-
-<!-- ## Optional Settings:
-	access-token (string) 	Adds an access token to ensure quality of service
-	demosite              	Change the domain from 'custhelp' to 'rightnowdemo'
-	
-	annotate (string)     	Adds a custom header that adds an annotation (CCOM version must be set to "v1.4" or "latest"); limited to 40 characters
-	debug                 	Prints request headers for debugging
-	exclude-null          	Adds a custom header to excludes null from results
-	next-request (int)      	Number of milliseconds before another HTTP request can be made; this is an anti-DDoS measure
-	no-ssl-verify         	Turns off SSL verification
-	schema                	Sets 'Accept' header to 'application/schema+json'
-	suppress-rules        	Adds a header to suppress business rules
-	utc-time              	Adds a custom header to return results using Coordinated Universal Time (UTC) format for time (Supported on November 2016+)
-	version (string)      	Changes the CCOM version (default "v1.3")
- -->
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frajangdavis%2Fosvc_node.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Frajangdavis%2Fosvc_node?ref=badge_large)

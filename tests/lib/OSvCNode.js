@@ -1,6 +1,6 @@
 var assert = require('chai').assert;
 
-var OSvCNode = require('../../lib/osvcNode.js');
+var OSvCNode = require('../../lib/OSvCNode.js');
 
 describe('OSvCNode module', function(){
 

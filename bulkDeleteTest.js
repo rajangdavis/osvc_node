@@ -1,4 +1,4 @@
-const {Client, QueryResults} = require('./lib/osvcNode');
+const {Client, QueryResults} = require('./lib/OSvCNode');
 const env = process.env;
 
 var rnClient = Client({

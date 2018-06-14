@@ -1,4 +1,4 @@
-// const OSvCNode = require('./lib/osvcNode.js');
+// const OSvCNode = require('./lib/OSvCNode.js');
 
 // var rn_client = OSvCNode.Client({
 // 	username: env['OSC_ADMIN'],
@@ -21,7 +21,7 @@
 // }).catch(function (error) {
 // 	console.log(error);
 // });
-// const {Client, Connect} = require('./lib/osvcNode.js');
+// const {Client, Connect} = require('./lib/OSvCNode.js');
 // const env = process.env;
 
 // var rnClient = new Client({
@@ -39,9 +39,9 @@
 // 	    	"id": 2
 // 		},
 // 		"subject": "FishPhone not working"
-// 	}, files :[
-// 		// './haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
-// 		// './DhaQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
+// 	}, 
+// 	files :[
+// 		'./haQE7EIDQVUyzoLDha2SRVsP415IYK8_ocmxgMfyZaw.png',
 // 	],
 // }
 
@@ -114,7 +114,7 @@
 
 
 // OPTIONS TEST
-// const {Client, Connect} = require('./lib/osvcNode.js');
+// const {Client, Connect} = require('./lib/OSvCNode.js');
 // const env = process.env;
 
 // // Create an OSvCNode.Client object
