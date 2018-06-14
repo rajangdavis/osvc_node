@@ -46,7 +46,7 @@ Here are the _spicier_ (more advanced) features:
 1. [Bulk Delete](#bulk-delete)
 <!-- 2. [Running multiple ROQL Queries in parallel](#running-multiple-roql-queries-in-parallel) -->
 2. [Performing Session Authentication](#performing-session-authentication)
-3. [Using osvc_node in the browser](#performing-session-authentication)
+3. [Using osvc_node in the browser](#using-osvc_node-in-the-browser)
 
 ## Authentication
 
@@ -763,7 +763,7 @@ In a HTML file, you can require osvc_node in the following way:
 ```
 
 4. Once you open the html file or host it on a server, you will see the following in the console:
-[HTML Screenshot](html_screenshot.png)
+![HTML Screenshot](html_screenshot.PNG)
 
 Please note, if you are trying to run this script on your local computer or on a server with a different domain than the interface that you wish to connect with, you will need to enable [CORS in a config setting](https://cx.rightnow.com/app/answers/detail/a_id/10153/kw/CORS).
 
