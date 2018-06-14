@@ -739,9 +739,9 @@ getRequest('incidents').then( data=>{
 
 		$ browserify -r osvc_node > path/to/name_of_file.js
 
-3. A file will be created in the file location that you specified in the last command.
+A file will be created in the file location that you specified in the last command.
 
-In a HTML file, you can require osvc_node in the following way:
+3. In a HTML file, you can require osvc_node in the following way:
 
 ```html
 
@@ -753,7 +753,7 @@ In a HTML file, you can require osvc_node in the following way:
 <body>
 	Hello World!
 </body>
-	<script src="./bundle.js"></script>
+	<script src="./path/to/name_of_file.js"></script>
 	<script type="text/javascript">
 		const osvc_node = require('osvc_node');
 		console.log(osvc_node);
