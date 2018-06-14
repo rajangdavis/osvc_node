@@ -32,11 +32,11 @@ All of the HTTP methods should work on any version of Oracle Service Cloud since
 The features that work to date are as follows:
 
 1. [HTTP Methods](#http-methods)
-	1. For creating objects and uploading file attachments, make a [POST request with the OSvCNode.Connect Object](#post)
-	2. [Read => Get](#get)
-	3. [Update => Patch](#patch)
-	4. [Destroy => Delete](#delete)
-	4. [Options](#options)
+	1. For creating objects and [uploading one or more file attachments](#uploading-file-attachments), make a [POST request with the OSvCNode.Connect Object](#post)
+	2. For reading objects and [downloading one or more file attachments](#downloading-file-attachments), make a[GET request with the OSvCNode.Connect Object](#get)
+	3. For updating objects, make a [PATCH request with the OSvCNode.Connect Object](#patch)
+	4. For deleting objects, make a [DELETE request with the OSvCNode.Connect Object](#delete)
+	5. For looking up options for a given URL, make an [OPTIONS request with the OSvCNode.Connect Object](#options)
 2. Running ROQL queries [either 1 at a time](#oscnodequeryresults-example) or [multiple queries in a set](#oscnodequeryresultsset-example)
 3. [Running Reports](#oscnodeanalyticsreportsresults)
 4. [Optional Settings](#optional-settings)
@@ -76,11 +76,11 @@ var rnClient = Client({
 	// oauth: <oauth token>,
 
 	// Optional Client Settings
-	demo_site: true,					// Changes domain from 'custhelp' to 'rightnowdemo'
-	version: 'v1.4',	 				// Changes REST API version, default is 'v1.3'
+	demo_site: true,				// Changes domain from 'custhelp' to 'rightnowdemo'
+	version: 'v1.4',	 			// Changes REST API version, default is 'v1.3'
 	no_ssl_verify: true,				// Turns off SSL verification
 	suppress_rules: true				// Supresses Business Rules
-	access_token: "My access token" 	// Adds an access token to ensure quality of service
+	access_token: "My access token" 		// Adds an access token to ensure quality of service
 
 });
 
