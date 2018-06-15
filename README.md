@@ -731,7 +731,7 @@ getRequest('incidents').then( data=>{
 ```
 ## Using osvc_node in the browser
 
-1. In order to use osvc_node in the browser, you must have (browserify)[https://github.com/browserify/browserify/] and osvc_node installed on your computer.
+1. In order to use osvc_node in the browser, you must have [browserify](https://github.com/browserify/browserify/) and osvc_node installed on your computer.
 	
 		$ npm install -g browserify osvc_node
 
