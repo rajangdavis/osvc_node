@@ -102,14 +102,28 @@ var rnClient = Client({
 	password: env['OSC_PASSWORD'],
 });
 
-var object = {
+var options = {
+	
+	// set the client for the request
 	client: rnClient,
-	annotation: "Custom annotation",  /* Adds a custom header that adds an annotation (CCOM version must be set to "v1.4" or "latest"); limited to 40 characters */
-	debug: true,                 	 // Prints request headers for debugging
-	exclude_null: true,          	 // Adds a custom header to excludes null from results
-	next_request: 500,      		 // Number of milliseconds before another HTTP request can be made; this is an anti-DDoS measure
-	schema: true                	 // Sets 'Accept' header to 'application/schema+json'
-	utc_time: true              	 /* Adds a custom header to return results using Coordinated Universal Time (UTC) format for time (Supported on November 2016+ */
+
+	// Adds a custom header that adds an annotation (CCOM version must be set to "v1.4" or "latest"); limited to 40 characters
+	annotation: "Custom annotation",
+
+	// Prints request headers for debugging  
+	debug: true,
+
+	// Adds a custom header to excludes null from results; for use with GET requests only                 	 
+	exclude_null: true,
+
+	// Number of milliseconds before another HTTP request can be made; this is an anti-DDoS measure
+	next_request: 500,
+
+	// Sets 'Accept' header to 'application/schema+json'
+	schema: true,
+
+	// Adds a custom header to return results using Coordinated Universal Time (UTC) format for time (Supported on November 2016+
+	utc_time: true              	 
 }
 
 ```
