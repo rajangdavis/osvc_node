@@ -37,7 +37,7 @@ The features that work to date are as follows:
 	3. For updating objects, make a [PATCH request with the OSvCNode.Connect Object](#patch)
 	4. For deleting objects, make a [DELETE request with the OSvCNode.Connect Object](#delete)
 	5. For looking up options for a given URL, make an [OPTIONS request with the OSvCNode.Connect Object](#options)
-2. Running ROQL queries [either 1 at a time](#oscnodequeryresults-example) or [multiple queries in a set](#osvcnodequeryresultsset-example)
+2. Running ROQL queries [either 1 at a time](#osvcnodequeryresults-example) or [multiple queries in a set](#osvcnodequeryresultsset-example)
 3. [Running Reports](#osvcnodeanalyticsreportsresults)
 4. [Optional Settings](#optional-settings)
 
