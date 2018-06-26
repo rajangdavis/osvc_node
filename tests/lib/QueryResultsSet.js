@@ -152,4 +152,25 @@ describe('queryResultsSet.query_set',function(){
 
 	});
 
+
+	const parallelOptions = {
+		client: rnClient,
+		queries: multipleQueries,
+		parallel: true
+	}
+
+	it('should make queries in parallel if a parallel option is selected',function(done){
+		
+		QueryResultsSet.query_set(parallelOptions).then( results =>{
+			assert.isDefined(results.answerSchema);
+			assert.isDefined(results.answers);
+			assert.isDefined(results.answerSchema);
+			assert.strictEqual(results.answerSchema[0]["Name"],"id");
+			assert.strictEqual(results.answerSchema[0]["Type"],"Integer");
+			assert.strictEqual(results.answerSchema[0]["Path"],"");
+			done();
+		});	
+
+	});
+
 });

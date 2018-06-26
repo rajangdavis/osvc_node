@@ -44,9 +44,9 @@ The features that work to date are as follows:
 Here are the _spicier_ (more advanced) features:
 
 1. [Bulk Delete](#bulk-delete)
-<!-- 2. [Running multiple ROQL Queries in parallel](#running-multiple-roql-queries-in-parallel) -->
-2. [Performing Session Authentication](#performing-session-authentication)
-3. [Using osvc_node in the browser](#using-osvc_node-in-the-browser)
+2. [Running multiple ROQL Queries in parallel](#running-multiple-roql-queries-in-parallel)
+3. [Performing Session Authentication](#performing-session-authentication)
+4. [Using osvc_node in the browser](#using-osvc_node-in-the-browser)
 
 ## Authentication
 
@@ -781,10 +781,41 @@ A file will be created in the file location that you specified in the last comma
 
 Please note, if you are trying to run this script on your local computer or on a server with a different domain than the interface that you wish to connect with, you will need to enable [CORS in a config setting](https://cx.rightnow.com/app/answers/detail/a_id/10153/kw/CORS).
 
-<!-- ## Running multiple ROQL Queries in parallel
-Instead of running multiple queries in with 1 GET request, you can run multiple GET requests and combine the results
+## Running multiple ROQL Queries in parallel
+Instead of running multiple queries in with 1 GET request, you can run multiple GET requests and combine the results by adding a "parallel" property to the options object.
 
-	$ osvc-rest query --parallel "SELECT * FROM INCIDENTS LIMIT 20000" "SELECT * FROM INCIDENTS Limit 20000 OFFSET 20000" "SELECT * FROM INCIDENTS Limit 20000 OFFSET 40000" "SELECT * FROM INCIDENTS Limit 20000 OFFSET 60000" "SELECT * FROM INCIDENTS Limit 20000 OFFSET 80000" -u $OSC_ADMIN -p $OSC_PASSWORD -i $OSC_SITE -v latest -a "Fetching a ton of incidents info" -->
+```node
+const { Client, QueryResultsSet } = require('osvc_node');
+const env = process.env;
+
+var rnClient = Client({
+  username: env['OSC_ADMIN'],
+  password: env['OSC_PASSWORD'],
+  interface: env['OSC_SITE'],
+});
+
+var multipleQueries = [
+	{
+		query:"DESCRIBE ANSWERS",
+		key: "answerSchema"
+	},
+ 	{
+ 		query:"SELECT * FROM ANSWERS LIMIT 1",
+ 		key: "answers"
+ 	},
+];
+					 
+var options = {
+	client: rnClient,
+	queries: multipleQueries,
+	parallel: true
+}
+
+QueryResultsSet.query_set(options).then(data=>{ 
+	console.log(data.answerSchema);
+	console.log(data.answers);
+})
+```
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Frajangdavis%2Fosvc_node.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Frajangdavis%2Fosvc_node?ref=badge_large)
