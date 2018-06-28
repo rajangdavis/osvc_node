@@ -63,7 +63,7 @@ const {Client} = require('osvc_node');
 // Configuration Client
 var rnClient = Client({
 	
-	// Interace to connect with 
+	// Interface to connect with 
 	interface: env['OSC_SITE'],
 	
 	// Basic Authentication
