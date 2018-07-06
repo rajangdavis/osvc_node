@@ -1,25 +1,25 @@
-// const OSvCNode = require('./lib/OSvCNode.js');
+const OSvCNode = require('./lib/OSvCNode.js');
+const env = process.env;
 
-// var rn_client = OSvCNode.Client({
-// 	username: env['OSC_ADMIN'],
-// 	password: env['OSC_PASSWORD'],
-// 	interface: env['OSC_SITE'],
-// 	demo_site: true
-// });
+var rn_client = OSvCNode.Client({
+	username: env['OSC_ADMIN'],
+	password: env['OSC_PASSWORD'],
+	interface: env['OSC_SITE'],
+	demo_site: true
+});
 
-// // GET TEST
-// let options = {
-// 	client: rn_client,
-// 	url: 'incidents/4268',
-// 	exclude_null: true,
-// 	// debug: true
-// }
+// GET TEST
+let options = {
+	client: rn_client,
+	url: 'incidents',
+	schema: true
+}
 
-// OSvCNode.Connect.get(options).then((res)=>{
-// 	console.log(JSON.stringify(res, null, 4))
-// }).catch(function (error) {
-// 	console.log(error);
-// });
+OSvCNode.Connect.get(options).then((res)=>{
+	console.log(JSON.stringify(res, null, 4))
+}).catch(function (error) {
+	console.log(error);
+});
 
 
 // const {Client: osvcClient, Connect: osvcConnect} = require('./lib/OSvCNode.js');
