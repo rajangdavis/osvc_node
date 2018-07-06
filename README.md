@@ -59,6 +59,7 @@ This is helpful if you need to interact with multiple interfaces or set differen
 // and passing in an object
 
 const {Client} = require('osvc_node');
+const env = process.env;
 
 // Configuration Client
 var rnClient = Client({
@@ -94,6 +95,7 @@ In addition to a client to specify which credentials, interface, and CCOM versio
 Here is an example using the client object created in the previous section:
 ```node
 const {Client, Connect} = require('osvc_node');
+const env = process.env;
 
 // Configuration Client
 var rnClient = Client({ 
