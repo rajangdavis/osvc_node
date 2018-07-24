@@ -1,6 +1,6 @@
 {
   "name": "osvc_node",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "description": "An unofficial Node  wrapper for Oracle Service Cloud (fka RightNow Technologies) REST API",
   "main": "./lib/OSvCNode.js",
   "scripts": {

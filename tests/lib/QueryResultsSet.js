@@ -153,21 +153,60 @@ describe('queryResultsSet.query_set',function(){
 	});
 
 
-	const parallelOptions = {
+	const concurrentOptions = {
 		client: rnClient,
 		queries: multipleQueries,
-		parallel: true
+		concurrent: true
 	}
 
-	it('should make queries in parallel if a parallel option is selected',function(done){
+	it('should make queries concurrently if a concurrent option is selected',function(done){
 		
-		QueryResultsSet.query_set(parallelOptions).then( results =>{
+		QueryResultsSet.query_set(concurrentOptions).then( results =>{
 			assert.isDefined(results.answerSchema);
 			assert.isDefined(results.answers);
 			assert.isDefined(results.answerSchema);
 			assert.strictEqual(results.answerSchema[0]["Name"],"id");
 			assert.strictEqual(results.answerSchema[0]["Type"],"Integer");
 			assert.strictEqual(results.answerSchema[0]["Path"],"");
+			done();
+		});	
+
+	});
+
+	var multipleAnswerQueries = [
+			{
+				query:"Select id from answers limit 10",
+				key: "answers"
+			},
+			{
+				query:"SELECT * FROM ANSWERS LIMIT 10 offset 10",
+				key: "answers"
+			},
+		]
+
+	const accumulationOptions = {
+		client: rnClient,
+		queries: multipleAnswerQueries,
+		concurrent: true
+	}
+
+	const accumulationOptionsNotConcurrent = {
+		client: rnClient,
+		queries: multipleAnswerQueries,
+	}
+
+
+	it('should accumulate results if the same key is defined multiple times',function(done){
+		
+		QueryResultsSet.query_set(accumulationOptions).then( results =>{
+			assert.isDefined(results.answers);
+			assert.strictEqual(results.answers.length,20);
+			done();
+		});	
+
+		QueryResultsSet.query_set(accumulationOptionsNotConcurrent).then( results =>{
+			assert.isDefined(results.answers);
+			assert.strictEqual(results.answers.length,20);
 			done();
 		});	
 

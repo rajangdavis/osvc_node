@@ -52,6 +52,31 @@ describe('client module',function(){
 
 	});
 
+	const OSC_CONFIG_SUPPRESS_ALL = {
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		suppress_all: true
+	}
+
+	const OSC_CONFIG_SUPPRESS_EVENTS = {
+		username: env['OSC_ADMIN'],
+		password: env['OSC_PASSWORD'],
+		interface: env['OSC_SITE'],
+		suppress_events: true
+	}
+
+	const RN_CLIENT_SUPPRESS_ALL = new client(OSC_CONFIG_SUPPRESS_ALL);	
+	const RN_CLIENT_SUPPRESS_EVENTS = new client(OSC_CONFIG_SUPPRESS_EVENTS);	
+	
+	it('should take "suppress_all" and "suppress_events" values from an object and match them',function(){
+
+		assert.strictEqual(RN_CLIENT_SUPPRESS_EVENTS.suppress_events,OSC_CONFIG_SUPPRESS_EVENTS.suppress_events);
+		assert.strictEqual(RN_CLIENT_SUPPRESS_ALL.suppress_all,OSC_CONFIG_SUPPRESS_ALL.suppress_all);
+
+	});
+
+
 	const BAD_USERNAME = {
 		username: env['OSC_ADMIN1'],
 		password: env['OSC_PASSWORD'],

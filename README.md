@@ -44,7 +44,7 @@ The features that work to date are as follows:
 Here are the _spicier_ (more advanced) features:
 
 1. [Bulk Delete](#bulk-delete)
-2. [Running multiple ROQL Queries in parallel](#running-multiple-roql-queries-in-parallel)
+2. [Running multiple ROQL Queries concurrently](#running-multiple-roql-queries-concurrently)
 3. [Performing Session Authentication](#performing-session-authentication)
 4. [Using osvc_node in the browser](#using-osvc_node-in-the-browser)
 
@@ -81,7 +81,9 @@ var rnClient = Client({
 	demo_site: true,				// Changes domain from 'custhelp' to 'rightnowdemo'
 	version: 'v1.4',	 			// Changes REST API version, default is 'v1.3'
 	no_ssl_verify: true,				// Turns off SSL verification
-	suppress_rules: true				// Supresses Business Rules
+	suppress_rules: true,				// Supresses Business Rules
+	suppress_events: true,				// Supresses External Events
+	suppress_all: true,				// Supresses both Business Rules and External Events
 	access_token: "My access token" 		// Adds an access token to ensure quality of service
 
 });
@@ -783,8 +785,8 @@ A file will be created in the file location that you specified in the last comma
 
 Please note, if you are trying to run this script on your local computer or on a server with a different domain than the interface that you wish to connect with, you will need to enable [CORS in a config setting](https://cx.rightnow.com/app/answers/detail/a_id/10153/kw/CORS).
 
-## Running multiple ROQL Queries in parallel
-Instead of running multiple queries in with 1 GET request, you can run multiple GET requests and combine the results by adding a "parallel" property to the options object.
+## Running multiple ROQL Queries concurrently
+Instead of running multiple queries in with 1 GET request, you can run multiple GET requests and combine the results by adding a "concurrent" property to the options object.
 
 ```node
 const { Client, QueryResultsSet } = require('osvc_node');
@@ -810,7 +812,7 @@ var multipleQueries = [
 var options = {
 	client: rnClient,
 	queries: multipleQueries,
-	parallel: true
+	concurrent: true
 }
 
 QueryResultsSet.query_set(options).then(data=>{ 

@@ -13,7 +13,9 @@ describe('Config.optionsFinalize', function(){
 		password: 'password',
 		interface: 'interface',
 		no_ssl_verify: true,
-		suppress_rules: true
+		suppress_rules: true,
+		suppress_events: true,
+		suppress_all: true
 	});
 
 	var options = {
@@ -28,7 +30,9 @@ describe('Config.optionsFinalize', function(){
 
 	it('should take a client object and return a hash of options settings; ' +
 		'the "suppress_rules" setting should return ' +
-		'headers["OSvC-CREST-Suppress-All"] as true',function(){
+		'headers["OSvC-CREST-Suppress-Rules"] as true',function(){
+		assert.strictEqual(finalOptions.headers["OSvC-CREST-Suppress-Rules"],true);
+		assert.strictEqual(finalOptions.headers["OSvC-CREST-Suppress-ExternalEvents"],true);
 		assert.strictEqual(finalOptions.headers["OSvC-CREST-Suppress-All"],true);
 	});
 
@@ -50,7 +54,7 @@ describe('Config.optionsFinalize', function(){
 	var defaultHeaders = config.optionsFinalize("get", defaultOptions);
 
 	it('should have headers set to undefined as a default',function(){
-		assert.strictEqual(defaultHeaders["OSvC-CREST-Suppress-All"],undefined);
+		assert.strictEqual(defaultHeaders["OSvC-CREST-Suppress-Rules"],undefined);
 		assert.strictEqual(defaultHeaders["X-HTTP-Method-Override"],undefined);
 	});
 
