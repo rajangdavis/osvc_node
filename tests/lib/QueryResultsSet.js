@@ -196,13 +196,18 @@ describe('queryResultsSet.query_set',function(){
 	}
 
 
-	it('should accumulate results if the same key is defined multiple times',function(done){
+	it('should accumulate results if the same key is defined multiple times even if "concurrent" is set to true',function(done){
 		
 		QueryResultsSet.query_set(accumulationOptions).then( results =>{
 			assert.isDefined(results.answers);
 			assert.strictEqual(results.answers.length,20);
 			done();
 		});	
+
+
+	});
+
+	it('should accumulate results if the same key is defined multiple times even if "concurrent" is not set',function(done){
 
 		QueryResultsSet.query_set(accumulationOptionsNotConcurrent).then( results =>{
 			assert.isDefined(results.answers);
