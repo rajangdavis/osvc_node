@@ -1,4 +1,4 @@
-# OSvCNode
+# OSvCNode (Unmaintained)
 
 A Node library for using the [Oracle Service Cloud REST API](https://docs.oracle.com/cloud/latest/servicecs_gs/CXSVC/) influenced by the [ConnectPHP API](http://documentation.custhelp.com/euf/assets/devdocs/november2016/Connect_PHP/Default.htm)
 
