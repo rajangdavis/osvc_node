@@ -4,14 +4,17 @@
   "description": "An unofficial Node  wrapper for Oracle Service Cloud (fka RightNow Technologies) REST API",
   "main": "./lib/OSvCNode.js",
   "scripts": {
-    "test": "mocha tests/lib/ -t 8000"
+    "test": "mocha tests/lib/ -t 8000",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rajangdavis/osvc_node.git"
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "snyk": "^1.161.1"
   },
   "keywords": [
     "Oracle",
@@ -27,5 +30,6 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^3.5.3"
-  }
+  },
+  "snyk": true
 }
